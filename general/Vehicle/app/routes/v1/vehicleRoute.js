@@ -22,7 +22,7 @@ router.get('/', vehicleController.getAllVehicles);
  router.get('/getAllFreeVehicles/', vehicleController.getAllFreeVehicles); 
 
 /**
- * @route Get /vehicle/
+ * @route Get /vehicle/:idVehicle
  * @group Vehicle operations.
  * @param {String} idVehicle - ID Vehicle
  * @returns {object} 200 - Get Vehicle
@@ -33,7 +33,7 @@ router.get('/:idVehicle', vehicleController.getVehicle);
 
 
 /**
- * @route Patch /vehicle/
+ * @route Patch /vehicle/:idVehicle
  * @group Vehicle operations.
  * @param {String}  idVehicle - ID Vehicle
  * @returns {object} Resource Updated(Vehicle)
