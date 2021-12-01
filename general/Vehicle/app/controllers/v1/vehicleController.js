@@ -9,10 +9,12 @@ exports.getAllVehicles = async function (req, res) {
     }
 };
 
-exports.getAllFreeVehicles = async function (req, res) {
-    console.log('getAllFreeVehicles2')
+exports.getAllFreeVehiclesByType = async function (req, res) {
+    console.log('getAllFreeVehiclesByType')
     try {
-        const result = await vehicleService.getAllFreeVehicles();
+        let isBusy = req.params.isBusy;
+        let type = req.params.type;
+        const result = await vehicleService.getAllFreeVehiclesByType(isBusy, type);
         res.status(result.success).send(result.body);
     } catch (err) {
         res.status(400).send(err);

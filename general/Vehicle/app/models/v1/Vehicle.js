@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var TypeVehicle
 var Schema = mongoose.Schema;
 
 /**
@@ -25,7 +26,10 @@ const vehicleSchema = mongoose.Schema({
     },
     typeVehicle: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'TypeVehicle',
+        required : true
+    },
+    nameTypeVehicle:{
+        type: String,
         required : true
     }
 });

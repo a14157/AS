@@ -15,11 +15,13 @@ router.get('/', vehicleController.getAllVehicles);
 /**
  * @route Get /vehicle/
  * @group Vehicle operations.
+ * @param {String} isBusy - Is Busy? True or False
+ * @param {String} type - Type of Vehicle - Car, Scooter, etc
  * @returns {object} 200 - Get All Free Vehicles
  * @returns {object} 204 - No Content
  * @returns {Error}  400  - Bad request
  */
- router.get('/getAllFreeVehicles/', vehicleController.getAllFreeVehicles); 
+ router.get('/getAllFreeVehiclesByType/:isBusy/:type', vehicleController.getAllFreeVehiclesByType); 
 
 /**
  * @route Get /vehicle/:idVehicle

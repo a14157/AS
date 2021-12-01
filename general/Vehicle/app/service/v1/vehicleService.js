@@ -59,12 +59,14 @@ exports.addVehicle = async function (idTypeVehicle, isBusy, idVehicle, location)
 
     let typeVehicle = await TypeVehicle.findById(idTypeVehicle);
 
+    console.log(typeVehicle.nameTypeVehicle)
 
     const vehicle = new Vehicle({
         idVehicle: idVehicle,
         isBusy: isBusy,
         typeVehicle: typeVehicle,
-        location: location
+        location: location,
+        nameTypeVehicle : typeVehicle.nameTypeVehicle
     });
 
     try {
@@ -85,11 +87,12 @@ exports.addVehicle = async function (idTypeVehicle, isBusy, idVehicle, location)
 
 
 // get all free vehicles
-exports.getAllFreeVehicles = async function () {
+exports.getAllFreeVehiclesByType = async function (isBusy, nameTypeVehicle) {
     try {
 
         const vehicles = await Vehicle.find({
-            "isBusy": false
+            "isBusy": isBusy,
+            "nameTypeVehicle" : nameTypeVehicle
         });
 
         console.log(vehicles)
@@ -114,8 +117,7 @@ exports.getAllFreeVehicles = async function () {
 
 exports.updateVehicleState = async function (idVehicle, isBusy) {
     try {
-        console.log(idVehicle)
-        console.log(isBusy)
+
         let vehicle = await Vehicle.findOneAndUpdate({
             "idVehicle": idVehicle
         }, {
