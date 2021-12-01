@@ -19,7 +19,10 @@ exports.addUser = async function (req, res) {
         let email = req.body.email;
         let password = req.body.password;
         let money = req.body.money;
-        const result = await userService.addUser(username, name, email, password, money);
+        let photoPath = req.file.path;
+        let photoType =  req.file.mimetype;
+        let photoOriginalName =  req.file.originalname;
+        const result = await userService.addUser(username, name, email, password, money, photoPath, photoType, photoOriginalName);
         res.status(result.success).send(result.body);
     } catch (err) {
         res.status(400).send(err);
@@ -48,4 +51,15 @@ exports.authenticateUser = (req, res) => {
         }
     })(req, res)
 }
+
+exports.getUser = async function (req, res) {
+    try {
+        let email = req.params.email;
+        console.log(email)
+        const result = await userService.getUser(email);
+        res.status(result.success).send(result.body);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
 

@@ -1,7 +1,8 @@
 const User = require('../../models/v1/User');
 const express = require("express");
 const passport = require('passport')
-
+const configs = require('../../config/folder.config.json')
+var fs = require('fs');
 
 
 //get all users
@@ -28,7 +29,7 @@ exports.getAll = async function () {
 }
 
 //save new user
-exports.addUser = async function (username, name, email, password, money) {
+exports.addUser = async function (username, name, email, password, money, photoPath, photoType, photoOriginalName) {
 
     const user = new User()
 
@@ -42,11 +43,27 @@ exports.addUser = async function (username, name, email, password, money) {
 
     user.setPassword(password);
     user.money = money;
+    user.photoPath = photoPath;
+    user.photoOriginalName = photoOriginalName;
+
+
 
     // api call to send user photo and return age and gender
     // For now, just static values
-    user.age = 30;
-    user.gender =  "Male";
+
+    const path = './' + configs.usersPhotoFolderName + '/' + photoOriginalName;
+
+    try {
+        if (fs.existsSync(path)) {
+            //file exists
+            console.log('exists')
+        }
+    } catch (err) {
+        console.error(err)
+    }
+
+    user.age = 26;
+    user.gender = "Male";
 
     try {
         let finalUser = await user.save();

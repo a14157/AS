@@ -53,7 +53,7 @@ const userSchema = new Schema({
     photoPath: {
         type: String,
     },
-    photoType: {
+    photoOriginalName: {
         type: String,
     },
 });
