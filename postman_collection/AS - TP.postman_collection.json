@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "d0d23fc9-4c20-42a5-9b2a-82f785e1ba4c",
+		"name": "AS - TP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Type of Vehicle - Vehicle API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idTypeVehicle\" : \"4\",\n    \"nameTypeVehicle\" : \"Truck\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/v1/typevehicle/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"typevehicle",
+						""
+					]
+				},
+				"description": "Get All Types of Vehicles - Vehicle API"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Types of Vehicles - Vehicle API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/v1/typevehicle/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"typevehicle",
+						""
+					]
+				},
+				"description": "Get All Types of Vehicles - Vehicle API"
+			},
+			"response": []
+		},
+		{
+			"name": "Gett All Vehicles - Vehicle API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/v1/vehicle/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"vehicle",
+						""
+					]
+				},
+				"description": "Gett All Vehicles"
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Vehicle - Vehicle API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idVehicle\": \"5\",\n    \"isBusy\": false,\n    \"idTypeVehicle\" : \"61a67fde086f6c5e0d64e85d\",\n    \"location\": \"Esposende\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/v1/vehicle/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"vehicle",
+						""
+					]
+				},
+				"description": "Add New Vehicle"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Vehicle By ID - Vehicle API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/v1/vehicle/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"vehicle",
+						"3"
+					]
+				},
+				"description": "http://localhost:4000/v1/vehicle/3"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Free Vehicles By Type (Not Busy) - Vehicle API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/v1/vehicle//getAllFreeVehiclesByType/false/Car",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"vehicle",
+						"",
+						"getAllFreeVehiclesByType",
+						"false",
+						"Car"
+					]
+				},
+				"description": "http://localhost:4000/v1/vehicle/getAllFreeVehicles/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users - User API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/v1/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						""
+					]
+				},
+				"description": "http://localhost:3000/v1/user/"
+			},
+			"response": []
+		},
+		{
+			"name": "Add User - User API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "pedro23",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Pedro",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "Pedro2@pedro.com3",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Pedro",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "photo",
+							"type": "file",
+							"src": "/Users/administrador/Desktop/Pedro/1C3726D4-D994-44FB-9649-0B43D90C23BD_1_105_c.jpeg"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						""
+					]
+				},
+				"description": "http://localhost:3000/v1/user/\n- Return new user + object"
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate User - User API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"pedro\",\n    \"password\": \"Pedro\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/user/authenticateUser/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						"authenticateUser",
+						""
+					]
+				},
+				"description": "http://localhost:3000/v1/user/authenticateUser/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by email - User API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/v1/user/Pedro@pedro.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						"Pedro@pedro.com"
+					]
+				},
+				"description": "http://localhost:3000/v1/user/Pedro@pedro.com\n\nRoute to get user by email"
+			},
+			"response": []
+		}
+	]
+}
