@@ -15,6 +15,7 @@ exports.addUser = async function (req, res) {
 
     try {
         let username = req.body.username;
+        let userProfile = req.body.userProfile;
         let name = req.body.name;
         let email = req.body.email;
         let password = req.body.password;
@@ -22,7 +23,8 @@ exports.addUser = async function (req, res) {
         let photoPath = req.file.path;
         let photoType =  req.file.mimetype;
         let photoOriginalName =  req.file.originalname;
-        const result = await userService.addUser(username, name, email, password, money, photoPath, photoType, photoOriginalName);
+
+        const result = await userService.addUser(username, userProfile, name, email, password, money, photoPath, photoType, photoOriginalName);
         res.status(result.success).send(result.body);
     } catch (err) {
         res.status(400).send(err);

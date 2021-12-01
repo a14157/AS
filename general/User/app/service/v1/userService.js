@@ -1,4 +1,5 @@
 const User = require('../../models/v1/User');
+const UserProfile = require('../../models/v1/UserProfile');
 const express = require("express");
 const passport = require('passport')
 const configs = require('../../config/folder.config.json')
@@ -29,7 +30,11 @@ exports.getAll = async function () {
 }
 
 //save new user
-exports.addUser = async function (username, name, email, password, money, photoPath, photoType, photoOriginalName) {
+exports.addUser = async function (username, userProfile, name, email, password, money, photoPath, photoType, photoOriginalName) {
+
+    const userProfil = await UserProfile.find({
+        "nameProfile": userProfile
+    });
 
     const user = new User()
 
@@ -40,13 +45,13 @@ exports.addUser = async function (username, name, email, password, money, photoP
         hash: '',
         salt: ''
     };
-
+    user.profile = userProfil[0].nameProfile;
     user.setPassword(password);
     user.money = money;
     user.photoPath = photoPath;
     user.photoOriginalName = photoOriginalName;
 
-
+    console.log(user)
 
     // api call to send user photo and return age and gender
     // For now, just static values

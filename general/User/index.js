@@ -46,7 +46,9 @@ const authentication = jwt({
 });
 
 const usersRouteV1 = require('./app/routes/v1/userRoute');
+const userProfileRouteV1 = require('./app/routes/v1/userProfileRoute');
 app.use('/v1/user',  usersRouteV1); 
+app.use('/v1/userprofile',  userProfileRouteV1); 
 
 const expressSwagger = require('express-swagger-generator')(app);
 const swaggerOptions = {
