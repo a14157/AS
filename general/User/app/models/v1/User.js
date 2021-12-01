@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 /**
  * @typedef user
- * @property {username} username - Username
+ * @property {String} username - Username
  * @property {String} name - User name
  * @property {String} email - User Email
  * @property {String} password - User password
@@ -24,7 +24,7 @@ const userSchema = new Schema({
     },
     name: {
         type: String,
-        required: 'nome do utilizador'
+        required: true
     },
     email: {
         type: String,
