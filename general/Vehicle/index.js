@@ -38,7 +38,7 @@ const swaggerOptions = {
             title: 'Projeto AS- Vehicle and Type of Vehicle',
             version: '1.0.0',
         },
-        host: 'http://localhost: ' + port,
+        host: 'localhost:' + port,
         basePath: '/v1/',
         produces: [
             "application/json",

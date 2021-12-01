@@ -4,6 +4,9 @@ const port = process.env.PORT || 3000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const swaggerUI = require('swagger-ui-express')
+const jwt = require('express-jwt');
+const passport = require('passport');
+
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -11,8 +14,10 @@ app.get('/', (req, res) => {
 
 // import configs
 let db = require('./app/config/db.config');
+require('./app/config/passport.config');
 
 app.use(cors())
+app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -23,10 +28,14 @@ app.use(function (req, res, next) {
     next();
 });
 
-//const usersRouteV1 = require('./app/routes/v1/usersRoute');
+const authentication = jwt({
+    secret: 'secret',
+    userProperty: 'payload',
+    algorithms: ['HS256'] // ['rs256',"sha1", "HS256"]
+});
 
-
-//app.use('/v1/registos',  usersRouteV1); 
+const usersRouteV1 = require('./app/routes/v1/userRoute');
+app.use('/v1/user',  usersRouteV1); 
 
 const expressSwagger = require('express-swagger-generator')(app);
 const swaggerOptions = {
@@ -36,7 +45,7 @@ const swaggerOptions = {
             title: 'Projeto AS - Users',
             version: '1.0.0',
         },
-        host: 'http://localhost: ' + port,
+        host: 'localhost:' + port,
         basePath: '/v1/',
         produces: [
             "application/json",
