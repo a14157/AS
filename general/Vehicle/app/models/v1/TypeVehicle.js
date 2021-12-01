@@ -19,6 +19,10 @@ const typeVehicleSchema = mongoose.Schema({
         unique : true, 
         required : true
     },
+    priceByMinuteTypeVehicle: {
+        type : Number,
+        required : true
+    },
 });
 
 module.exports = mongoose.model('typeVehicleSchema', typeVehicleSchema);

@@ -31,6 +31,10 @@ const vehicleSchema = mongoose.Schema({
     nameTypeVehicle:{
         type: String,
         required : true
+    },
+    priceByMinuteTypeVehicle:{
+        type: Number,
+        required : true
     }
 });
 

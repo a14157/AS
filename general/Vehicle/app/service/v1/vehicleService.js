@@ -66,7 +66,8 @@ exports.addVehicle = async function (idTypeVehicle, isBusy, idVehicle, location)
         isBusy: isBusy,
         typeVehicle: typeVehicle,
         location: location,
-        nameTypeVehicle : typeVehicle.nameTypeVehicle
+        nameTypeVehicle : typeVehicle.nameTypeVehicle,
+        priceByMinuteTypeVehicle : typeVehicle.priceByMinuteTypeVehicle
     });
 
     try {

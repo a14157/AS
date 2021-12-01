@@ -15,7 +15,8 @@ exports.addRoutePrice = async function (req, res) {
         let startingPoint = req.body.startingPoint;
         let arrivalPoint = req.body.arrivalPoint;
         let typeOfVehicle = req.body.typeOfVehicle;
-        const result = await routePriceService.addRoutePrice(startingPoint, arrivalPoint, typeOfVehicle);
+        let priceByMinute = req.body.priceByMinute;
+        const result = await routePriceService.addRoutePrice(startingPoint, arrivalPoint, typeOfVehicle, priceByMinute);
         res.status(result.success).send(result.body);
     } catch (err) {
         res.status(400).send(err);

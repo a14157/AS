@@ -8,7 +8,7 @@ https://locationiq.com/sandbox/routing/optimize
 2. as várias tipologias de veículos devem
 dispor de preçários diferentes 
 
-a minha tipologia é a definição de um key value com o preçario - PriceBookObj
+a minha tipologia 
 
 3. deverá ser definido um critério de
 cálculo do período de utilização (por distância do percurso que pretende realizar, por tempo,
@@ -19,16 +19,6 @@ o meu criterio é a definição de um key value com o preçario(PriceBookObj) e 
 */
 
 const RoutePrice = require('../../models/v1/RoutePrice');
-
-// Key Value Pricebook
-// Key = Type of Vehicle
-// Value = Price of That Vehicle
-const PriceBookObj = {
-    "Car" : 3,
-    "Van" : 4,
-    "Scooter": 2,
-    "Truck": 5
-}
 
 //get all previously calculated routes
 exports.getAll = async function () {
@@ -54,7 +44,7 @@ exports.getAll = async function () {
 }
 
 //create new route
-exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehicle) {
+exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehicle, priceByMinute) {
     
 
     /*
@@ -74,7 +64,7 @@ exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehic
     let distance = 65;
     let timeOfTravel = 529;
 
-    let price = PriceBookObj[typeOfVehicle] * distance;
+    let finalPrice = priceByMinute * distance;
 
     try {
 
@@ -84,7 +74,7 @@ exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehic
             typeOfVehicle : typeOfVehicle,
             distance : distance,
             timeOfTravel : timeOfTravel,
-            price : price
+            price : finalPrice
         });
 
 

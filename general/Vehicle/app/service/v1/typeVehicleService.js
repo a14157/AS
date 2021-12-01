@@ -27,11 +27,12 @@ exports.getAll = async function () {
 }
 
 //save new type Vehicle
-exports.addTypeVehicle = async function (idTypeVehicle, nameTypeVehicle) {
+exports.addTypeVehicle = async function (idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle) {
     
     const typeVehicle = new TypeVehicle({
         idTypeVehicle : idTypeVehicle,
-        nameTypeVehicle : nameTypeVehicle
+        nameTypeVehicle : nameTypeVehicle,
+        priceByHourTypeVehicle : priceByHourTypeVehicle
     });
 
     console.log(typeVehicle)
