@@ -44,7 +44,14 @@ exports.authenticateUser = (req, res) => {
         }
         if (user) {
             const token = user.generateJwT();
-            res.status(200).json({token});
+            let finalObj = {
+                username : user.username,
+                email : user.email,
+                money : user.money,
+                token : token
+            }
+            console.log(user)
+            res.status(200).send(finalObj);
         } else {
             res.status(401) // não está autorizado
                 .json(info)
