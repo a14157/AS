@@ -49,16 +49,20 @@ exports.authenticateUser = (req, res) => {
             let finalObj = {
                 username : user.username,
                 email : user.email,
-                money : user.money,
-                token : token
+                token : token,
+                profile : user.profile
             }
-            console.log(user)
             res.status(200).send(finalObj);
         } else {
             res.status(401) // não está autorizado
                 .json(info)
         }
     })(req, res)
+}
+
+exports.logoutUser = (req, res) => {
+    req.logout();
+    res.status(200).json({"Message":"Logout with success!"});
 }
 
 exports.getUser = async function (req, res) {

@@ -36,55 +36,62 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         "nameProfile": userProfile
     });
 
-    const user = new User()
+    if (!userProfil) {
+        const user = new User()
 
-    user.username = username;
-    user.name = name;
-    user.email = email;
-    user.password = {
-        hash: '',
-        salt: ''
-    };
-    user.profile = userProfil[0].nameProfile;
-    user.setPassword(password);
-    user.money = money;
-    user.photoPath = photoPath;
-    user.photoOriginalName = photoOriginalName;
-
-    console.log(user)
-
-    // api call to send user photo and return age and gender
-    // For now, just static values
-
-    const path = './' + configs.usersPhotoFolderName + '/' + photoOriginalName;
-
-    try {
-        if (fs.existsSync(path)) {
-            //file exists
-            console.log('exists')
-        }
-    } catch (err) {
-        console.error(err)
-    }
-
-    user.age = 26;
-    user.gender = "Male";
-
-    try {
-        let finalUser = await user.save();
-        let auxUser = user.toObject();
-        let token = await user.generateJwT();
-        auxUser["token"] = token;
-
-        return {
-            success: 201,
-            body: auxUser
+        user.username = username;
+        user.name = name;
+        user.email = email;
+        user.password = {
+            hash: '',
+            salt: ''
         };
+        user.profile = userProfil[0].nameProfile;
+        user.setPassword(password);
+        user.money = money;
+        user.photoPath = photoPath;
+        user.photoOriginalName = photoOriginalName;
 
-    } catch (err) {
+        console.log(user)
+
+        // api call to send user photo and return age and gender
+        // For now, just static values
+
+        const path = './' + configs.usersPhotoFolderName + '/' + photoOriginalName;
+
+        try {
+            if (fs.existsSync(path)) {
+                //file exists
+                console.log('exists')
+            }
+        } catch (err) {
+            console.error(err)
+        }
+
+        user.age = 26;
+        user.gender = "Male";
+
+        try {
+            let finalUser = await user.save();
+            let auxUser = user.toObject();
+            let token = await user.generateJwT();
+            auxUser["token"] = token;
+
+            return {
+                success: 201,
+                body: auxUser
+            };
+
+        } catch (err) {
+            return {
+                success: 400,
+                body: err
+            };
+        }
+    } else {
         return {
             success: 400,
-            body: err
+            body: "User profile not found!"
         };
     }
 }

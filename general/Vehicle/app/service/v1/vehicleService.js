@@ -61,27 +61,35 @@ exports.addVehicle = async function (idTypeVehicle, isBusy, idVehicle, location)
 
     console.log(typeVehicle.nameTypeVehicle)
 
-    const vehicle = new Vehicle({
-        idVehicle: idVehicle,
-        isBusy: isBusy,
-        typeVehicle: typeVehicle,
-        location: location,
-        nameTypeVehicle : typeVehicle.nameTypeVehicle,
-        priceByMinuteTypeVehicle : typeVehicle.priceByMinuteTypeVehicle
-    });
+    if (!typeVehicle) {
 
-    try {
-        const finalVehicle = await vehicle.save();
+        const vehicle = new Vehicle({
+            idVehicle: idVehicle,
+            isBusy: isBusy,
+            typeVehicle: typeVehicle,
+            location: location,
+            nameTypeVehicle: typeVehicle.nameTypeVehicle,
+            priceByMinuteTypeVehicle: typeVehicle.priceByMinuteTypeVehicle
+        });
 
+        try {
+            const finalVehicle = await vehicle.save();
+
+            return {
+                success: 201,
+                body: finalVehicle
+            };
+
+        } catch (err) {
+            return {
+                success: 400,
+                body: err
+            };
+        }
+    } else {
         return {
-            success: 201,
-            body: finalVehicle
-        };
-
-    } catch (err) {
-        return {
-            success: 400,
-            body: err
+            success: 404,
+            body: "Type of vehicle not found!"
         };
     }
 }
@@ -93,10 +101,9 @@ exports.getAllFreeVehiclesByType = async function (isBusy, nameTypeVehicle) {
 
         const vehicles = await Vehicle.find({
             "isBusy": isBusy,
-            "nameTypeVehicle" : nameTypeVehicle
+            "nameTypeVehicle": nameTypeVehicle
         });
 
-        console.log(vehicles)
         if (!(vehicles.length)) {
             return {
                 success: 204,

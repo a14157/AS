@@ -74,7 +74,17 @@ router.get('/', userController.getAllUsers);
  * @returns {Error}  404 - Unauthorized
  * @returns {Error}  400 - Bad request
  */
- router.post('/authenticateUser/', userController.authenticateUser); 
+ router.post('/authenticateUser/', userController.authenticateUser);
+ 
+ /**
+ * @route Post /user/logoutUser/
+ * @group User operations.
+ * @description Route to logout user
+ * @param {object} User -User
+ * @returns {object} 200 - Logout User
+ * @returns {Error}  400 - Bad request
+ */
+  router.post('/logoutUser/', userController.logoutUser); 
 
 
 
