@@ -2,7 +2,6 @@ const User = require('../../models/v1/User');
 const UserProfile = require('../../models/v1/UserProfile');
 const express = require("express");
 const passport = require('passport')
-const configs = require('../../config/folder.config.json')
 var fs = require('fs');
 
 
@@ -30,13 +29,22 @@ exports.getAll = async function () {
 }
 
 //save new user
-exports.addUser = async function (username, userProfile, name, email, password, money, photoPath, photoType, photoOriginalName) {
-
+exports.addUser = async function (username, userProfile, name, email, password, money, age, gender) {
+    console.log(username)
+    console.log(userProfile)
+    console.log(name)
+    console.log(email)
+    console.log(password)
+    console.log(money)
+    console.log(age)
+    console.log(gender)
     const userProfil = await UserProfile.find({
         "nameProfile": userProfile
     });
 
-    if (!userProfil) {
+    console.log(userProfil)
+
+    if (userProfil) {
         const user = new User()
 
         user.username = username;
@@ -49,30 +57,14 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         user.profile = userProfil[0].nameProfile;
         user.setPassword(password);
         user.money = money;
-        user.photoPath = photoPath;
-        user.photoOriginalName = photoOriginalName;
+        user.age = age;
+        user.gender = gender;
 
-        console.log(user)
 
-        // api call to send user photo and return age and gender
-        // For now, just static values
-
-        const path = './' + configs.usersPhotoFolderName + '/' + photoOriginalName;
-
-        try {
-            if (fs.existsSync(path)) {
-                //file exists
-                console.log('exists')
-            }
-        } catch (err) {
-            console.error(err)
-        }
-
-        user.age = 26;
-        user.gender = "Male";
 
         try {
             let finalUser = await user.save();
+            console.log(finalUser)
             let auxUser = user.toObject();
             let token = await user.generateJwT();
             auxUser["token"] = token;

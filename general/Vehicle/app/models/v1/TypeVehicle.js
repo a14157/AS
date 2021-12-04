@@ -19,7 +19,7 @@ const typeVehicleSchema = mongoose.Schema({
         unique : true, 
         required : true
     },
-    priceByMinuteTypeVehicle: {
+    priceByHourTypeVehicle: {
         type : Number,
         required : true
     },

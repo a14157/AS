@@ -8,6 +8,11 @@ exports.getAllUsersProfiles = async function () {
     return response.data;
 }
 
+exports.getUserByEmail = async function (email) {
+    const response = await axios.get('http://localhost:3000/v1/user/'+email)
+    return response.data;
+}
+
 // check if user is authenticated and type of profile
 exports.checkIfUserIsAuthenticatedAndProfile = async function (username, password) {
 
@@ -43,14 +48,49 @@ exports.logoutUser = async function () {
     return response.data;
 }
 
+// check if user is authenticated and type of profile
+exports.addUser = async function (username, userProfile, name, email, password, money, gender, age) {
+
+    var data = JSON.stringify({
+        "username": username,
+        "name": name,
+        "email": email,
+        "password": password,
+        "money": money,
+        "age": age,
+        "gender": gender,
+        "userProfile": userProfile
+    });
+
+
+    var config = {
+        method: 'post',
+        url: 'http://localhost:3000/v1/user/',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            console.log(error)
+        });
+
+    return data;
+}
+
 /* TYPE VEHICLES API */
 exports.getAllTypesOfVehicles = async function () {
     const response = await axios.get('http://localhost:4000/v1/typevehicle/')
     return response.data;
 }
 
-exports.addNewVehicle = async function (idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle) {
-    
+exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle) {
+
     var data = JSON.stringify({
         "idTypeVehicle": idTypeVehicle,
         "nameTypeVehicle": nameTypeVehicle,
@@ -77,18 +117,20 @@ exports.addNewVehicle = async function (idTypeVehicle, nameTypeVehicle, priceByH
     return data;
 }
 
+// axios.get(URL, { headers: { Authorization: AuthStr } }
+
 /* VEHICLES API */
 exports.getAllVehicles = async function () {
     const response = await axios.get('http://localhost:4000/v1/vehicle/')
     return response.data;
 }
 
-exports.addTypeOfVehicle = async function (idVehicle, isBusy, idTypeVehicle, location) {
-    
+exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location) {
+
     var data = JSON.stringify({
-        "idVehicle": idVehicle,
+        "idVehicle": idTypeVehicle,
         "isBusy": isBusy,
-        "idTypeVehicle": idTypeVehicle,
+        "idTypeVehicle": idVehicle,
         "location": location
     });
 
@@ -101,12 +143,14 @@ exports.addTypeOfVehicle = async function (idVehicle, isBusy, idTypeVehicle, loc
         data: data
     };
 
+
     var data = await axios(config)
         .then(function (response) {
+            console.log(response.data)
             return response.data;
         })
         .catch(function (error) {
-            return
+            //console.log(error)
         });
 
     return data;

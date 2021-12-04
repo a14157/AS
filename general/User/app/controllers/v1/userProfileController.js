@@ -9,7 +9,7 @@ exports.getAll = async function (req, res) {
     }
 };
 
-exports.addTypeVehicle = async function (req, res) {
+exports.addUserProfile = async function (req, res) {
     try {
         let profileID = req.body.profileID;
         let nameProfile = req.body.nameProfile;

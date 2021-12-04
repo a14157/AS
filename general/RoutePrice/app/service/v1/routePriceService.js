@@ -14,7 +14,7 @@ a minha tipologia
 cálculo do período de utilização (por distância do percurso que pretende realizar, por tempo,
 outro)
 
-o meu criterio é a definição de um key value com o preçario(PriceBookObj) e calcular a o preço a partir da distancia 
+o meu criterio é duracao x preço por minuto do automovel 
 
 */
 

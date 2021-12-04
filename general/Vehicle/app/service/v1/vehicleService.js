@@ -59,9 +59,7 @@ exports.addVehicle = async function (idTypeVehicle, isBusy, idVehicle, location)
 
     let typeVehicle = await TypeVehicle.findById(idTypeVehicle);
 
-    console.log(typeVehicle.nameTypeVehicle)
-
-    if (!typeVehicle) {
+    if (typeVehicle) {
 
         const vehicle = new Vehicle({
             idVehicle: idVehicle,
@@ -69,7 +67,7 @@ exports.addVehicle = async function (idTypeVehicle, isBusy, idVehicle, location)
             typeVehicle: typeVehicle,
             location: location,
             nameTypeVehicle: typeVehicle.nameTypeVehicle,
-            priceByMinuteTypeVehicle: typeVehicle.priceByMinuteTypeVehicle
+            priceByHourTypeVehicle: typeVehicle.priceByHourTypeVehicle
         });
 
         try {

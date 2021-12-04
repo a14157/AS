@@ -22,7 +22,7 @@ router.get('/', userProfileController.getAll);
  * @returns {object} 201 - Resource Created(User Profile)
  * @returns {Error}  400  - Bad request
  */
-router.post('/', userProfileController.addTypeVehicle); 
+router.post('/', userProfileController.addUserProfile); 
 
 
 module.exports = router;

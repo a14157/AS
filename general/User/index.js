@@ -7,20 +7,10 @@ const swaggerUI = require('swagger-ui-express')
 const jwt = require('express-jwt');
 const passport = require('passport');
 var fs = require('fs');
-const configs = require('./app/config/folder.config.json')
-
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
-
-
-//Folders for the uploads user photos
-const dirUploads = './' + configs.usersPhotoFolderName;
-
-if (!fs.existsSync(dirUploads)){
-    fs.mkdirSync(dirUploads);
-}
 
 // import configs
 let db = require('./app/config/db.config');
@@ -30,7 +20,6 @@ app.use(cors())
 app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('./userPhotos', express.static('uploads'));
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

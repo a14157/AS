@@ -1,37 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../../controllers/v1/userController');
-const multer = require('multer');
-const configs = require('../../config/folder.config.json')
 
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './' + configs.usersPhotoFolderName + '/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-});
-
-//FILTER BY IMAGE TYPE
-const fileFilter = (req, file, cb) => {
-    // reject a file
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-};
-
-// IMAGE LIMIT
-const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 5
-    },
-    fileFilter: fileFilter
-});
 
 
 /**
@@ -63,7 +33,7 @@ router.get('/', userController.getAllUsers);
  * @returns {object} 201 - Resource Created(User)
  * @returns {Error}  400  - Bad request
  */
- router.post('/', upload.single('photo'), userController.addUser); 
+ router.post('/', userController.addUser); 
 
 /**
  * @route Post /user/authenticateUser/
@@ -84,10 +54,7 @@ router.get('/', userController.getAllUsers);
  * @returns {object} 200 - Logout User
  * @returns {Error}  400 - Bad request
  */
-  router.post('/logoutUser/', userController.logoutUser); 
-
-
-
+router.post('/logoutUser/', userController.logoutUser); 
 
 
 module.exports = router;

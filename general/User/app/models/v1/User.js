@@ -53,13 +53,7 @@ const userSchema = new Schema({
     age: {
         type: Number,
         required: true
-    },
-    photoPath: {
-        type: String,
-    },
-    photoOriginalName: {
-        type: String,
-    },
+    }
 });
 
 

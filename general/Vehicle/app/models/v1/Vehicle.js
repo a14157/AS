@@ -32,8 +32,8 @@ const vehicleSchema = mongoose.Schema({
         type: String,
         required : true
     },
-    priceByMinuteTypeVehicle:{
-        type: Number,
+    priceByHourTypeVehicle:{
+        type: String,
         required : true
     }
 });

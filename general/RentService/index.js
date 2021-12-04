@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const swaggerUI = require('swagger-ui-express')
 const usersProfiles = require('./app/service/v1/userService')
 let fs = require('fs');
+const configs = require('./app/config/folder.config.json')
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -25,12 +26,19 @@ app.use(function (req, res, next) {
     next();
 });
 
-//Folders for the uploads user photos
+//Folders for the uploads user photos 
 const dirUploads = './configs/';
 
 if (!fs.existsSync(dirUploads)){
     fs.mkdirSync(dirUploads);
-    usersProfiles.getAllUsersProfiles();
+    usersProfiles.writeAllUsersProfiles();
+}
+
+//Folders for the uploads user photos
+const dirPhotosUploads = './' + configs.usersPhotoFolderName;
+
+if (!fs.existsSync(dirPhotosUploads)){
+    fs.mkdirSync(dirPhotosUploads);
 }
 
 const rentUserRouteV1 = require('./app/routes/v1/userRoute');
@@ -47,7 +55,7 @@ const swaggerOptions = {
             version: '1.0.0',
         },
         host: 'localhost: ' + port,
-        basePath: '/v1/',
+        basePath: '/v1/rent/',
         produces: [
             "application/json",
             "application/xml"
