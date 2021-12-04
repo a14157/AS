@@ -13,6 +13,8 @@ exports.getUserByEmail = async function (email) {
     return response.data;
 }
 
+
+
 // check if user is authenticated and type of profile
 exports.checkIfUserIsAuthenticatedAndProfile = async function (username, password) {
 
@@ -86,6 +88,11 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 /* TYPE VEHICLES API */
 exports.getAllTypesOfVehicles = async function () {
     const response = await axios.get('http://localhost:4000/v1/typevehicle/')
+    return response.data;
+}
+
+exports.getVehicleTypeByName = async function (nameTypeVehicle) {
+    const response = await axios.get('http://localhost:4000/v1/typevehicle/'+nameTypeVehicle)
     return response.data;
 }
 

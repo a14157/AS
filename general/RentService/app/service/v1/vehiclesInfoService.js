@@ -63,6 +63,38 @@ exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, pr
     }
 }
 
+
+//get type vehicles by name
+exports.getVehicleTypeByName = async function (nameTypeVehicle) {
+    if (user && user.hasOwnProperty('token') && user.token != null) {
+        try {
+            let results = await utils.getVehicleTypeByName(nameTypeVehicle);
+            if (!(results.length)) {
+                return {
+                    success: 204,
+                    body: "Error"
+                };
+            } else {
+                return {
+                    success: 200,
+                    body: results
+                };
+            }
+        } catch (err) {
+            return {
+                success: 400,
+                body: err
+            };
+        }
+    } else {
+        return {
+            success: 404,
+            body: "Unauthorized"
+        };
+    }
+}
+
+
 //getAllVehicles
 exports.getAllVehicles = async function () {
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {

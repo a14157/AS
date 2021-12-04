@@ -21,13 +21,13 @@ a) Utilizador com perfil de cliente
     - Informação dos veículos: envia um pedido ao servidor e apresenta ao utilizador todos os veículos livres na sua área de localização (Ex: 1km).
         Para cada veículo deverá ser apresentada: a sua localização utilizando o sistema de coordenadas geográficas decimal (longitude e latitude), o tipo de veículo e a carga atual (capacidade a 55% restam 35km).
         De forma a organizar os veículos pode ser guardada a informação acerca dos locais de estacionamento dedicados.
-    - Registo e autenticação: pedidos relacionados com a autenticação do utilizador para registar os dados de cliente, e efetuar a autenticação (login) de forma a tirar partido das funcionalidades dos clientes.
+    - Registo e autenticação: pedidos relacionados com a autenticação do utilizador para registar os dados de cliente, e efetuar a autenticação (login) de forma a tirar partido das funcionalidades dos clientes. - check
     - As minhas viagens, dados com as viagens (início, fim, data, duração, etc...)
     - O meu perfil (dados de utilizador, etc...) - check
     - Pesquisa de tipo de veículos: podendo detalhar o veículo, o raio de procura.
     (Poderá ser interessante permitir a pesquisa na zona circundante ou em ruas
     adjacentes). Informar o utilizador da distância pelo caminho mais curto.
-    - Preçário: consulta dos detalhes dos preços praticados para um determinado tipo
+    - Preçário: consulta dos detalhes dos preços praticados para um determinado tipo - check
 de veículo.
     - Aluguer do veículo elétrico:
         - Iniciar uma viagem:O sistema deverá registar a hora de início e, decorrendo do preçário, deverá debitar cada período de utilização ao saldo do cliente. Finalizar uma viagem: efectuar o checkout através do QR Code. Saldo esgotado: Caso o cliente fique sem saldo, durante uma viagem, o veículo deve alertar o cliente e parar automaticamente ao fim de um minuto, de forma a garantir que o processo de estacionamento é feito em segurança.
@@ -50,3 +50,5 @@ Utilizador com perfil de gestor:
 - i) as várias tipologias de veículos devem dispor de preçários diferentes; - TypeOfVehicle Entity
 - O meu perfil (dados de utilizador, etc...)
 - iii) deverá ser definido um critério de cálculo do período de utilização (por distância do percurso que pretende realizar, por tempo, outro) - check  -  O meu criterio é duracao x preço por minuto do automovel 
+- Registo e autenticação: pedidos relacionados com a autenticação do utilizador para registar os dados de cliente, e efetuar a autenticação (login) de forma a tirar partido das funcionalidades dos clientes - 
+- Preçário: consulta dos detalhes dos preços praticados para um determinado tipo

@@ -43,8 +43,10 @@ if (!fs.existsSync(dirPhotosUploads)){
 
 const rentUserRouteV1 = require('./app/routes/v1/userRoute');
 const vehiclesInfoRouteV1 = require('./app/routes/v1/vehiclesInfoRoute');
+const rentRouteV1 = require('./app/routes/v1/rentRoute');
 app.use('/v1/rent/user',  rentUserRouteV1); 
 app.use('/v1/rent/vehicle',  vehiclesInfoRouteV1); 
+app.use('/v1/rent/',  rentRouteV1); 
 
 const expressSwagger = require('express-swagger-generator')(app);
 const swaggerOptions = {

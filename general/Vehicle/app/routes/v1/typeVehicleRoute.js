@@ -15,6 +15,18 @@ router.get('/', typeVehicleController.getAllTypeVehicle);
 
 
 /**
+ * @route Get /typevehicle/
+ * @group Type Vehicle operations.
+ * @description Route to get Types of Vehicle by name
+ * @param {object} Type Vehicle - Type Vehicle
+ * @returns {object} 200 - Return Type Vehicle
+ * @returns {object} 204 -No Content
+ * @returns {Error}  400  - Bad request
+ */
+ router.get('/:nameTypeVehicle', typeVehicleController.getVehicleTypeByName); 
+
+
+/**
  * @route Post /typevehicle/
  * @group Type Vehicle operations.
  * @description Route to add an Type of Vehicle

@@ -9,6 +9,16 @@ exports.getAllTypesOfVehicles = async function (req, res) {
     }
 };
 
+exports.getVehicleTypeByName = async function (req, res) {
+    try {
+        let getVehicleTypeByName = req.params.nametypevehicle;
+        const result = await vehiclesInfoService.getVehicleTypeByName(getVehicleTypeByName);
+        res.status(result.success).send(result.body);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
 exports.addTypeVehicle = async function (req, res) {
 
     try {
