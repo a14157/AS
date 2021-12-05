@@ -53,3 +53,27 @@ exports.addNewVehicle = async function (req, res) {
         res.status(400).send(err);
     }
 };
+
+exports.updateVehicleState = async function (req, res) {
+    try {
+        let idVehicle = req.params.idVehicle;
+        let dateUntilItIsBusy = new Date(req.body.dateUntilItIsBusy).toISOString();
+        console.log(dateUntilItIsBusy)
+        console.log(idVehicle)
+        const result = await vehiclesInfoService.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy);
+        res.status(result.success).send(result.body);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};
+
+exports.getAllFreeVehiclesByType = async function (req, res) {
+    try {
+        let dateUntilItIsBusy = new Date(req.params.dateUntilItIsBusy).toISOString();
+        let type = req.params.type;
+        const result = await vehiclesInfoService.getAllFreeVehiclesByType(dateUntilItIsBusy, type);
+        res.status(result.success).send(result.body);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};

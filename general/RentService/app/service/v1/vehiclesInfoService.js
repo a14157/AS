@@ -35,7 +35,7 @@ exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, pr
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
 
-            let results = await utils.addNewTypeOfVehicle(idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle); 
+            let results = await utils.addNewTypeOfVehicle(idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle);
 
             console.log(results)
             if (!results) {
@@ -129,7 +129,7 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
 
-            let results = await utils.addNewVehicle(idVehicle, isBusy, idTypeVehicle, location); 
+            let results = await utils.addNewVehicle(idVehicle, isBusy, idTypeVehicle, location);
 
             console.log(results)
             if (!results) {
@@ -157,3 +157,61 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
     }
 }
 
+//get type vehicles by name
+exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
+    if (user && user.hasOwnProperty('token') && user.token != null) {
+        try {
+            let results = await utils.getAllFreeVehiclesByType(dateUntilItIsBusy, nameTypeVehicle);
+            if (!(results.length)) {
+                return {
+                    success: 204,
+                    body: "Error"
+                };
+            } else {
+                return {
+                    success: 200,
+                    body: results
+                };
+            }
+        } catch (err) {
+            return {
+                success: 400,
+                body: err
+            };
+        }
+    } else {
+        return {
+            success: 404,
+            body: "Unauthorized"
+        };
+    }
+}
+
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy) {
+    if (user && user.hasOwnProperty('token') && user.token != null) {
+        try {
+            let results = await utils.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy);
+            if (!(results.length)) {
+                return {
+                    success: 204,
+                    body: "Error"
+                };
+            } else {
+                return {
+                    success: 200,
+                    body: results
+                };
+            }
+        } catch (err) {
+            return {
+                success: 400,
+                body: err
+            };
+        }
+    } else {
+        return {
+            success: 404,
+            body: "Unauthorized"
+        };
+    }
+};

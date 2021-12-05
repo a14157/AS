@@ -10,12 +10,9 @@ exports.getAllVehicles = async function (req, res) {
 };
 
 exports.getAllFreeVehiclesByType = async function (req, res) {
-    console.log('getAllFreeVehiclesByType')
     try {
         let dateUntilItIsBusy = new Date(req.params.dateUntilItIsBusy).toISOString();
         let type = req.params.type;
-        console.log(dateUntilItIsBusy)
-        console.log(type)
         const result = await vehicleService.getAllFreeVehiclesByType(dateUntilItIsBusy, type);
         res.status(result.success).send(result.body);
     } catch (err) {
@@ -56,4 +53,4 @@ exports.updateVehicleState = async function (req, res) {
     } catch (err) {
         res.status(400).send(err);
     }
-};
+}; 

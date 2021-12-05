@@ -9,7 +9,7 @@ exports.getAllUsersProfiles = async function () {
 }
 
 exports.getUserByEmail = async function (email) {
-    const response = await axios.get('http://localhost:3000/v1/user/'+email)
+    const response = await axios.get('http://localhost:3000/v1/user/' + email)
     return response.data;
 }
 
@@ -92,7 +92,7 @@ exports.getAllTypesOfVehicles = async function () {
 }
 
 exports.getVehicleTypeByName = async function (nameTypeVehicle) {
-    const response = await axios.get('http://localhost:4000/v1/typevehicle/'+nameTypeVehicle)
+    const response = await axios.get('http://localhost:4000/v1/typevehicle/' + nameTypeVehicle)
     return response.data;
 }
 
@@ -162,4 +162,35 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 
     return data;
 
+}
+
+exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
+    const response = await axios.get('http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle)
+    return response.data;
+}
+
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy) {
+
+    var data = JSON.stringify({
+        "dateUntilItIsBusy": dateUntilItIsBusy
+    });
+
+    var config = {
+        method: 'patch',
+        url: 'http://localhost:4000/v1/vehicle/' + idVehicle,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    
+    return data;
 }
