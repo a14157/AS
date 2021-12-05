@@ -30,6 +30,6 @@ exports.addRental = async function (req, res) {
         const result = await rentService.addRental(emailUser, destiny, source, typeVehicle, travelDate);
         res.status(result.success).send(result.body);
     } catch (err) {
-        res.status(400).send(err);
+        res.status(400).send(err); 
     }
 };

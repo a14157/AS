@@ -191,6 +191,39 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
         .catch(function (error) {
             console.log(error);
         });
-    
+
     return data;
+}
+
+
+exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHourTypeVehicle) {
+
+    var axios = require('axios');
+    var data = JSON.stringify({
+        "startingPoint": source,
+        "arrivalPoint": destiny,
+        "typeOfVehicle": typeVehicle,
+        "priceByHourTypeVehicle": priceByHourTypeVehicle
+    });
+
+    var config = {
+        method: 'post',
+        url: 'http://localhost:4500/v1/routeprice/',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            console.log(error)
+        });
+
+    return data;
+
 }

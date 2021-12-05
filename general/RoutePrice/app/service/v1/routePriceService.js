@@ -44,13 +44,14 @@ exports.getAll = async function () {
 }
 
 //create new route
-exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehicle, priceByMinute) {
+exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehicle, priceByHourTypeVehicle) {
     
 
     /*
+
     startingPoint, arrivalPoint, timeOfTravel, price, typeOfVehicle
 
-    price and timeOfTravel will be obtained via API
+    distance and timeOfTravel will be obtained via API
 
     // get lag and lat = https://geocode.xyz/Viana%20do%20Castelo?region=EU&geoit=json
     
@@ -61,10 +62,11 @@ exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehic
     */
 
     //fake data
-    let distance = 65;
-    let timeOfTravel = 529;
+    let distance = 5;
+    let timeOfTravel = 5;
 
-    let finalPrice = priceByMinute * distance;
+    console.log(priceByHourTypeVehicle)
+    let finalPrice = priceByHourTypeVehicle * distance; 
 
     try {
 

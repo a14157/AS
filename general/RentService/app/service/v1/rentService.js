@@ -62,48 +62,87 @@ exports.getAllUserRentalRecords = async function (emailUser) {
 exports.addRental = async function (emailUser, destiny, source, typeVehicle, travelDate) {
     if (user && user.hasOwnProperty('token') && user.token != null) {
         // get user info - idade e dinheiro - para verificar se tem mais de 16 anos (User)
-        let result = await utils.getUserByEmail(emailUser);
-        //console.log(result)
+        let getUser = await utils.getUserByEmail(emailUser);
+        getUser = getUser[Math.floor(Math.random() * getUser.length)];
+        console.log("USER")
+        console.log(getUser)
         // registar hora de inicio
-        console.log(travelDate)
-        // o sistema fará uma primeira verificar para perceber se o utilizador tem dinheiro para iniciar o aluguer
+        let travelDate = new Date().toISOString();
         // ir buscar um carro do tipo x mais perto e livre (Vehicle)
-        
+        let vehicle = await utils.getAllFreeVehiclesByType(travelDate, typeVehicle);
+        console.log("VEHICLE")
+
+        //with will return an array of cars or just one car
+        // check if it is only one car ou more
+        // if is more than or car, make the  api call to get closest vehicle
+
+        // just an example, i will get random value from array
+
+        vehicle = vehicle[Math.floor(Math.random() * vehicle.length)];
+        console.log(vehicle)
+
+
         // calcular o preço da viagem e rota mais perto (RoutePrice)
+        let routePrice = await utils.addRoutePrice(source, destiny, typeVehicle, vehicle.priceByHourTypeVehicle);
+        console.log("ROUTEPRICE")
+        console.log(routePrice)
         // no final do aluguer, registar hora do fim e localização do veiculo
 
-        consooe.log(startRent)
-        console.log(result)
+        console.log(getUser.email == user.email)
+        console.log(getUser.age > 16)
+        console.log(getUser.money)
+        console.log(routePrice.price)
+        console.log(getUser.money > routePrice.price)
 
-        try {
+        // o sistema fará uma primeira verificar para perceber se o utilizador tem dinheiro para iniciar o aluguer
+        if (getUser.email == user.email && getUser.age > 16 && parseInt(getUser.money) > parseInt(routePrice.price)) {
 
-            /*const rentRecord = new Rent({
-                emailUser: emailUser,
-                destiny: destiny,
-                source: source,
-                travelCost: travelCost,
-                timeTravel: timeTravel,
-                typeVehicle: typeVehicle,
-                idVehicle: idVehicle,
-                travelDate: travelDate
-            });
-            */
-            // finalRentRecord = await rentRecord.save();
-            let finalRentRecord = 10;
-            return {
-                success: 201,
-                body: finalRentRecord
-            };
+            console.log("dentro if")
 
-        } catch (err) {
+            try {
+
+                // send request to Rental Requests Register(mqtt / node-red) to simulate the car behavior
+
+                // (mqtt / node-red) will simulate the car behavior and set the rent property "travelEndDate" with the date that the rent will be over
+
+                // then update car property "dateUntilItIsBusy" to the date it will be busy
+
+                // save the record
+
+                /*const rentRecord = new Rent({
+                    emailUser: emailUser,
+                    destiny: destiny,
+                    source: source,
+                    travelCost: travelCost,
+                    timeTravel: timeTravel,
+                    typeVehicle: typeVehicle,
+                    idVehicle: idVehicle,
+                    travelDate: travelDate
+                });
+                */
+
+                // finalRentRecord = await rentRecord.save();
+
+                
+                let finalRentRecord = "10";
+                return {
+                    success: 201,
+                    body: finalRentRecord
+                };
+
+            } catch (err) {
+                return {
+                    success: 400,
+                    body: err
+                };
+            }
+        } else {
+            console.log("dentro else")
             return {
                 success: 400,
-                body: err
+                body: "Age or cost of travel higher than that available on the account."
             };
         }
-
-
-
 
     } else {
         return {
