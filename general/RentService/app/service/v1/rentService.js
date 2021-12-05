@@ -68,6 +68,7 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
         console.log(travelDate)
         // o sistema fará uma primeira verificar para perceber se o utilizador tem dinheiro para iniciar o aluguer
         // ir buscar um carro do tipo x mais perto e livre (Vehicle)
+        
         // calcular o preço da viagem e rota mais perto (RoutePrice)
         // no final do aluguer, registar hora do fim e localização do veiculo
 

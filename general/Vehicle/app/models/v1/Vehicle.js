@@ -16,9 +16,8 @@ const vehicleSchema = mongoose.Schema({
         unique : true, 
         required : true
     },
-    isBusy: {
-        type : Boolean,
-        required : true
+    dateUntilItIsBusy: {
+        type : Date
     },
     location: {
         type : String,

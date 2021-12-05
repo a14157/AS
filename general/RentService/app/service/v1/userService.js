@@ -154,8 +154,6 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         gender = "Male"
         age = 26;
 
-        console.log('aqui')
-
         let results = await utils.addUser(username, userProfile, name, email, password, money, gender, age);
         console.log(results)
         if (!results) {

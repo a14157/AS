@@ -55,7 +55,7 @@ exports.getVehicle = async function (idVehicle) {
 }
 
 //add one vehicle
-exports.addVehicle = async function (idTypeVehicle, isBusy, idVehicle, location) {
+exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle, location) {
 
     let typeVehicle = await TypeVehicle.findById(idTypeVehicle);
 
@@ -63,7 +63,7 @@ exports.addVehicle = async function (idTypeVehicle, isBusy, idVehicle, location)
 
         const vehicle = new Vehicle({
             idVehicle: idVehicle,
-            isBusy: isBusy,
+            dateUntilItIsBusy: dateUntilItIsBusy,
             typeVehicle: typeVehicle,
             location: location,
             nameTypeVehicle: typeVehicle.nameTypeVehicle,
@@ -94,13 +94,16 @@ exports.addVehicle = async function (idTypeVehicle, isBusy, idVehicle, location)
 
 
 // get all free vehicles
-exports.getAllFreeVehiclesByType = async function (isBusy, nameTypeVehicle) {
+exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
     try {
-
+        //retorna todos os vehicles cujo a data de ocupado é inferior à data recebida por parametro
+        console.log(dateUntilItIsBusy)
         const vehicles = await Vehicle.find({
-            "isBusy": isBusy,
+            'dateUntilItIsBusy': { $lte: dateUntilItIsBusy },
             "nameTypeVehicle": nameTypeVehicle
         });
+
+        console.log('aqui')
 
         if (!(vehicles.length)) {
             return {
@@ -121,14 +124,14 @@ exports.getAllFreeVehiclesByType = async function (isBusy, nameTypeVehicle) {
     }
 };
 
-exports.updateVehicleState = async function (idVehicle, isBusy) {
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy) {
     try {
 
         let vehicle = await Vehicle.findOneAndUpdate({
             "idVehicle": idVehicle
         }, {
             $set: {
-                isBusy: isBusy
+                dateUntilItIsBusy: dateUntilItIsBusy
             }
         });
 
