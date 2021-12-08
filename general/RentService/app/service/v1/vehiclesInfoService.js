@@ -123,11 +123,11 @@ exports.getAllVehicles = async function () {
     }
 }
 
-exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location) {
+exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage) {
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
 
-            let results = await utils.addNewVehicle(idVehicle, isBusy, idTypeVehicle, location);
+            let results = await utils.addNewVehicle(idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage);
 
             if (!results) {
                 return {

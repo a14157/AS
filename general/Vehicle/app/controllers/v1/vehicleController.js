@@ -36,7 +36,10 @@ exports.addVehicle = async function (req, res) {
         let dateUntilItIsBusy = new Date().toISOString();
         let idTypeVehicle = req.body.idTypeVehicle;
         let location = req.body.location;
-        const result = await vehicleService.addVehicle(idTypeVehicle, dateUntilItIsBusy, idVehicle, location);
+        let latLocation = req.body.latLocation;
+        let lagLocation = req.body.lagLocation;
+        let vehicleChargePercentage = req.body.vehicleChargePercentage;
+        const result = await vehicleService.addVehicle(idTypeVehicle, dateUntilItIsBusy, idVehicle, location, latLocation, lagLocation, vehicleChargePercentage);
         res.status(result.success).send(result.body);
     } catch (err) {
         res.status(400).send(err);

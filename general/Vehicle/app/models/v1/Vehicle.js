@@ -23,6 +23,14 @@ const vehicleSchema = mongoose.Schema({
         type : String,
         required : true
     },
+    latLocation: {
+        type: String,
+        required : true
+    },
+    lagLocation: {
+        type: String,
+        required : true
+    },
     typeVehicle: {
         type: mongoose.Schema.Types.ObjectId,
         required : true
@@ -34,7 +42,12 @@ const vehicleSchema = mongoose.Schema({
     priceByHourTypeVehicle:{
         type: String,
         required : true
+    },
+    vehicleChargePercentage:{
+        type: String,
+        required : true
     }
+
 });
 
 module.exports = mongoose.model('vehicles', vehicleSchema);

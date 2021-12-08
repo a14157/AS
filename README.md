@@ -17,20 +17,22 @@ b) Utilizador com perfil de gestor – responsabilidade de gestão de operação
 
 Os perfis devem permitir as seguintes funcionalidades: 
 a) Utilizador com perfil de cliente
-    - registo: Pretende-se que no registo de utilizador sejam validados o seu género e a sua idade, tendo em conta que o utilizador só pode utilizar os veículos se tiver idade igual, ou superior, a 16 anos. - check
-    - Informação dos veículos: envia um pedido ao servidor e apresenta ao utilizador todos os veículos livres na sua área de localização (Ex: 1km).
+    - registo: Pretende-se que no registo de utilizador sejam validados o seu género e a sua idade, tendo em conta que o utilizador só pode utilizar os veículos se tiver idade igual, ou superior, a 16 anos. - API External 
+    - Informação dos veículos: envia um pedido ao servidor e apresenta ao utilizador todos os veículos livres na sua área de localização (Ex: 1km). - API External 
         Para cada veículo deverá ser apresentada: a sua localização utilizando o sistema de coordenadas geográficas decimal (longitude e latitude), o tipo de veículo e a carga atual (capacidade a 55% restam 35km).
         De forma a organizar os veículos pode ser guardada a informação acerca dos locais de estacionamento dedicados.
     - Registo e autenticação: pedidos relacionados com a autenticação do utilizador para registar os dados de cliente, e efetuar a autenticação (login) de forma a tirar partido das funcionalidades dos clientes. - check
-    - As minhas viagens, dados com as viagens (início, fim, data, duração, etc...)
+    - As minhas viagens, dados com as viagens (início, fim, data, duração, etc...) - check
     - O meu perfil (dados de utilizador, etc...) - check
     - Pesquisa de tipo de veículos: podendo detalhar o veículo, o raio de procura.
     (Poderá ser interessante permitir a pesquisa na zona circundante ou em ruas
-    adjacentes). Informar o utilizador da distância pelo caminho mais curto.
+    adjacentes). Informar o utilizador da distância pelo caminho mais curto. API External
     - Preçário: consulta dos detalhes dos preços praticados para um determinado tipo - check
 de veículo.
     - Aluguer do veículo elétrico:
-        - Iniciar uma viagem:O sistema deverá registar a hora de início e, decorrendo do preçário, deverá debitar cada período de utilização ao saldo do cliente. Finalizar uma viagem: efectuar o checkout através do QR Code. Saldo esgotado: Caso o cliente fique sem saldo, durante uma viagem, o veículo deve alertar o cliente e parar automaticamente ao fim de um minuto, de forma a garantir que o processo de estacionamento é feito em segurança.
+        - Iniciar uma viagem:O sistema deverá registar a hora de início e, decorrendo do preçário, deverá debitar cada período de utilização ao saldo do cliente. 
+            Finalizar uma viagem: efectuar o checkout através do QR Code. 
+            Saldo esgotado: Caso o cliente fique sem saldo, durante uma viagem, o veículo deve alertar o cliente e parar automaticamente ao fim de um minuto, de forma a garantir que o processo de estacionamento é feito em segurança.
         - Registar a hora do fim do aluguer, verificar a posição GPS atual do veículo. - check
 
 b) Utilizador com perfil de gestor - Este utilizador deve ter a possibilidade de obter dados acerca da situação atual dos veículos e do resumo do histórico de utilização. Deve também permitir:
@@ -40,6 +42,8 @@ b) Utilizador com perfil de gestor - Este utilizador deve ter a possibilidade de
 
 # TODO
 - Adicionar Tokens em cada Route (apiTokens.json)
+- Criar Docker file para cada API
+- registo: Pretende-se que no registo de utilizador sejam validados o seu género e a sua idade, tendo em conta que o utilizador só pode utilizar os veículos se tiver idade igual, ou superior, a 16 anos. - API External  - VERIFICAÇÃO ESTÁ FEITA NA RENT, NO ENTANTO, FALTA FAZER O TESTE END-TO-END COM A API DAS IDADES E GENEROS CONFIGURADA 
 
 
 
@@ -55,3 +59,4 @@ Utilizador com perfil de gestor:
 - Add Rent Done
     - Registar a hora do fim do aluguer, verificar a posição GPS atual do veículo.
 - o serviço de integração com dispositivos IoT, com Node-Red, por exemplo, no sentido de simular o comportamento do veículo;
+- As minhas viagens, dados com as viagens (início, fim, data, duração, etc...)

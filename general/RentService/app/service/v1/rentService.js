@@ -34,7 +34,7 @@ exports.getAllRentalRecords = async function () {
 //get all rental records by user
 // only for admins
 exports.getAllUserRentalRecords = async function (emailUser) {
-    if (user && user.hasOwnProperty('token') && user.token != null) {
+    if (user && user.hasOwnProperty('token') && user.token != null && user.email == emailUser) {
         try {
             const rentalRecords = await Rent.find({
                 "emailUser": emailUser
@@ -77,7 +77,14 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
         // if is more than or car, make the  api call to get closest vehicle
 
         // just an example, i will get random value from array
-
+        
+        // check if we have available vehicles
+        if (vehicle.length === 0){
+            return {
+                success: 204,
+                body: "No vehicles available."
+            };
+        }
         vehicle = vehicle[Math.floor(Math.random() * vehicle.length)];
 
 

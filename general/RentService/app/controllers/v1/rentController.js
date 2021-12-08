@@ -34,20 +34,6 @@ exports.addRental = async function (req, res) {
     }
 };
 
-/*
-{
-  source: 'Viana',
-  destiny: 'Porto',
-  typeVehicle: 'Car',
-  travelStartDate: 2021-12-06T11:52:03.095Z,
-  travelEndDate: 2021-12-06T13:32:03.095Z,
-  travelDuration: '100',
-  signalState: 'out',
-  idVehicle: '1',
-  _id: new ObjectId("61ae91e7d0878847a159f0e2"),
-  __v: 0
-}
-*/
 
 exports.saveRental = async function (req, res) {
     try{

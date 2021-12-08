@@ -55,7 +55,7 @@ exports.getVehicle = async function (idVehicle) {
 }
 
 //add one vehicle
-exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle, location) {
+exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle, location, latLocation, lagLocation, vehicleChargePercentage) {
 
     let typeVehicle = await TypeVehicle.findById(idTypeVehicle);
 
@@ -67,7 +67,10 @@ exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle
             typeVehicle: typeVehicle,
             location: location,
             nameTypeVehicle: typeVehicle.nameTypeVehicle,
-            priceByHourTypeVehicle: typeVehicle.priceByHourTypeVehicle
+            priceByHourTypeVehicle: typeVehicle.priceByHourTypeVehicle,
+            latLocation: latLocation,
+            lagLocation: lagLocation,
+            vehicleChargePercentage: vehicleChargePercentage
         });
 
         try {
@@ -95,12 +98,15 @@ exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle
 
 // get all free vehicles
 exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
+    console.log('getAllFreeVehiclesByType')
     try {
         //retorna todos os vehicles cujo a data de ocupado é inferior à data recebida por parametro
         const vehicles = await Vehicle.find({
             'dateUntilItIsBusy': { $lte: dateUntilItIsBusy },
             "nameTypeVehicle": nameTypeVehicle
         });
+
+        console.log(vehicles)
 
 
         if (!(vehicles.length)) {

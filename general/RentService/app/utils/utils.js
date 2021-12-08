@@ -132,13 +132,16 @@ exports.getAllVehicles = async function () {
     return response.data;
 }
 
-exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location) {
+exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage) {
 
     var data = JSON.stringify({
         "idVehicle": idTypeVehicle,
         "isBusy": isBusy,
         "idTypeVehicle": idVehicle,
-        "location": location
+        "location": location,
+        "latLocation": latLocation,
+        "lagLocation": lagLocation,
+        "vehicleChargePercentage":vehicleChargePercentage
     });
 
     var config = {
@@ -165,6 +168,7 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 
 exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
     const response = await axios.get('http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle)
+    console.log(response.data)
     return response.data;
 }
 
