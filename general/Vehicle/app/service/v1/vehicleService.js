@@ -97,13 +97,11 @@ exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle
 exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
     try {
         //retorna todos os vehicles cujo a data de ocupado é inferior à data recebida por parametro
-        console.log(dateUntilItIsBusy)
         const vehicles = await Vehicle.find({
             'dateUntilItIsBusy': { $lte: dateUntilItIsBusy },
             "nameTypeVehicle": nameTypeVehicle
         });
 
-        console.log('aqui')
 
         if (!(vehicles.length)) {
             return {
@@ -124,16 +122,18 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
     }
 };
 
-exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy) {
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location) {
     try {
 
         let vehicle = await Vehicle.findOneAndUpdate({
             "idVehicle": idVehicle
         }, {
             $set: {
-                dateUntilItIsBusy: dateUntilItIsBusy
+                dateUntilItIsBusy: dateUntilItIsBusy,
+                location: location
             }
         });
+
 
         const vehicleUpdated = await Vehicle.find({
             "idVehicle": idVehicle

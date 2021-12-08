@@ -14,6 +14,10 @@ const Schema = mongoose.Schema;
  */
 const rentSchema = new Schema({
     id: mongoose.Schema.Types.ObjectId,
+    travelUniqueID: {
+        type: String,
+        required: true
+    },
     emailUser: { 
         type: String,
         required: true
@@ -30,7 +34,7 @@ const rentSchema = new Schema({
         type: String,
         required: true
     },
-    timeTravel: {
+    travelDuration: {
         type: String,
         required: true
     },
@@ -48,7 +52,11 @@ const rentSchema = new Schema({
     },
     travelEndDate: {
         type: Date,
-    }
+    },
+    stateOfTravel: {
+        type: String,
+        required: true
+    },
 });
 
 // --------------------------------------------------

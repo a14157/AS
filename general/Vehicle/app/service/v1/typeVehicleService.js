@@ -61,8 +61,6 @@ exports.addTypeVehicle = async function (idTypeVehicle, nameTypeVehicle, priceBy
         priceByHourTypeVehicle : priceByHourTypeVehicle
     });
 
-    console.log(typeVehicle)
-
     try {
         const finalTypeVehicle = await typeVehicle.save();
 

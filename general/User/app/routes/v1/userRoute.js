@@ -25,6 +25,16 @@ router.get('/', userController.getAllUsers);
  */
  router.get('/:email', userController.getUser);
 
+ /**
+ * @route Patch /user/
+ * @group User operations.
+ * @description Route to update a vehicle by ID
+ * @param {String} email  - User Email
+ * @returns {object} Resource Updated(User)
+ * @returns {Error}  400  - Bad request
+ */
+  router.patch('/:email/:operation', userController.updateUserMoney); 
+
 /**
  * @route Post /user/
  * @group User operations.

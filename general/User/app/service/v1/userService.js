@@ -30,19 +30,10 @@ exports.getAll = async function () {
 
 //save new user
 exports.addUser = async function (username, userProfile, name, email, password, money, age, gender) {
-    console.log(username)
-    console.log(userProfile)
-    console.log(name)
-    console.log(email)
-    console.log(password)
-    console.log(money)
-    console.log(age)
-    console.log(gender)
+
     const userProfil = await UserProfile.find({
         "nameProfile": userProfile
     });
-
-    console.log(userProfil)
 
     if (userProfil) {
         const user = new User()
@@ -64,7 +55,6 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 
         try {
             let finalUser = await user.save();
-            console.log(finalUser)
             let auxUser = user.toObject();
             let token = await user.generateJwT();
             auxUser["token"] = token;
@@ -89,18 +79,34 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 }
 
 //update user mony
-exports.updateUserMoney = async function (email, money) {
+exports.updateUserMoney = async function (email, money, operation) {
     try {
 
-        let user = await Vehicle.findOneAndUpdate({
+        const auxUser = await User.find({
             "email": email
+        });
+
+        // add logic
+        // add or remove money from user
+        let updatedMoney;
+
+        
+        if(operation == "add"){
+            updatedMoney =  parseInt(auxUser[0].money) + parseInt(money);
+        }else{
+            updatedMoney =  parseInt(auxUser[0].money) - parseInt(money);
+        }
+
+
+        let user = await User.findOneAndUpdate({
+            "email": auxUser[0].email
         }, {
             $set: {
-                money: money
+                money:  updatedMoney
             }
         });
 
-        const userUpdated = await Vehicle.find({
+        const userUpdated = await User.find({
             "email": email
         });
 

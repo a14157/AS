@@ -65,7 +65,6 @@ exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehic
     let distance = 5;
     let timeOfTravel = 5;
 
-    console.log(priceByHourTypeVehicle)
     let finalPrice = priceByHourTypeVehicle * distance; 
 
     try {

@@ -28,7 +28,6 @@ exports.getAllUsersProfiles = async function () {
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
             let results = await utils.getAllUsersProfiles();
-            console.log(results)
             if (!results) {
                 return {
                     success: 204,
@@ -155,7 +154,6 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         age = 26;
 
         let results = await utils.addUser(username, userProfile, name, email, password, money, gender, age);
-        console.log(results)
         if (!results) {
             return {
                 success: 204,

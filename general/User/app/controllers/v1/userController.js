@@ -66,11 +66,22 @@ exports.logoutUser = (req, res) => {
 exports.getUser = async function (req, res) {
     try {
         let email = req.params.email;
-        console.log(email)
         const result = await userService.getUser(email);
         res.status(result.success).send(result.body);
     } catch (err) {
         res.status(400).send(err);
     }
 };
+
+exports.updateUserMoney = async function (req, res) {
+    try {
+        let email = req.params.email;
+        let operation = req.params.operation;
+        let money = req.body.money;
+        const result = await userService.updateUserMoney(email, money, operation);
+        res.status(result.success).send(result.body);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+}; 
 

@@ -153,11 +153,10 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 
     var data = await axios(config)
         .then(function (response) {
-            console.log(response.data)
             return response.data;
         })
         .catch(function (error) {
-            //console.log(error)
+            console.log(error)
         });
 
     return data;
@@ -169,10 +168,12 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
     return response.data;
 }
 
-exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy) {
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location) {
+
 
     var data = JSON.stringify({
-        "dateUntilItIsBusy": dateUntilItIsBusy
+        "dateUntilItIsBusy": dateUntilItIsBusy,
+        "location": location
     });
 
     var config = {
@@ -191,14 +192,38 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
         .catch(function (error) {
             console.log(error);
         });
+    return data;
+}
+
+exports.updateUserMoney = async function (email, money, operation) {
+
+
+    var data = JSON.stringify({"money":money});
+
+    var config = {
+      method: 'patch',
+      url: 'http://localhost:3000/v1/user/' + email + '/' + operation,
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      data : data
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 
     return data;
 }
 
 
+
 exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHourTypeVehicle) {
 
-    var axios = require('axios');
     var data = JSON.stringify({
         "startingPoint": source,
         "arrivalPoint": destiny,
@@ -209,6 +234,44 @@ exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHou
     var config = {
         method: 'post',
         url: 'http://localhost:4500/v1/routeprice/',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            console.log(error)
+        });
+
+    return data;
+
+}
+
+//travelUniqueID, emailUser, travelCost, vehicle.idVehicle, source, destiny, typeVehicle, travelDate, travelDuration
+exports.addRentRegister = async function (travelUniqueID, emailUser, travelCost, idVehicle, source, destiny, typeVehicle, travelDate, travelDuration) {
+
+    var data = JSON.stringify({
+        "travelUniqueID": travelUniqueID,
+        "emailUser": emailUser,
+        "travelCost": travelCost,
+        "idVehicle":idVehicle,
+        "source": source,
+        "destiny": destiny,
+        "typeVehicle": typeVehicle,
+        "dateBegin": travelDate,
+        "travelDuration": travelDuration,
+        "signalState": "in"
+    });
+
+    var config = {
+        method: 'post',
+        url: 'http://localhost:6000/v1/',
         headers: {
             'Content-Type': 'application/json'
         },

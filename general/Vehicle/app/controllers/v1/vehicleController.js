@@ -23,7 +23,6 @@ exports.getAllFreeVehiclesByType = async function (req, res) {
 exports.getVehicle = async function (req, res) {
     try {
         let idVehicle = req.params.idVehicle;
-        console.log(idVehicle)
         const result = await vehicleService.getVehicle(idVehicle);
         res.status(result.success).send(result.body);
     } catch (err) {
@@ -48,7 +47,8 @@ exports.updateVehicleState = async function (req, res) {
     try {
         let idVehicle = req.params.idVehicle;
         let dateUntilItIsBusy = new Date(req.body.dateUntilItIsBusy).toISOString();
-        const result = await vehicleService.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy);
+        let location = req.body.location;
+        const result = await vehicleService.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy, location);
         res.status(result.success).send(result.body);
     } catch (err) {
         res.status(400).send(err);

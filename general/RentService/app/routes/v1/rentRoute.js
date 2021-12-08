@@ -28,10 +28,20 @@ router.get('/', rentController.getAllRentalRecords);
  * @group Rent operations.
  * @description Route to add an Rent
  * @param {object} Rent - Rent
- * @returns {object} 201 - Resource Created(Type Rent)
+ * @returns {object} 201 - Resource Created(Rent)
  * @returns {Error}  400  - Bad request
  */
 router.post('/', rentController.addRental); 
+
+/**
+ * @route Post /rent/
+ * @group Rent operations.
+ * @description Route to save an Rent
+ * @param {object} Rent - Rent
+ * @returns {object} 201 - Resource Created(Rent)
+ * @returns {Error}  400  - Bad request
+ */
+ router.post('/saveRental', rentController.saveRental); 
 
 
 module.exports = router;

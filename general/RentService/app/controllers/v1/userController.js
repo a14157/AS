@@ -13,7 +13,6 @@ exports.getAllUsersProfiles = async function (req, res) {
 exports.getUserByEmail = async function (req, res) {
     try {
         let email = req.params.email;
-        console.log(email)
         const result = await userService.getUserByEmail(email);
         res.status(result.success).send(result.body);
     } catch (err) {
