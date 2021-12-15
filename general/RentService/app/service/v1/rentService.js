@@ -190,7 +190,7 @@ exports.saveRental = async function (emailUser, destiny, source, travelCost, tra
 
             // then update car property "dateUntilItIsBusy" to the date it will be busy and final location of the car with the destination
             // (mqtt / node-red) will simulate the car behavior and set the rent property "travelEndDate" with the date that the rent will be over
-            let results = await utils.updateVehicleUtilizationDate(idVehicle, travelEndDate, destiny);
+            let results = await utils.updateVehicleUtilizationDate(idVehicle, travelEndDate, destiny, false);
 
             // also update user money atual - cost of travel
             let userUpdated = await utils.updateUserMoney(emailUser, travelCost, "remove");

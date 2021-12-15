@@ -132,7 +132,7 @@ exports.getAllVehicles = async function () {
     return response.data;
 }
 
-exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage) {
+exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy) {
 
     var data = JSON.stringify({
         "idVehicle": idTypeVehicle,
@@ -141,7 +141,8 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
         "location": location,
         "latLocation": latLocation,
         "lagLocation": lagLocation,
-        "vehicleChargePercentage":vehicleChargePercentage
+        "vehicleChargePercentage":vehicleChargePercentage,
+        "isBusy":isBusy
     });
 
     var config = {
@@ -172,12 +173,13 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
     return response.data;
 }
 
-exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location) {
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy) {
 
 
     var data = JSON.stringify({
         "dateUntilItIsBusy": dateUntilItIsBusy,
-        "location": location
+        "location": location,
+        "isBusy":isBusy
     });
 
     var config = {

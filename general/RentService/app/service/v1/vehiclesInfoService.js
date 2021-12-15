@@ -123,11 +123,11 @@ exports.getAllVehicles = async function () {
     }
 }
 
-exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage) {
+exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy) {
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
 
-            let results = await utils.addNewVehicle(idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage);
+            let results = await utils.addNewVehicle(idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy);
 
             if (!results) {
                 return {
@@ -184,10 +184,10 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
     }
 }
 
-exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location) {
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy) {
     if (user && user.hasOwnProperty('token') && user.token != null) {
         try {
-            let results = await utils.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy, location);
+            let results = await utils.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy, location, isBusy);
             if (!(results.length)) {
                 return {
                     success: 204,
