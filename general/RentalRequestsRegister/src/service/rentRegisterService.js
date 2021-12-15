@@ -6,6 +6,8 @@ const CarBehavior = require('../models/CarBehavior')
 
 exports.addRentRecord = async function (source, destiny, typeVehicle, dateBegin, travelDuration, signalState, idVehicle, travelUniqueID, emailUser, travelCost) {
 
+    console.log("addRentRecord")
+
     try {
         const carBehavior = new CarBehavior({
             source: source,
@@ -20,7 +22,7 @@ exports.addRentRecord = async function (source, destiny, typeVehicle, dateBegin,
             travelCost: travelCost
         });
 
-        const finalCarBehavior = await carBehavior.save();
+        //const finalCarBehavior = await carBehavior.save();
 
         const host = config.mqtt.broker
         const port = config.mqtt.port
@@ -41,7 +43,7 @@ exports.addRentRecord = async function (source, destiny, typeVehicle, dateBegin,
             console.log('Publisher: Connected')
             client.subscribe(topic, function (err) {
                 if (!err) {
-                    client.publish(topic, JSON.stringify(finalCarBehavior))
+                    client.publish(topic, JSON.stringify(carBehavior))
                 }
             })
         })
@@ -51,7 +53,7 @@ exports.addRentRecord = async function (source, destiny, typeVehicle, dateBegin,
 
         return {
             success: 201,
-            body: finalCarBehavior
+            body: carBehavior
         };
 
     } catch (err) {

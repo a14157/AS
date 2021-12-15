@@ -111,6 +111,18 @@ exports.updateUserMoney = async function (email, money, operation) {
         });
 
         if (user) {
+
+            if(userUpdated[0].money < 0){
+                return{
+                    success: 200,
+                    body: {
+                        message: "User without money.",
+                        statusCode: 400
+                    }
+                }
+            }
+
+
             return {
                 success: 200,
                 body: userUpdated

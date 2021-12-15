@@ -57,6 +57,9 @@ const rentSchema = new Schema({
         type: String,
         required: true
     },
+    realTravelEndDate: {
+        type: Date
+    },
 });
 
 // --------------------------------------------------

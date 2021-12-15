@@ -156,12 +156,38 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         let results = await utils.addUser(username, userProfile, name, email, password, money, gender, age);
         if (!results) {
             return {
-                success: 204,
-                body: "There's no types of vehicles registered in our system!"
+                success: 404,
+                body: "User not created!"
             };
         } else {
             return {
-                success: 200,
+                success: 201,
+                body: results
+            };
+        }
+    } catch (err) {
+        return {
+            success: 400,
+            body: err
+        };
+    }
+
+}
+
+//update  user money
+exports.updateUserMoney = async function (email, money, operation) {
+
+    try {
+
+        let results = await utils.updateUserMoney(email, money, operation);
+        if (!results) {
+            return {
+                success: 404,
+                body: "There's no users with that email registered in our system!"
+            };
+        } else {
+            return {
+                success: 201,
                 body: results
             };
         }

@@ -44,8 +44,10 @@ const vehicleSchema = mongoose.Schema({
         required : true
     },
     vehicleChargePercentage:{
-        type: String,
-        required : true
+        type: Number,
+        required : true,
+        min: 0,
+        max: 100
     }
 
 });

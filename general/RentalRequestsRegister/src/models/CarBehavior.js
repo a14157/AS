@@ -58,6 +58,9 @@ const carBehavior = mongoose.Schema({
         type: String,
         required: true
     },
+    status: {
+        type: String,
+    },
 });
 
 module.exports = mongoose.model('CarBehavior', carBehavior);

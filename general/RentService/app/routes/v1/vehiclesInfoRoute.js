@@ -10,7 +10,7 @@ const vehiclesInfoController = require('../../controllers/v1/vehiclesInfoControl
  * @returns {object} 204 -No Content
  * @returns {Error}  400  - Bad request
  */
-router.get('/typevehicle/', vehiclesInfoController.getAllTypesOfVehicles); 
+router.get('/typevehicle/', vehiclesInfoController.getAllTypesOfVehicles);
 
 /**
  * @route Get /typevehicle/:nametypevehicle
@@ -21,9 +21,9 @@ router.get('/typevehicle/', vehiclesInfoController.getAllTypesOfVehicles);
  * @returns {object} 204 -No Content
  * @returns {Error}  400  - Bad request
  */
- router.get('/typevehicle/:nametypevehicle', vehiclesInfoController.getAllTypesOfVehicles);  
+router.get('/typevehicle/:nametypevehicle', vehiclesInfoController.getAllTypesOfVehicles);
 
- /**
+/**
  * @route Get /getAllFreeVehiclesByType/:dateUntilItIsBusy/:type
  * @group Vehicle operations.
  * @description Route to fetch all free vehicles and by vehicle type
@@ -33,7 +33,7 @@ router.get('/typevehicle/', vehiclesInfoController.getAllTypesOfVehicles);
  * @returns {object} 204 - No Content
  * @returns {Error}  400  - Bad request
  */
-  router.get('/getAllFreeVehiclesByType/:dateUntilItIsBusy/:type', vehiclesInfoController.getAllFreeVehiclesByType); 
+router.get('/getAllFreeVehiclesByType/:dateUntilItIsBusy/:type', vehiclesInfoController.getAllFreeVehiclesByType);
 
 /**
  * @route Post /vehicle/typevehicle/
@@ -43,7 +43,7 @@ router.get('/typevehicle/', vehiclesInfoController.getAllTypesOfVehicles);
  * @returns {object} 201 - Resource Created(Type Vehicle)
  * @returns {Error}  400  - Bad request
  */
- router.post('/typevehicle', vehiclesInfoController.addTypeVehicle); 
+router.post('/typevehicle', vehiclesInfoController.addTypeVehicle);
 
 /**
  * @route Get /vehicle/
@@ -53,9 +53,9 @@ router.get('/typevehicle/', vehiclesInfoController.getAllTypesOfVehicles);
  * @returns {object} 204 -No Content
  * @returns {Error}  400  - Bad request
  */
- router.get('/', vehiclesInfoController.getAllVehicles); 
+router.get('/', vehiclesInfoController.getAllVehicles);
 
- /**
+/**
  * @route Patch /vehicle/:idVehicle
  * @group Vehicle operations.
  * @description Route to update a vehicle by ID
@@ -63,9 +63,19 @@ router.get('/typevehicle/', vehiclesInfoController.getAllTypesOfVehicles);
  * @returns {object} Resource Updated(Vehicle)
  * @returns {Error}  400  - Bad request
  */
-  router.patch('/:idVehicle', vehiclesInfoController.updateVehicleState); 
+router.patch('/:idVehicle', vehiclesInfoController.updateVehicleState);
 
- /**
+/**
+ * @route Patch /vehicle/:idVehicle
+ * @group Vehicle operations.
+ * @description Route to update a vehicle charge by ID
+ * @param {String}  idVehicle - ID Vehicle
+ * @returns {object} Resource Updated(Vehicle)
+ * @returns {Error}  400  - Bad request
+ */
+router.get('/:idVehicle/:chargeValue/:operation', vehiclesInfoController.updateVehicleCharge);
+
+/**
  * @route Post /vehicle/
  * @group Vehicle operations.
  * @description Route to add Vehicle
@@ -73,6 +83,6 @@ router.get('/typevehicle/', vehiclesInfoController.getAllTypesOfVehicles);
  * @returns {object} -  Resource Created(Vehicle)
  * @returns {Error}  400  - Bad request
  */
-router.post('/', vehiclesInfoController.addNewVehicle); 
+router.post('/', vehiclesInfoController.addNewVehicle);
 
 module.exports = router;

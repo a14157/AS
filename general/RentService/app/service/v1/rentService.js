@@ -176,7 +176,7 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
 }
 
 //save new type Vehicle
-exports.saveRental = async function (emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate, travelEndDate, travelUniqueID) {
+exports.saveRental = async function (emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate, travelEndDate, travelUniqueID, status) {
     if (user && user.hasOwnProperty('token') && user.token != null) {
 
         //service that will save the data sended by node-red 
@@ -206,7 +206,8 @@ exports.saveRental = async function (emailUser, destiny, source, travelCost, tra
                     idVehicle: idVehicle,
                     travelStartDate: travelStartDate,
                     travelEndDate: travelEndDate,
-                    stateOfTravel: "Rent processed."
+                    stateOfTravel: status,
+                    realTravelEndDate: new Date().toISOString()
                 });
 
                 let finalRentRecord;

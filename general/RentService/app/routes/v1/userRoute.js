@@ -72,7 +72,15 @@ router.post('/adduser/', upload.single('photo'), userController.addUser);
  */
 router.get('/:email', userController.getUserByEmail);
 
-
+/**
+ * @route Patch /user/
+ * @group User operations.
+ * @description Route to update user money by ID
+ * @param {String} email  - User Email
+ * @returns {object} Resource Updated(User)
+ * @returns {Error}  400  - Bad request
+ */
+router.get('/:email/:money/:operation', userController.updateUserMoney);
 
 /**
  * @route Post /user/login/

@@ -28,12 +28,12 @@ router.get('/', userController.getAllUsers);
  /**
  * @route Patch /user/
  * @group User operations.
- * @description Route to update a vehicle by ID
+ * @description Route to update user money by ID
  * @param {String} email  - User Email
  * @returns {object} Resource Updated(User)
  * @returns {Error}  400  - Bad request
  */
-  router.patch('/:email/:operation', userController.updateUserMoney); 
+  router.patch('/:email/:money/:operation', userController.updateUserMoney); 
 
 /**
  * @route Post /user/

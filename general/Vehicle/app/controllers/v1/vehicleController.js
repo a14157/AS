@@ -57,3 +57,15 @@ exports.updateVehicleState = async function (req, res) {
         res.status(400).send(err);
     }
 }; 
+
+exports.updateVehicleCharge = async function (req, res) {
+    try {
+        let idVehicle = req.params.idVehicle;
+        let chargeValue = req.params.chargeValue;
+        let operation = req.params.operation;
+        const result = await vehicleService.updateVehicleCharge(idVehicle, chargeValue, operation);
+        res.status(result.success).send(result.body);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+};

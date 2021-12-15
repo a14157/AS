@@ -164,3 +164,70 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
     }
 
 };
+
+exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation) {
+    try {
+
+        const auxUser = await Vehicle.find({
+            "idVehicle": idVehicle
+        });
+
+        // add logic
+        // add or remove money from user
+        let updatedCharge;
+
+        
+        if(operation == "add"){
+            updatedCharge =  parseInt(auxUser[0].vehicleChargePercentage) + parseInt(chargeValue);
+        }else{
+            updatedCharge =  parseInt(auxUser[0].vehicleChargePercentage) - parseInt(chargeValue);
+        }
+
+        let vehicle = await Vehicle.findOneAndUpdate({
+            "idVehicle": idVehicle
+        }, {
+            $set: {
+                vehicleChargePercentage: updatedCharge
+            }
+        });
+
+
+        const vehicleUpdated = await Vehicle.find({
+            "idVehicle": idVehicle
+        });
+
+
+
+        if (vehicle) {
+
+            if(vehicleUpdated[0].vehicleChargePercentage < 0){
+                return{
+                    success: 200,
+                    body: {
+                        message: "Vehicle without charge.",
+                        statusCode: 400
+                    }
+
+                    
+                }
+            }
+
+
+            return {
+                success: 200,
+                body: vehicleUpdated
+            };
+        } else {
+            return {
+                success: 204,
+                body: "There's no vehicle registered in our system with that ID!"
+            };
+        }
+    } catch (err) {
+        return {
+            success: 400,
+            body: err
+        };
+    }
+
+};

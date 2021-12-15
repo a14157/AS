@@ -36,6 +36,7 @@ const leitura_mqtt = () => {
         travelUniqueID: obj_msg.travelUniqueID,
         emailUser: obj_msg.emailUser,
         travelCost: obj_msg.travelCost,
+        status: obj_msg.status,
       });
 
       console.log("sign");
@@ -70,6 +71,7 @@ async function sendRequetToUpdateCarBehavior(obj_msg) {
     travelDuration: obj_msg.travelDuration,
     travelUniqueID: obj_msg.travelUniqueID,
     idVehicle: obj_msg.idVehicle,
+    status: obj_msg.status,
   });
 
   var config = {

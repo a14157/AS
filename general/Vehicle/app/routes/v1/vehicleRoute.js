@@ -47,6 +47,16 @@ router.get('/:idVehicle', vehicleController.getVehicle);
  */
  router.patch('/:idVehicle', vehicleController.updateVehicleState); 
 
+ /**
+ * @route Patch /vehicle/:idVehicle
+ * @group Vehicle operations.
+ * @description Route to update a vehicle charge by ID
+ * @param {String}  idVehicle - ID Vehicle
+ * @returns {object} Resource Updated(Vehicle)
+ * @returns {Error}  400  - Bad request
+ */
+  router.patch('/:idVehicle/:chargeValue/:operation', vehicleController.updateVehicleCharge);
+
 /**
  * @route Post /vehicle/
  * @group Vehicle operations.

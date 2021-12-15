@@ -199,18 +199,38 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
     return data;
 }
 
-exports.updateUserMoney = async function (email, money, operation) {
+exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation) {
 
-
-    var data = JSON.stringify({"money":money});
 
     var config = {
       method: 'patch',
-      url: 'http://localhost:3000/v1/user/' + email + '/' + operation,
+      url: 'http://localhost:4000/v1/vehicle/' + idVehicle + '/' + chargeValue + '/' + operation,
       headers: { 
         'Content-Type': 'application/json'
       },
-      data : data
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            //console.log(error);
+        });
+    
+    console.log(data)
+
+    return data;
+}
+
+exports.updateUserMoney = async function (email, money, operation) {
+
+    var config = {
+      method: 'patch',
+      url: 'http://localhost:3000/v1/user/' + email + '/' + money + '/' + operation,
+      headers: { 
+        'Content-Type': 'application/json'
+      },
     };
 
     var data = await axios(config)

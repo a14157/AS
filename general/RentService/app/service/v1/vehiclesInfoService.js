@@ -212,3 +212,26 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
         };
     }
 };
+
+exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation) {
+    try {
+        let results = await utils.updateVehicleCharge(idVehicle, chargeValue, operation);
+        if (!results) {
+            console.log(results)
+            return {
+                success: 404,
+                body: results.statusCode
+            };
+        } else {
+            return {
+                success: 201,
+                body: results
+            };
+        }
+    } catch (err) {
+        return {
+            success: 400,
+            body: err
+        };
+    }
+}
