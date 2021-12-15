@@ -47,8 +47,9 @@ exports.saveRental = async function (req, res) {
         let travelEndDate = new Date(req.body.travelEndDate);
         let travelUniqueID = req.body.travelUniqueID;
         let idVehicle = req.body.idVehicle;
+        let status = req.body.status;
 
-        const result = await rentService.saveRental(emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate, travelEndDate, travelUniqueID);
+        const result = await rentService.saveRental(emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate, travelEndDate, travelUniqueID, status);
         res.status(result.success).send(result.body);
 
     }catch(err){

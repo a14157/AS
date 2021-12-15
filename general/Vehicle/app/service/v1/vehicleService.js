@@ -55,7 +55,7 @@ exports.getVehicle = async function (idVehicle) {
 }
 
 //add one vehicle
-exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle, location, latLocation, lagLocation, vehicleChargePercentage) {
+exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy) {
 
     let typeVehicle = await TypeVehicle.findById(idTypeVehicle);
 
@@ -70,7 +70,8 @@ exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle
             priceByHourTypeVehicle: typeVehicle.priceByHourTypeVehicle,
             latLocation: latLocation,
             lagLocation: lagLocation,
-            vehicleChargePercentage: vehicleChargePercentage
+            vehicleChargePercentage: vehicleChargePercentage,
+            isBusy: isBusy
         });
 
         try {
@@ -103,7 +104,8 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
         //retorna todos os vehicles cujo a data de ocupado é inferior à data recebida por parametro
         const vehicles = await Vehicle.find({
             'dateUntilItIsBusy': { $lte: dateUntilItIsBusy },
-            "nameTypeVehicle": nameTypeVehicle
+            "nameTypeVehicle": nameTypeVehicle,
+            "isBusy": false
         });
 
         console.log(vehicles)
@@ -128,7 +130,7 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
     }
 };
 
-exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location) {
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy) {
     try {
 
         let vehicle = await Vehicle.findOneAndUpdate({
@@ -136,7 +138,8 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
         }, {
             $set: {
                 dateUntilItIsBusy: dateUntilItIsBusy,
-                location: location
+                location: location,
+                isBusy: isBusy
             }
         });
 

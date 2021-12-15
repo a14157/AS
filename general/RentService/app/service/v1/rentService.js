@@ -87,6 +87,9 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
         }
         vehicle = vehicle[Math.floor(Math.random() * vehicle.length)];
 
+        // update vehicle to be busy
+        
+
 
         // calcular o preço da viagem e rota mais perto (RoutePrice)
         let routePrice = await utils.addRoutePrice(source, destiny, typeVehicle, vehicle.priceByHourTypeVehicle);

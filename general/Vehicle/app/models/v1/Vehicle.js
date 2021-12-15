@@ -48,6 +48,10 @@ const vehicleSchema = mongoose.Schema({
         required : true,
         min: 0,
         max: 100
+    },
+    isBusy:{
+        type: Boolean,
+        required : true,
     }
 
 });
