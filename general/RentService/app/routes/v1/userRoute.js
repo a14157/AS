@@ -60,7 +60,7 @@ const upload = multer({
  * @returns {object} 200 - User Created
  * @returns {Error}  400 - Bad request
  */
-router.post('/adduser/', upload.single('photo'), userController.addUser);
+router.post('/adduser/', upload.single('photo'), userController.addUser); 
 
 /**
  * @route Get /user/adduser/

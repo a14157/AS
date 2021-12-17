@@ -20,7 +20,6 @@ exports.getAllUserRentalRecords = async function (req, res) {
 };
 
 exports.addRental = async function (req, res) {
-
     try {
         let emailUser = req.body.emailUser;
         let destiny = req.body.destiny;

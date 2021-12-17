@@ -100,6 +100,8 @@ exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle
 // get all free vehicles
 exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
     console.log('getAllFreeVehiclesByType')
+    console.log(dateUntilItIsBusy)
+    console.log(nameTypeVehicle)
     try {
         //retorna todos os vehicles cujo a data de ocupado é inferior à data recebida por parametro
         const vehicles = await Vehicle.find({

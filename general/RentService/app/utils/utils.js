@@ -79,7 +79,7 @@ exports.addUser = async function (username, userProfile, name, email, password, 
             return response.data;
         })
         .catch(function (error) {
-            console.log(error)
+            //  console.log(error)
         });
 
     return data;
@@ -141,8 +141,8 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
         "location": location,
         "latLocation": latLocation,
         "lagLocation": lagLocation,
-        "vehicleChargePercentage":vehicleChargePercentage,
-        "isBusy":isBusy
+        "vehicleChargePercentage": vehicleChargePercentage,
+        "isBusy": isBusy
     });
 
     var config = {
@@ -179,7 +179,7 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
     var data = JSON.stringify({
         "dateUntilItIsBusy": dateUntilItIsBusy,
         "location": location,
-        "isBusy":isBusy
+        "isBusy": isBusy
     });
 
     var config = {
@@ -198,6 +198,8 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
         .catch(function (error) {
             console.log(error);
         });
+
+
     return data;
 }
 
@@ -205,11 +207,11 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
 
 
     var config = {
-      method: 'patch',
-      url: 'http://localhost:4000/v1/vehicle/' + idVehicle + '/' + chargeValue + '/' + operation,
-      headers: { 
-        'Content-Type': 'application/json'
-      },
+        method: 'patch',
+        url: 'http://localhost:4000/v1/vehicle/' + idVehicle + '/' + chargeValue + '/' + operation,
+        headers: {
+            'Content-Type': 'application/json'
+        },
     };
 
     var data = await axios(config)
@@ -219,7 +221,7 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
         .catch(function (error) {
             //console.log(error);
         });
-    
+
     console.log(data)
 
     return data;
@@ -228,11 +230,11 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
 exports.updateUserMoney = async function (email, money, operation) {
 
     var config = {
-      method: 'patch',
-      url: 'http://localhost:3000/v1/user/' + email + '/' + money + '/' + operation,
-      headers: { 
-        'Content-Type': 'application/json'
-      },
+        method: 'patch',
+        url: 'http://localhost:3000/v1/user/' + email + '/' + money + '/' + operation,
+        headers: {
+            'Content-Type': 'application/json'
+        },
     };
 
     var data = await axios(config)
@@ -286,7 +288,7 @@ exports.addRentRegister = async function (travelUniqueID, emailUser, travelCost,
         "travelUniqueID": travelUniqueID,
         "emailUser": emailUser,
         "travelCost": travelCost,
-        "idVehicle":idVehicle,
+        "idVehicle": idVehicle,
         "source": source,
         "destiny": destiny,
         "typeVehicle": typeVehicle,
@@ -314,5 +316,33 @@ exports.addRentRegister = async function (travelUniqueID, emailUser, travelCost,
         });
 
     return data;
+
+}
+
+exports.getUserAgeAndGender = async function (filePath) {
+    let FormData = require('form-data');
+    console.log('aqui')
+    let fs = require('fs');
+    let data = new FormData();
+    data.append('image', fs.createReadStream(filePath));
+
+    let config = {
+        method: 'post',
+        url: 'http://localhost:9000/api/predict',
+        headers: {
+            ...data.getHeaders()
+        },
+        data: data
+    };
+
+    let finalData = await axios(config)
+        .then(function (response) {
+            return JSON.stringify(response.data);
+        })
+        .catch(function (error) {
+            //console.log(error);
+        });
+
+    return finalData;
 
 }

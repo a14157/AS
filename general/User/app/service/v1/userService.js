@@ -30,7 +30,7 @@ exports.getAll = async function () {
 
 //save new user
 exports.addUser = async function (username, userProfile, name, email, password, money, age, gender) {
-
+    
     const userProfil = await UserProfile.find({
         "nameProfile": userProfile
     });
@@ -51,10 +51,9 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         user.age = age;
         user.gender = gender;
 
-
-
         try {
             let finalUser = await user.save();
+            console.log(finalUser)
             let auxUser = user.toObject();
             let token = await user.generateJwT();
             auxUser["token"] = token;

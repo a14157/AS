@@ -3,24 +3,25 @@ const utils = require('../../utils/utils')
 const userInformationFilePath = "./configs/user.json";
 const configs = require('../../config/folder.config.json')
 const user = require('../../../configs/user.json')
+//var photo = require('../../../userPhotos/')
 
 //get all users profiles
 exports.writeAllUsersProfiles = async function () {
-        try {
-            let results = await utils.getAllUsersProfiles();
-            let data = JSON.stringify(results);
-            // write to json
-            fs.writeFile('./configs/profiles.json', data, function (err) {
-                if (err) throw err;
-                console.log('File is created successfully.');
-            });
+    try {
+        let results = await utils.getAllUsersProfiles();
+        let data = JSON.stringify(results);
+        // write to json
+        fs.writeFile('./configs/profiles.json', data, function (err) {
+            if (err) throw err;
+            console.log('File is created successfully.');
+        });
 
-            console.log("File Created!")
+        console.log("File Created!")
 
-        } catch (err) {
-            console.log("File Not Created!")
-        }
-    
+    } catch (err) {
+        console.log("File Not Created!")
+    }
+
 }
 
 //get all users profiles
@@ -131,29 +132,21 @@ exports.logoutUser = async function () {
 }
 
 //save new user
-exports.addUser = async function (username, userProfile, name, email, password, money, photoOriginalName) {
+exports.addUser = async function (username, userProfile, name, email, password, money, photoPath, photoType, photoOriginalName) {
 
     try {
+        const {
+            dirname
+        } = require('path');
+        const appDir = dirname(require.main.filename);
+        let photoPath = appDir + '/userPhotos/' + photoOriginalName;
 
-        const path = './' + configs.usersPhotoFolderName + '/' + photoOriginalName;
-        let age;
-        let gender;
+        let ageAndGender = await utils.getUserAgeAndGender(photoPath);
+        ageAndGender = JSON.parse(ageAndGender);
+        console.log(ageAndGender.age)
+        console.log(ageAndGender.gender)
 
-        try {
-            if (fs.existsSync(path)) {
-                //file exists
-                // api call to get gender and age
-                console.log('exists')
-            }
-        } catch (err) {
-            console.error(err)
-        }
-
-        // api call to get gender and age
-        gender = "Male"
-        age = 26;
-
-        let results = await utils.addUser(username, userProfile, name, email, password, money, gender, age);
+        let results = await utils.addUser(username, userProfile, name, email, password, money, ageAndGender.gender, ageAndGender.age);
         if (!results) {
             return {
                 success: 404,

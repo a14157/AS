@@ -41,7 +41,6 @@ exports.logoutUser = async function (req, res) {
 };
 
 exports.addUser = async function (req, res) {
-
     try {
         let username = req.body.username;
         let userProfile = req.body.userProfile;

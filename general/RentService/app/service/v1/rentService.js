@@ -66,11 +66,11 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
         // get user info - idade e dinheiro - para verificar se tem mais de 16 anos (User)
         let getUser = await utils.getUserByEmail(emailUser);
         getUser = getUser[Math.floor(Math.random() * getUser.length)];
+
         // registar hora de inicio
         let newTravelDate = new Date(travelDate).toISOString();
         // ir buscar um carro do tipo x mais perto e livre (Vehicle)
         let vehicle = await utils.getAllFreeVehiclesByType(newTravelDate, typeVehicle);
-   
 
         //with will return an array of cars or just one car
         // check if it is only one car ou more
@@ -86,13 +86,25 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
             };
         }
         vehicle = vehicle[Math.floor(Math.random() * vehicle.length)];
+        console.log(vehicle)
 
         // update vehicle to be busy
-        
-
+        let updateVehicle = await utils.updateVehicleUtilizationDate(vehicle.idVehicle, newTravelDate, source, true)
+        if (updateVehicle.length === 0){
+            return {
+                success: 204,
+                body: "Error on update vehicle."
+            };
+        }
 
         // calcular o preço da viagem e rota mais perto (RoutePrice)
         let routePrice = await utils.addRoutePrice(source, destiny, typeVehicle, vehicle.priceByHourTypeVehicle);
+        if (routePrice.length === 0){
+            return {
+                success: 204,
+                body: "Error on getting a route price."
+            };
+        }
 
         // no final do aluguer, registar hora do fim e localização do veiculo
 
@@ -109,7 +121,6 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
                 let travelUniqueID = Date.now().toString();
 
                 let results = await utils.addRentRegister(travelUniqueID, emailUser, routePrice.price, vehicle.idVehicle, source, destiny, typeVehicle, travelDate, routePrice.timeOfTravel);
-
 
                 if (results) {
 
@@ -128,6 +139,7 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
                     });
 
                     var finalRentRecord;
+                    console.log(rentRecord)
                     try{
                         finalRentRecord = await rentRecord.save();
                     }catch (err) {
@@ -180,6 +192,7 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
 
 //save new type Vehicle
 exports.saveRental = async function (emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate, travelEndDate, travelUniqueID, status) {
+   console.log('aqui')
     if (user && user.hasOwnProperty('token') && user.token != null) {
 
         //service that will save the data sended by node-red 
@@ -191,12 +204,10 @@ exports.saveRental = async function (emailUser, destiny, source, travelCost, tra
             // then update car property "dateUntilItIsBusy" to the date it will be busy and final location of the car with the destination
             // (mqtt / node-red) will simulate the car behavior and set the rent property "travelEndDate" with the date that the rent will be over
             let results = await utils.updateVehicleUtilizationDate(idVehicle, travelEndDate, destiny, false);
-
             // also update user money atual - cost of travel
-            let userUpdated = await utils.updateUserMoney(emailUser, travelCost, "remove");
 
 
-            if (results && userUpdated) {
+            if (results) {
 
                 const rentRecord = new Rent({
                     travelUniqueID: travelUniqueID,

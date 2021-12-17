@@ -41,6 +41,8 @@ if (!fs.existsSync(dirPhotosUploads)){
     fs.mkdirSync(dirPhotosUploads);
 }
 
+app.use('./userPhotos', express.static('uploads'));
+
 const rentUserRouteV1 = require('./app/routes/v1/userRoute');
 const vehiclesInfoRouteV1 = require('./app/routes/v1/vehiclesInfoRoute');
 const rentRouteV1 = require('./app/routes/v1/rentRoute');
