@@ -152,7 +152,6 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         let photoPath = appDir + '/userPhotos/' + photoOriginalName;
 
         let ageAndGender = await utils.getUserAgeAndGender(photoPath);
-        console.log(ageAndGender)
         ageAndGender = JSON.parse(ageAndGender);
         if(ageAndGender.Error === 'API token required.'){
             return {

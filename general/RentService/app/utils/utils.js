@@ -400,7 +400,9 @@ exports.addRentRegister = async function (travelUniqueID, emailUser, travelCost,
         method: 'post',
         url: 'http://localhost:6000/v1/',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'rental-requests-api-token': apiTokens.rentalRequestAPI, 
+            'rent-api-token': apiTokens.rentAPI
         },
         data: data
     };
@@ -411,7 +413,7 @@ exports.addRentRegister = async function (travelUniqueID, emailUser, travelCost,
             return response.data;
         })
         .catch(function (error) {
-            console.log(error)
+            return error.response.data
         });
 
     return data;

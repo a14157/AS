@@ -3,5 +3,6 @@
   "userAPI": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyQVBJIjoidXNlckFQSXNlY3JldCJ9.B_cGVE7oAXUquy93zUudjSnfe0Htj6iJ9FUav-YX_JI",
   "routPriceAPI": "eyJhbGciOiJIUzI1NiJ9.eyJyb3V0UHJpY2VBUEkiOiJyb3V0UHJpY2VBUHNlY3JldCJ9.qfWMCI9nYXWvovwHa0xPjB2dW0rqUocfP5nvT_CzSeo",
   "rentAPI": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
-  "pythonAPI": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicHl0aG9uQVBJc2VjcmV0In0.x4RjeHvUH572nLVp07_2YxGeUhX4v9ThemWpdcsb-10"
+  "pythonAPI": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicHl0aG9uQVBJc2VjcmV0In0.x4RjeHvUH572nLVp07_2YxGeUhX4v9ThemWpdcsb-10",
+  "rentalRequestAPI": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudGFsUmVxdWVzdHNBUElzZWNyZXQifQ.8hBPzFY5sCvgSqg6buFTKDS-7z750byEecxyVFD8qYI"
 }

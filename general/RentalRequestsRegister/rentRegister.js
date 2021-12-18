@@ -7,6 +7,8 @@ const CarBehavior = require("./src/models/CarBehavior");
 const mqttPublisher = require("./src/client-mqtt-publisher");
 const bodyParser = require("body-parser");
 var axios = require('axios');
+const apiTokens = require('./src/config/apiTokens.json');
+
 
 // Dados -----------------------------------
 const lista_registos = new Array();
@@ -79,6 +81,8 @@ async function sendRequetToUpdateCarBehavior(obj_msg) {
     url: "http://localhost:3500/v1/rent/saveRental",
     headers: {
       "Content-Type": "application/json",
+      'rental-requests-api-token': apiTokens.rentalRequestAPI, 
+      'rent-api-token': apiTokens.rentAPI
     },
     data: data,
   };

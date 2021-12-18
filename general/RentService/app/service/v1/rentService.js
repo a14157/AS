@@ -132,6 +132,13 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
 
                 let results = await utils.addRentRegister(travelUniqueID, emailUser, routePrice.price, vehicle.idVehicle, source, destiny, typeVehicle, travelDate, routePrice.timeOfTravel);
 
+                if(results === 'API token required.'){
+                    return {
+                        success: 403,
+                        body: "API token required."
+                    };
+                }
+
                 if (results) {
 
 
