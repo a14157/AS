@@ -101,6 +101,14 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
 
         // calcular o preço da viagem e rota mais perto (RoutePrice)
         let routePrice = await utils.addRoutePrice(source, destiny, typeVehicle, vehicle.priceByHourTypeVehicle);
+
+        if(routePrice === 'API token required.'){
+            return {
+                success: 403,
+                body: "API token required."
+            };
+        }
+        
         if (routePrice.length === 0){
             return {
                 success: 204,

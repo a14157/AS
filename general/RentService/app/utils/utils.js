@@ -360,7 +360,9 @@ exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHou
         method: 'post',
         url: 'http://localhost:4500/v1/routeprice/',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'route-api-token': apiTokens.routPriceAPI, 
+            'rent-api-token': apiTokens.rentAPI
         },
         data: data
     };
@@ -371,7 +373,7 @@ exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHou
             return response.data;
         })
         .catch(function (error) {
-            console.log(error)
+            return error.response.data
         });
 
     return data;
