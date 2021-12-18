@@ -1,4 +1,5 @@
 const axios = require('axios');
+const apiTokens = require('../config/apiTokens.json');
 
 /* USER API */
 
@@ -12,8 +13,6 @@ exports.getUserByEmail = async function (email) {
     const response = await axios.get('http://localhost:3000/v1/user/' + email)
     return response.data;
 }
-
-
 
 // check if user is authenticated and type of profile
 exports.checkIfUserIsAuthenticatedAndProfile = async function (username, password) {
@@ -87,13 +86,46 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 
 /* TYPE VEHICLES API */
 exports.getAllTypesOfVehicles = async function () {
-    const response = await axios.get('http://localhost:4000/v1/typevehicle/')
-    return response.data;
+    var config = {
+        method: 'get',
+        url: 'http://localhost:4000/v1/typevehicle/',
+        headers: {
+            'vehicle-api-token': apiTokens.vehicleAPI,
+            'rent-api-token': apiTokens.rentAPI
+        }
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data;
+        });
+
+    return data
 }
 
 exports.getVehicleTypeByName = async function (nameTypeVehicle) {
-    const response = await axios.get('http://localhost:4000/v1/typevehicle/' + nameTypeVehicle)
-    return response.data;
+
+    var config = {
+        method: 'get',
+        url: 'http://localhost:4000/v1/typevehicle/'+nameTypeVehicle,
+        headers: {
+            'vehicle-api-token': apiTokens.vehicleAPI,
+            'rent-api-token': apiTokens.rentAPI
+        }
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data;
+        });
+
+    return data
 }
 
 exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle) {
@@ -108,7 +140,9 @@ exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, pr
         method: 'post',
         url: 'http://localhost:4000/v1/typevehicle/',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'vehicle-api-token': apiTokens.vehicleAPI,
+            'rent-api-token': apiTokens.rentAPI
         },
         data: data
     };
@@ -118,111 +152,8 @@ exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, pr
             return response.data;
         })
         .catch(function (error) {
-            return
+            return error.response.data
         });
-
-    return data;
-}
-
-// axios.get(URL, { headers: { Authorization: AuthStr } }
-
-/* VEHICLES API */
-exports.getAllVehicles = async function () {
-    const response = await axios.get('http://localhost:4000/v1/vehicle/')
-    return response.data;
-}
-
-exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy) {
-
-    var data = JSON.stringify({
-        "idVehicle": idTypeVehicle,
-        "isBusy": isBusy,
-        "idTypeVehicle": idVehicle,
-        "location": location,
-        "latLocation": latLocation,
-        "lagLocation": lagLocation,
-        "vehicleChargePercentage": vehicleChargePercentage,
-        "isBusy": isBusy
-    });
-
-    var config = {
-        method: 'post',
-        url: 'http://localhost:4000/v1/vehicle/',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: data
-    };
-
-
-    var data = await axios(config)
-        .then(function (response) {
-            return response.data;
-        })
-        .catch(function (error) {
-            console.log(error)
-        });
-
-    return data;
-
-}
-
-exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
-    const response = await axios.get('http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle)
-    console.log(response.data)
-    return response.data;
-}
-
-exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy) {
-
-
-    var data = JSON.stringify({
-        "dateUntilItIsBusy": dateUntilItIsBusy,
-        "location": location,
-        "isBusy": isBusy
-    });
-
-    var config = {
-        method: 'patch',
-        url: 'http://localhost:4000/v1/vehicle/' + idVehicle,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        data: data
-    };
-
-    var data = await axios(config)
-        .then(function (response) {
-            return response.data;
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-
-
-    return data;
-}
-
-exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation) {
-
-
-    var config = {
-        method: 'patch',
-        url: 'http://localhost:4000/v1/vehicle/' + idVehicle + '/' + chargeValue + '/' + operation,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    };
-
-    var data = await axios(config)
-        .then(function (response) {
-            return response.data;
-        })
-        .catch(function (error) {
-            //console.log(error);
-        });
-
-    console.log(data)
 
     return data;
 }
@@ -248,7 +179,137 @@ exports.updateUserMoney = async function (email, money, operation) {
     return data;
 }
 
+/* VEHICLES API */
+exports.getAllVehicles = async function () {
 
+    var config = {
+        method: 'get',
+        url: 'http://localhost:4000/v1/vehicle/',
+        headers: { 
+          'vehicle-api-token': apiTokens.vehicleAPI, 
+          'rent-api-token': apiTokens.rentAPI
+        }
+      };
+      
+      var data = await axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        return error.response.data
+      });
+      return data;  
+}
+
+exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy) {
+
+    var data = JSON.stringify({
+        "idVehicle": idTypeVehicle,
+        "isBusy": isBusy,
+        "idTypeVehicle": idVehicle,
+        "location": location,
+        "latLocation": latLocation,
+        "lagLocation": lagLocation,
+        "vehicleChargePercentage": vehicleChargePercentage,
+        "isBusy": isBusy
+    });
+
+    var config = {
+        method: 'post',
+        url: 'http://localhost:4000/v1/vehicle/',
+        headers: {
+            'Content-Type': 'application/json',
+            'vehicle-api-token': apiTokens.vehicleAPI,
+            'rent-api-token': apiTokens.rentAPI
+        },
+        data: data
+    };
+
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data
+        });
+
+    return data;
+
+}
+
+exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
+    var config = {
+        method: 'get',
+        url: 'http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle,
+        headers: { 
+          'vehicle-api-token': apiTokens.vehicleAPI, 
+          'rent-api-token': apiTokens.rentAPI
+        }
+      };
+      
+      var data = await axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        return error.response.data
+      });
+      return data;  
+}
+
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy) {
+
+
+    var data = JSON.stringify({
+        "dateUntilItIsBusy": dateUntilItIsBusy,
+        "location": location,
+        "isBusy": isBusy
+    });
+
+    var config = {
+        method: 'patch',
+        url: 'http://localhost:4000/v1/vehicle/' + idVehicle,
+        headers: {
+            'Content-Type': 'application/json',
+            'vehicle-api-token': apiTokens.vehicleAPI, 
+            'rent-api-token': apiTokens.rentAPI
+        },
+        data: data
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data
+        });
+    return data;
+}
+
+exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation) {
+
+    var config = {
+        method: 'patch',
+        url: 'http://localhost:4000/v1/vehicle/' + idVehicle + '/' + chargeValue + '/' + operation,
+        headers: {
+            'Content-Type': 'application/json',
+            'vehicle-api-token': apiTokens.vehicleAPI, 
+            'rent-api-token': apiTokens.rentAPI
+        },
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data
+        });
+
+    return data;
+}
 
 exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHourTypeVehicle) {
 

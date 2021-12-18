@@ -21,7 +21,7 @@ router.get('/typevehicle/', vehiclesInfoController.getAllTypesOfVehicles);
  * @returns {object} 204 -No Content
  * @returns {Error}  400  - Bad request
  */
-router.get('/typevehicle/:nametypevehicle', vehiclesInfoController.getAllTypesOfVehicles);
+router.get('/typevehicle/:nametypevehicle', vehiclesInfoController.getVehicleTypeByName);
 
 /**
  * @route Get /getAllFreeVehiclesByType/:dateUntilItIsBusy/:type

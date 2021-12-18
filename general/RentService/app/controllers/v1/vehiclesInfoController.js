@@ -20,7 +20,6 @@ exports.getVehicleTypeByName = async function (req, res) {
 };
 
 exports.addTypeVehicle = async function (req, res) {
-
     try {
         let codigoCartao = req.body.idTypeVehicle;
         let validade = req.body.nameTypeVehicle;
