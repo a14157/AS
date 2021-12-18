@@ -17,7 +17,9 @@ let db = require('./app/config/db.config');
 
 app.use(cors())
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -28,16 +30,19 @@ app.use(function (req, res, next) {
 
 //Folders for the uploads user photos 
 const dirUploads = './configs/';
+createFolder(dirUploads)
 
-if (!fs.existsSync(dirUploads)){
-    fs.mkdirSync(dirUploads);
-    usersProfiles.writeAllUsersProfiles();
+async function createFolder(dirUploads) {
+    if (!fs.existsSync(dirUploads)) {
+        let newFolder = await fs.mkdirSync(dirUploads);
+        let userProfiles = await usersProfiles.writeAllUsersProfiles();
+    }
 }
 
 //Folders for the uploads user photos
 const dirPhotosUploads = './' + configs.usersPhotoFolderName;
 
-if (!fs.existsSync(dirPhotosUploads)){
+if (!fs.existsSync(dirPhotosUploads)) {
     fs.mkdirSync(dirPhotosUploads);
 }
 
@@ -46,9 +51,9 @@ app.use('./userPhotos', express.static('uploads'));
 const rentUserRouteV1 = require('./app/routes/v1/userRoute');
 const vehiclesInfoRouteV1 = require('./app/routes/v1/vehiclesInfoRoute');
 const rentRouteV1 = require('./app/routes/v1/rentRoute');
-app.use('/v1/rent/user',  rentUserRouteV1); 
-app.use('/v1/rent/vehicle',  vehiclesInfoRouteV1); 
-app.use('/v1/rent/',  rentRouteV1); 
+app.use('/v1/rent/user', rentUserRouteV1);
+app.use('/v1/rent/vehicle', vehiclesInfoRouteV1);
+app.use('/v1/rent/', rentRouteV1);
 
 const expressSwagger = require('express-swagger-generator')(app);
 const swaggerOptions = {
@@ -76,4 +81,3 @@ expressSwagger(swaggerOptions);
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
-

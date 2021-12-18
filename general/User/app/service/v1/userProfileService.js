@@ -28,13 +28,11 @@ exports.getAll = async function () {
 
 //save new type Vehicle
 exports.addUserProfile = async function (profileID, nameProfile) {
-    
+
     const userProfile = new UserProfile({
         profileID : profileID,
         nameProfile : nameProfile,
     });
-
-    console.log(userProfile)
 
     try {
         const finalUserProfile = await userProfile.save();

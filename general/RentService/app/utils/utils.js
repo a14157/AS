@@ -5,13 +5,45 @@ const apiTokens = require('../config/apiTokens.json');
 
 // Get all users profiles
 exports.getAllUsersProfiles = async function () {
-    const response = await axios.get('http://localhost:3000/v1/userprofile/')
-    return response.data;
+    var config = {
+        method: 'get',
+        url: 'http://localhost:3000/v1/userprofile/',
+        headers: { 
+          'user-api-token': apiTokens.userAPI, 
+          'rent-api-token': apiTokens.rentAPI
+        }
+      };
+      
+      var data = await axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        return error.response.data;
+      });
+
+      return data
 }
 
 exports.getUserByEmail = async function (email) {
-    const response = await axios.get('http://localhost:3000/v1/user/' + email)
-    return response.data;
+    var config = {
+        method: 'get',
+        url: 'http://localhost:3000/v1/user/' + email,
+        headers: { 
+          'user-api-token': apiTokens.userAPI, 
+          'rent-api-token': apiTokens.rentAPI
+        }
+      };
+      
+      var data = await axios(config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        return error.response.data;
+      });
+
+      return data
 }
 
 // check if user is authenticated and type of profile
@@ -68,7 +100,9 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         method: 'post',
         url: 'http://localhost:3000/v1/user/',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'user-api-token': apiTokens.userAPI, 
+            'rent-api-token': apiTokens.rentAPI
         },
         data: data
     };
@@ -78,7 +112,7 @@ exports.addUser = async function (username, userProfile, name, email, password, 
             return response.data;
         })
         .catch(function (error) {
-            //  console.log(error)
+            return error.response.data;
         });
 
     return data;
@@ -164,7 +198,9 @@ exports.updateUserMoney = async function (email, money, operation) {
         method: 'patch',
         url: 'http://localhost:3000/v1/user/' + email + '/' + money + '/' + operation,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'user-api-token': apiTokens.userAPI, 
+            'rent-api-token': apiTokens.rentAPI
         },
     };
 
@@ -173,7 +209,7 @@ exports.updateUserMoney = async function (email, money, operation) {
             return response.data;
         })
         .catch(function (error) {
-            console.log(error);
+            return error.response.data;
         });
 
     return data;

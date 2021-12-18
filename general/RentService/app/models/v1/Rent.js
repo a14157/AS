@@ -11,6 +11,10 @@ const Schema = mongoose.Schema;
  * @property {String} timeTravel - Time of travel
  * @property {String} typeVehicle - Type Vehicle
  * @property {String} idVehicle - Vehicle ID
+ * @property {Date} travelStartDate - Travel Start Date
+ * @property {Date} travelEndDate - Estimated Travel End Date
+ * @property {String} stateOfTravel - In process, processed, etc
+ * @property {Date} realTravelEndDate - Real End Travel Date
  */
 const rentSchema = new Schema({
     id: mongoose.Schema.Types.ObjectId,

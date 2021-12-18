@@ -1,8 +1,8 @@
 const utils = require('../../utils/utils')
-const user = require('../../../configs/user.json')
 
 //getAllTypesOfVehicles
 exports.getAllTypesOfVehicles = async function () {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
             let results = await utils.getAllTypesOfVehicles();
@@ -38,6 +38,7 @@ exports.getAllTypesOfVehicles = async function () {
 }
 
 exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle) {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
 
@@ -79,6 +80,7 @@ exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, pr
 
 //get type vehicles by name
 exports.getVehicleTypeByName = async function (nameTypeVehicle) {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null) {
         try {
             let results = await utils.getVehicleTypeByName(nameTypeVehicle);
@@ -116,6 +118,7 @@ exports.getVehicleTypeByName = async function (nameTypeVehicle) {
 
 //getAllVehicles
 exports.getAllVehicles = async function () {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
             let results = await utils.getAllVehicles();
@@ -151,6 +154,7 @@ exports.getAllVehicles = async function () {
 }
 
 exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy) {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
 
@@ -190,6 +194,7 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 
 //get type vehicles by name
 exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null) {
         try {
             let results = await utils.getAllFreeVehiclesByType(dateUntilItIsBusy, nameTypeVehicle);
@@ -227,6 +232,7 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
 }
 
 exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy) {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null) {
         try {
             let results = await utils.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy, location, isBusy);
@@ -265,6 +271,7 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
 };
 
 exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation) {
+    const user = require('../../../configs/user.json')
     try {
         let results = await utils.updateVehicleCharge(idVehicle, chargeValue, operation);
 

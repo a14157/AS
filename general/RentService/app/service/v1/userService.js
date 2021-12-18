@@ -1,9 +1,6 @@
 const fs = require('fs');
 const utils = require('../../utils/utils')
 const userInformationFilePath = "./configs/user.json";
-const configs = require('../../config/folder.config.json')
-const user = require('../../../configs/user.json')
-//var photo = require('../../../userPhotos/')
 
 //get all users profiles
 exports.writeAllUsersProfiles = async function () {
@@ -26,9 +23,16 @@ exports.writeAllUsersProfiles = async function () {
 
 //get all users profiles
 exports.getAllUsersProfiles = async function () {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
             let results = await utils.getAllUsersProfiles();
+            if(results === 'API token required.'){
+                return {
+                    success: 403,
+                    body: "API token required."
+                };
+            }
             if (!results) {
                 return {
                     success: 204,
@@ -54,11 +58,17 @@ exports.getAllUsersProfiles = async function () {
     }
 }
 
-//getAllTypesOfVehicles
 exports.getUserByEmail = async function (email) {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null) {
         try {
             let result = await utils.getUserByEmail(email);
+            if(result === 'API token required.'){
+                return {
+                    success: 403,
+                    body: "API token required."
+                };
+            }
             if (!(result.length)) {
                 return {
                     success: 204,
@@ -133,7 +143,7 @@ exports.logoutUser = async function () {
 
 //save new user
 exports.addUser = async function (username, userProfile, name, email, password, money, photoPath, photoType, photoOriginalName) {
-
+    const user = require('../../../configs/user.json')
     try {
         const {
             dirname
@@ -145,6 +155,15 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         ageAndGender = JSON.parse(ageAndGender);
 
         let results = await utils.addUser(username, userProfile, name, email, password, money, ageAndGender.gender, ageAndGender.age);
+        console.log(results)
+        
+        if(results === 'API token required.'){
+            return {
+                success: 403,
+                body: "API token required."
+            };
+        }
+
         if (!results) {
             return {
                 success: 404,
@@ -167,10 +186,16 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 
 //update  user money
 exports.updateUserMoney = async function (email, money, operation) {
-
     try {
-
         let results = await utils.updateUserMoney(email, money, operation);
+
+        if(results === 'API token required.'){
+            return {
+                success: 403,
+                body: "API token required."
+            };
+        }
+
         if (!results) {
             return {
                 success: 404,

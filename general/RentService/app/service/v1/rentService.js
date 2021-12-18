@@ -3,11 +3,11 @@
 const Rent = require('../../models/v1/Rent');
 const express = require("express");
 const utils = require('../../utils/utils')
-const user = require('../../../configs/user.json')
 
 //get all rental records
 // only for admins
 exports.getAllRentalRecords = async function () {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
         try {
             const rentalRecords = await Rent.find();
@@ -34,6 +34,7 @@ exports.getAllRentalRecords = async function () {
 //get all rental records by user
 // only for admins
 exports.getAllUserRentalRecords = async function (emailUser) {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null && user.email == emailUser) {
         try {
             const rentalRecords = await Rent.find({
@@ -62,6 +63,7 @@ exports.getAllUserRentalRecords = async function (emailUser) {
 
 //save new type Vehicle
 exports.addRental = async function (emailUser, destiny, source, typeVehicle, travelDate) {
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null) {
         // get user info - idade e dinheiro - para verificar se tem mais de 16 anos (User)
         let getUser = await utils.getUserByEmail(emailUser);
@@ -192,7 +194,7 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
 
 //save new type Vehicle
 exports.saveRental = async function (emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate, travelEndDate, travelUniqueID, status) {
-   console.log('aqui')
+    const user = require('../../../configs/user.json')
     if (user && user.hasOwnProperty('token') && user.token != null) {
 
         //service that will save the data sended by node-red 
