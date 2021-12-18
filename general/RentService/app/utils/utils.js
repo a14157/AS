@@ -429,6 +429,7 @@ exports.getUserAgeAndGender = async function (filePath) {
         method: 'post',
         url: 'http://localhost:9000/api/predict',
         headers: {
+            'python-api-token': apiTokens.pythonAPI,
             ...data.getHeaders()
         },
         data: data
@@ -439,7 +440,7 @@ exports.getUserAgeAndGender = async function (filePath) {
             return JSON.stringify(response.data);
         })
         .catch(function (error) {
-            //console.log(error);
+            return error.response.data
         });
 
     return finalData;
