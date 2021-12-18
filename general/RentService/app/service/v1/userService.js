@@ -143,8 +143,6 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 
         let ageAndGender = await utils.getUserAgeAndGender(photoPath);
         ageAndGender = JSON.parse(ageAndGender);
-        console.log(ageAndGender.age)
-        console.log(ageAndGender.gender)
 
         let results = await utils.addUser(username, userProfile, name, email, password, money, ageAndGender.gender, ageAndGender.age);
         if (!results) {
