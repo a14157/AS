@@ -30,13 +30,8 @@ app.use(function (req, res, next) {
 
 //Folders for the uploads user photos 
 const dirUploads = './configs/';
-createFolder(dirUploads)
-
-async function createFolder(dirUploads) {
-    if (!fs.existsSync(dirUploads)) {
-        let newFolder = await fs.mkdirSync(dirUploads);
-        let userProfiles = await usersProfiles.writeAllUsersProfiles();
-    }
+if (!fs.existsSync(dirUploads)) {
+    fs.mkdirSync(dirUploads);
 }
 
 //Folders for the uploads user photos
