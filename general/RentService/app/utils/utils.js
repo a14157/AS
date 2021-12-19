@@ -78,8 +78,24 @@ exports.checkIfUserIsAuthenticatedAndProfile = async function (username, passwor
 
 // Get all users profiles
 exports.logoutUser = async function () {
-    const response = await axios.get('http://localhost:3000/v1/user/logoutUser/')
-    return response.data;
+    var config = {
+        method: 'get',
+        url: 'hhttp://localhost:3000/v1/user/logoutUser/',
+        headers: {
+            'user-api-token': apiTokens.userAPI,
+            'rent-api-token': apiTokens.rentAPI
+        }
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data;
+        });
+
+    return data
 }
 
 // check if user is authenticated and type of profile

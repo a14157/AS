@@ -141,7 +141,6 @@ exports.authenticateUser = async function (username, password) {
 //logout user
 exports.logoutUser = async function () {
     try {
-        // criar uma nova rota na outra api para ir buscar os resultados por data
         let results = await utils.logoutUser();
         fs.unlinkSync(userInformationFilePath);
         return {
