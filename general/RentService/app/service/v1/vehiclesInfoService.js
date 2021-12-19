@@ -3,30 +3,38 @@ const utils = require('../../utils/utils')
 //getAllTypesOfVehicles
 exports.getAllTypesOfVehicles = async function () {
     const user = require('../../../configs/user.json')
-    if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
-        try {
-            let results = await utils.getAllTypesOfVehicles();
-            if(results === 'API token required.'){
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
+            try {
+                let results = await utils.getAllTypesOfVehicles();
+                if (results === 'API token required.') {
+                    return {
+                        success: 403,
+                        body: "API token required."
+                    };
+                }
+                if (!(results.length)) {
+                    return {
+                        success: 204,
+                        body: "There's no types of vehicles registered in our system!"
+                    };
+                } else {
+                    return {
+                        success: 200,
+                        body: results
+                    };
+                }
+            } catch (err) {
                 return {
-                    success: 403,
-                    body: "API token required."
+                    success: 400,
+                    body: err
                 };
             }
-            if (!(results.length)) {
-                return {
-                    success: 204,
-                    body: "There's no types of vehicles registered in our system!"
-                };
-            } else {
-                return {
-                    success: 200,
-                    body: results
-                };
-            }
-        } catch (err) {
+        } else {
             return {
-                success: 400,
-                body: err
+                success: 403,
+                body: "Unauthorized"
             };
         }
     } else {
@@ -39,39 +47,47 @@ exports.getAllTypesOfVehicles = async function () {
 
 exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle) {
     const user = require('../../../configs/user.json')
-    if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
-        try {
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
+            try {
 
-            let results = await utils.addNewTypeOfVehicle(idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle);
+                let results = await utils.addNewTypeOfVehicle(idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle);
 
-            if(results === 'API token required.'){
+                if (results === 'API token required.') {
+                    return {
+                        success: 403,
+                        body: "API token required."
+                    };
+                }
+
+
+                if (!results) {
+                    return {
+                        success: 204,
+                        body: "Error"
+                    };
+                } else {
+                    return {
+                        success: 200,
+                        body: results
+                    };
+                }
+            } catch (err) {
                 return {
-                    success: 403,
-                    body: "API token required."
+                    success: 400,
+                    body: err
                 };
             }
-
-            
-            if (!results) {
-                return {
-                    success: 204,
-                    body: "Error"
-                };
-            } else {
-                return {
-                    success: 200,
-                    body: results
-                };
-            }
-        } catch (err) {
+        } else {
             return {
-                success: 400,
-                body: err
+                success: 403,
+                body: "Unauthorized"
             };
         }
     } else {
         return {
-            success: 404,
+            success: 403,
             body: "Unauthorized"
         };
     }
@@ -81,35 +97,43 @@ exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, pr
 //get type vehicles by name
 exports.getVehicleTypeByName = async function (nameTypeVehicle) {
     const user = require('../../../configs/user.json')
-    if (user && user.hasOwnProperty('token') && user.token != null) {
-        try {
-            let results = await utils.getVehicleTypeByName(nameTypeVehicle);
-            if(results === 'API token required.'){
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null) {
+            try {
+                let results = await utils.getVehicleTypeByName(nameTypeVehicle);
+                if (results === 'API token required.') {
+                    return {
+                        success: 403,
+                        body: "API token required."
+                    };
+                }
+                if (!(results.length)) {
+                    return {
+                        success: 204,
+                        body: "Error"
+                    };
+                } else {
+                    return {
+                        success: 200,
+                        body: results
+                    };
+                }
+            } catch (err) {
                 return {
-                    success: 403,
-                    body: "API token required."
+                    success: 400,
+                    body: err
                 };
             }
-            if (!(results.length)) {
-                return {
-                    success: 204,
-                    body: "Error"
-                };
-            } else {
-                return {
-                    success: 200,
-                    body: results
-                };
-            }
-        } catch (err) {
+        } else {
             return {
-                success: 400,
-                body: err
+                success: 403,
+                body: "Unauthorized"
             };
         }
     } else {
         return {
-            success: 404,
+            success: 403,
             body: "Unauthorized"
         };
     }
@@ -119,35 +143,43 @@ exports.getVehicleTypeByName = async function (nameTypeVehicle) {
 //getAllVehicles
 exports.getAllVehicles = async function () {
     const user = require('../../../configs/user.json')
-    if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
-        try {
-            let results = await utils.getAllVehicles();
-            if(results === 'API token required.'){
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
+            try {
+                let results = await utils.getAllVehicles();
+                if (results === 'API token required.') {
+                    return {
+                        success: 403,
+                        body: "API token required."
+                    };
+                }
+                if (!(results.length)) {
+                    return {
+                        success: 204,
+                        body: "Error"
+                    };
+                } else {
+                    return {
+                        success: 200,
+                        body: results
+                    };
+                }
+            } catch (err) {
                 return {
-                    success: 403,
-                    body: "API token required."
+                    success: 400,
+                    body: err
                 };
             }
-            if (!(results.length)) {
-                return {
-                    success: 204,
-                    body: "Error"
-                };
-            } else {
-                return {
-                    success: 200,
-                    body: results
-                };
-            }
-        } catch (err) {
+        } else {
             return {
-                success: 400,
-                body: err
+                success: 403,
+                body: "Unauthorized"
             };
         }
     } else {
         return {
-            success: 404,
+            success: 403,
             body: "Unauthorized"
         };
     }
@@ -155,38 +187,46 @@ exports.getAllVehicles = async function () {
 
 exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy) {
     const user = require('../../../configs/user.json')
-    if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
-        try {
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
+            try {
 
-            let results = await utils.addNewVehicle(idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy);
+                let results = await utils.addNewVehicle(idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy);
 
-            if(results === 'API token required.'){
+                if (results === 'API token required.') {
+                    return {
+                        success: 403,
+                        body: "API token required."
+                    };
+                }
+
+                if (!results) {
+                    return {
+                        success: 204,
+                        body: "There's no types of vehicles registered in our system!"
+                    };
+                } else {
+                    return {
+                        success: 200,
+                        body: results
+                    };
+                }
+            } catch (err) {
                 return {
-                    success: 403,
-                    body: "API token required."
+                    success: 400,
+                    body: err
                 };
             }
-
-            if (!results) {
-                return {
-                    success: 204,
-                    body: "There's no types of vehicles registered in our system!"
-                };
-            } else {
-                return {
-                    success: 200,
-                    body: results
-                };
-            }
-        } catch (err) {
+        } else {
             return {
-                success: 400,
-                body: err
+                success: 403,
+                body: "Unauthorized"
             };
         }
     } else {
         return {
-            success: 404,
+            success: 403,
             body: "Unauthorized"
         };
     }
@@ -195,37 +235,45 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 //get type vehicles by name
 exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
     const user = require('../../../configs/user.json')
-    if (user && user.hasOwnProperty('token') && user.token != null) {
-        try {
-            let results = await utils.getAllFreeVehiclesByType(dateUntilItIsBusy, nameTypeVehicle);
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null) {
+            try {
+                let results = await utils.getAllFreeVehiclesByType(dateUntilItIsBusy, nameTypeVehicle);
 
-            if(results === 'API token required.'){
+                if (results === 'API token required.') {
+                    return {
+                        success: 403,
+                        body: "API token required."
+                    };
+                }
+
+                if (!(results.length)) {
+                    return {
+                        success: 204,
+                        body: "Error"
+                    };
+                } else {
+                    return {
+                        success: 200,
+                        body: results
+                    };
+                }
+            } catch (err) {
                 return {
-                    success: 403,
-                    body: "API token required."
+                    success: 400,
+                    body: err
                 };
             }
-
-            if (!(results.length)) {
-                return {
-                    success: 204,
-                    body: "Error"
-                };
-            } else {
-                return {
-                    success: 200,
-                    body: results
-                };
-            }
-        } catch (err) {
+        } else {
             return {
-                success: 400,
-                body: err
+                success: 403,
+                body: "Unauthorized"
             };
         }
     } else {
         return {
-            success: 404,
+            success: 403,
             body: "Unauthorized"
         };
     }
@@ -233,38 +281,46 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
 
 exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy) {
     const user = require('../../../configs/user.json')
-    if (user && user.hasOwnProperty('token') && user.token != null) {
-        try {
-            let results = await utils.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy, location, isBusy);
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null) {
+            try {
+                let results = await utils.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy, location, isBusy);
 
-            if(results === 'API token required.'){
+                if (results === 'API token required.') {
+                    return {
+                        success: 403,
+                        body: "API token required."
+                    };
+                }
+
+
+                if (!(results.length)) {
+                    return {
+                        success: 204,
+                        body: "Error"
+                    };
+                } else {
+                    return {
+                        success: 200,
+                        body: results
+                    };
+                }
+            } catch (err) {
                 return {
-                    success: 403,
-                    body: "API token required."
+                    success: 400,
+                    body: err
                 };
             }
-
-
-            if (!(results.length)) {
-                return {
-                    success: 204,
-                    body: "Error"
-                };
-            } else {
-                return {
-                    success: 200,
-                    body: results
-                };
-            }
-        } catch (err) {
+        } else {
             return {
-                success: 400,
-                body: err
+                success: 403,
+                body: "Unauthorized"
             };
         }
     } else {
         return {
-            success: 404,
+            success: 403,
             body: "Unauthorized"
         };
     }
@@ -275,7 +331,7 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
     try {
         let results = await utils.updateVehicleCharge(idVehicle, chargeValue, operation);
 
-        if(results === 'API token required.'){
+        if (results === 'API token required.') {
             return {
                 success: 403,
                 body: "API token required."

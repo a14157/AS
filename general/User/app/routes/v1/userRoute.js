@@ -3,6 +3,15 @@ const router = express.Router();
 const userController = require('../../controllers/v1/userController');
 
 
+/**
+ * @route Get /user/
+ * @group User operations.
+ * @description Route to fetch all users
+ * @returns {object} 200 - Return All Users
+ * @returns {object} 204 -No Content
+ * @returns {Error}  400  - Bad request
+ */
+ router.get('/verifytoken', userController.verifyJWT); 
 
 /**
  * @route Get /user/
@@ -54,7 +63,7 @@ router.get('/', userController.getAllUsers);
  * @returns {Error}  404 - Unauthorized
  * @returns {Error}  400 - Bad request
  */
- router.post('/authenticateUser/', userController.authenticateUser);
+ router.post('/authenticateUser/', userController.authenticateUser); 
  
  /**
  * @route Post /user/logoutUser/

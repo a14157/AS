@@ -1,5 +1,6 @@
 const axios = require('axios');
 const apiTokens = require('../config/apiTokens.json');
+const userToken = require('../../configs/user.json');
 
 /* USER API */
 
@@ -8,42 +9,42 @@ exports.getAllUsersProfiles = async function () {
     var config = {
         method: 'get',
         url: 'http://localhost:3000/v1/userprofile/',
-        headers: { 
-          'user-api-token': apiTokens.userAPI, 
-          'rent-api-token': apiTokens.rentAPI
+        headers: {
+            'user-api-token': apiTokens.userAPI,
+            'rent-api-token': apiTokens.rentAPI
         }
-      };
-      
-      var data = await axios(config)
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (error) {
-        return error.response.data;
-      });
+    };
 
-      return data
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data;
+        });
+
+    return data
 }
 
 exports.getUserByEmail = async function (email) {
     var config = {
         method: 'get',
         url: 'http://localhost:3000/v1/user/' + email,
-        headers: { 
-          'user-api-token': apiTokens.userAPI, 
-          'rent-api-token': apiTokens.rentAPI
+        headers: {
+            'user-api-token': apiTokens.userAPI,
+            'rent-api-token': apiTokens.rentAPI
         }
-      };
-      
-      var data = await axios(config)
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (error) {
-        return error.response.data;
-      });
+    };
 
-      return data
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data;
+        });
+
+    return data
 }
 
 // check if user is authenticated and type of profile
@@ -101,7 +102,7 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         url: 'http://localhost:3000/v1/user/',
         headers: {
             'Content-Type': 'application/json',
-            'user-api-token': apiTokens.userAPI, 
+            'user-api-token': apiTokens.userAPI,
             'rent-api-token': apiTokens.rentAPI
         },
         data: data
@@ -144,7 +145,7 @@ exports.getVehicleTypeByName = async function (nameTypeVehicle) {
 
     var config = {
         method: 'get',
-        url: 'http://localhost:4000/v1/typevehicle/'+nameTypeVehicle,
+        url: 'http://localhost:4000/v1/typevehicle/' + nameTypeVehicle,
         headers: {
             'vehicle-api-token': apiTokens.vehicleAPI,
             'rent-api-token': apiTokens.rentAPI
@@ -199,7 +200,7 @@ exports.updateUserMoney = async function (email, money, operation) {
         url: 'http://localhost:3000/v1/user/' + email + '/' + money + '/' + operation,
         headers: {
             'Content-Type': 'application/json',
-            'user-api-token': apiTokens.userAPI, 
+            'user-api-token': apiTokens.userAPI,
             'rent-api-token': apiTokens.rentAPI
         },
     };
@@ -221,20 +222,20 @@ exports.getAllVehicles = async function () {
     var config = {
         method: 'get',
         url: 'http://localhost:4000/v1/vehicle/',
-        headers: { 
-          'vehicle-api-token': apiTokens.vehicleAPI, 
-          'rent-api-token': apiTokens.rentAPI
+        headers: {
+            'vehicle-api-token': apiTokens.vehicleAPI,
+            'rent-api-token': apiTokens.rentAPI
         }
-      };
-      
-      var data = await axios(config)
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (error) {
-        return error.response.data
-      });
-      return data;  
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data
+        });
+    return data;
 }
 
 exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, location, latLocation, lagLocation, vehicleChargePercentage, isBusy) {
@@ -278,20 +279,20 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
     var config = {
         method: 'get',
         url: 'http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle,
-        headers: { 
-          'vehicle-api-token': apiTokens.vehicleAPI, 
-          'rent-api-token': apiTokens.rentAPI
+        headers: {
+            'vehicle-api-token': apiTokens.vehicleAPI,
+            'rent-api-token': apiTokens.rentAPI
         }
-      };
-      
-      var data = await axios(config)
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (error) {
-        return error.response.data
-      });
-      return data;  
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data
+        });
+    return data;
 }
 
 exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy) {
@@ -308,7 +309,7 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
         url: 'http://localhost:4000/v1/vehicle/' + idVehicle,
         headers: {
             'Content-Type': 'application/json',
-            'vehicle-api-token': apiTokens.vehicleAPI, 
+            'vehicle-api-token': apiTokens.vehicleAPI,
             'rent-api-token': apiTokens.rentAPI
         },
         data: data
@@ -331,7 +332,7 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
         url: 'http://localhost:4000/v1/vehicle/' + idVehicle + '/' + chargeValue + '/' + operation,
         headers: {
             'Content-Type': 'application/json',
-            'vehicle-api-token': apiTokens.vehicleAPI, 
+            'vehicle-api-token': apiTokens.vehicleAPI,
             'rent-api-token': apiTokens.rentAPI
         },
     };
@@ -361,7 +362,7 @@ exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHou
         url: 'http://localhost:4500/v1/routeprice/',
         headers: {
             'Content-Type': 'application/json',
-            'route-api-token': apiTokens.routPriceAPI, 
+            'route-api-token': apiTokens.routPriceAPI,
             'rent-api-token': apiTokens.rentAPI
         },
         data: data
@@ -401,7 +402,7 @@ exports.addRentRegister = async function (travelUniqueID, emailUser, travelCost,
         url: 'http://localhost:6000/v1/',
         headers: {
             'Content-Type': 'application/json',
-            'rental-requests-api-token': apiTokens.rentalRequestAPI, 
+            'rental-requests-api-token': apiTokens.rentalRequestAPI,
             'rent-api-token': apiTokens.rentAPI
         },
         data: data
@@ -422,7 +423,6 @@ exports.addRentRegister = async function (travelUniqueID, emailUser, travelCost,
 
 exports.getUserAgeAndGender = async function (filePath) {
     let FormData = require('form-data');
-    console.log('aqui')
     let fs = require('fs');
     let data = new FormData();
     data.append('image', fs.createReadStream(filePath));
@@ -447,4 +447,25 @@ exports.getUserAgeAndGender = async function (filePath) {
 
     return finalData;
 
+}
+
+
+exports.verifyUserToken = async function () {
+    var config = {
+        method: 'get',
+        url: 'http://localhost:3000/v1/user/verifytoken',
+        headers: {
+            'x-access-token': userToken.token
+        }
+    };
+
+    let finalData = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            return error.response.data
+        });
+
+    return finalData;
 }

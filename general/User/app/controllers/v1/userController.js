@@ -1,6 +1,8 @@
 const userService = require('../../service/v1/userService');
 const passport = require('passport')
 const apiTokens = require('../../config/apiTokens.json');
+//const jwt = require('express-jwt');
+const jwt = require('jsonwebtoken');
 
 exports.getAllUsers = async function (req, res) {
     if (req.headers['user-api-token'] && req.headers['user-api-token'] == apiTokens.userAPI && req.headers['rent-api-token'] && req.headers['rent-api-token'] == apiTokens.rentAPI) {
@@ -103,3 +105,27 @@ exports.updateUserMoney = async function (req, res) {
         res.status(403).json('API token required.');
     }
 };
+
+
+exports.verifyJWT = async function (req, res) {
+    const token = req.headers['x-access-token'];
+    if (!token) return res.status(401).json({
+        auth: false,
+        message: 'No token provided.'
+    });
+
+    jwt.verify(token, "secret", function (err, decoded) {
+        if (err) {
+            return res.status(500).json({
+                auth: false,
+                message: 'Failed to authenticate token.'
+            });
+        }else{
+            req.userId = decoded.id;
+            return res.status(500).json({
+                auth: true,
+                message: 'Success to authenticate token.' 
+            });
+        }
+    });
+}

@@ -24,35 +24,43 @@ exports.writeAllUsersProfiles = async function () {
 //get all users profiles
 exports.getAllUsersProfiles = async function () {
     const user = require('../../../configs/user.json')
-    if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
-        try {
-            let results = await utils.getAllUsersProfiles();
-            if(results === 'API token required.'){
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
+            try {
+                let results = await utils.getAllUsersProfiles();
+                if (results === 'API token required.') {
+                    return {
+                        success: 403,
+                        body: "API token required."
+                    };
+                }
+                if (!results) {
+                    return {
+                        success: 204,
+                        body: "There's no user profiles registered in our system!"
+                    };
+                } else {
+                    return {
+                        success: 200,
+                        body: results
+                    };
+                }
+            } catch (err) {
                 return {
-                    success: 403,
-                    body: "API token required."
+                    success: 400,
+                    body: err
                 };
             }
-            if (!results) {
-                return {
-                    success: 204,
-                    body: "There's no user profiles registered in our system!"
-                };
-            } else {
-                return {
-                    success: 200,
-                    body: results
-                };
-            }
-        } catch (err) {
+        } else {
             return {
-                success: 400,
-                body: err
+                success: 403,
+                body: "Unauthorized"
             };
         }
     } else {
         return {
-            success: 404,
+            success: 403,
             body: "Unauthorized"
         };
     }
@@ -60,35 +68,43 @@ exports.getAllUsersProfiles = async function () {
 
 exports.getUserByEmail = async function (email) {
     const user = require('../../../configs/user.json')
-    if (user && user.hasOwnProperty('token') && user.token != null) {
-        try {
-            let result = await utils.getUserByEmail(email);
-            if(result === 'API token required.'){
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null) {
+            try {
+                let result = await utils.getUserByEmail(email);
+                if (result === 'API token required.') {
+                    return {
+                        success: 403,
+                        body: "API token required."
+                    };
+                }
+                if (!(result.length)) {
+                    return {
+                        success: 204,
+                        body: "There's no user registered in our system!"
+                    };
+                } else {
+                    return {
+                        success: 200,
+                        body: result
+                    };
+                }
+            } catch (err) {
                 return {
-                    success: 403,
-                    body: "API token required."
+                    success: 400,
+                    body: err
                 };
             }
-            if (!(result.length)) {
-                return {
-                    success: 204,
-                    body: "There's no user registered in our system!"
-                };
-            } else {
-                return {
-                    success: 200,
-                    body: result
-                };
-            }
-        } catch (err) {
+        } else {
             return {
-                success: 400,
-                body: err
+                success: 403,
+                body: "Unauthorized"
             };
         }
     } else {
         return {
-            success: 404,
+            success: 403,
             body: "Unauthorized"
         };
     }
@@ -97,7 +113,6 @@ exports.getUserByEmail = async function (email) {
 //authenticate user
 exports.authenticateUser = async function (username, password) {
     try {
-
         let results = await utils.checkIfUserIsAuthenticatedAndProfile(username, password);
         if (results) {
             let auxResults = JSON.stringify(results)
@@ -112,7 +127,7 @@ exports.authenticateUser = async function (username, password) {
         } else {
             return {
                 success: 204,
-                body: "There's no types of vehicles registered in our system!"
+                body: "Error on authenticate user!"
             };
         }
     } catch (err) {
@@ -153,7 +168,7 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 
         let ageAndGender = await utils.getUserAgeAndGender(photoPath);
         ageAndGender = JSON.parse(ageAndGender);
-        if(ageAndGender.Error === 'API token required.'){
+        if (ageAndGender.Error === 'API token required.') {
             return {
                 success: 403,
                 body: "API token required."
@@ -161,9 +176,8 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         }
 
         let results = await utils.addUser(username, userProfile, name, email, password, money, ageAndGender.gender, ageAndGender.age);
-        console.log(results)
-        
-        if(results === 'API token required.'){
+
+        if (results === 'API token required.') {
             return {
                 success: 403,
                 body: "API token required."
@@ -192,32 +206,39 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 
 //update  user money
 exports.updateUserMoney = async function (email, money, operation) {
-    try {
-        let results = await utils.updateUserMoney(email, money, operation);
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        try {
+            let results = await utils.updateUserMoney(email, money, operation);
 
-        if(results === 'API token required.'){
+            if (results === 'API token required.') {
+                return {
+                    success: 403,
+                    body: "API token required."
+                };
+            }
+
+            if (!results) {
+                return {
+                    success: 404,
+                    body: "There's no users with that email registered in our system!"
+                };
+            } else {
+                return {
+                    success: 201,
+                    body: results
+                };
+            }
+        } catch (err) {
             return {
-                success: 403,
-                body: "API token required."
+                success: 400,
+                body: err
             };
         }
-
-        if (!results) {
-            return {
-                success: 404,
-                body: "There's no users with that email registered in our system!"
-            };
-        } else {
-            return {
-                success: 201,
-                body: results
-            };
-        }
-    } catch (err) {
+    } else {
         return {
-            success: 400,
-            body: err
+            success: 403,
+            body: "Unauthorized"
         };
     }
-
 }
