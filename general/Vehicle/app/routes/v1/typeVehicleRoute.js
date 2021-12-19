@@ -6,7 +6,7 @@ const typeVehicleController = require('../../controllers/v1/typeVehicleControlle
 /**
  * @route Get /typevehicle/
  * @group Type Vehicle operations.
- * @description Route to get all Types of Vehicle
+ * @description Route to get all types of Vehicle
  * @returns {object} 200 - Return All Type Vehicle
  * @returns {object} 204 -No Content
  * @returns {Error}  400  - Bad request
@@ -17,7 +17,7 @@ router.get('/', typeVehicleController.getAllTypeVehicle);
 /**
  * @route Get /typevehicle/
  * @group Type Vehicle operations.
- * @description Route to get Types of Vehicle by name
+ * @description Route to get types of vehicle by name
  * @param {object} Type Vehicle - Type Vehicle
  * @returns {object} 200 - Return Type Vehicle
  * @returns {object} 204 -No Content
@@ -29,7 +29,7 @@ router.get('/', typeVehicleController.getAllTypeVehicle);
 /**
  * @route Post /typevehicle/
  * @group Type Vehicle operations.
- * @description Route to add an Type of Vehicle
+ * @description Route to add an type of vehicle
  * @param {object} Type Vehicle - Type Vehicle
  * @returns {object} 201 - Resource Created(Type Vehicle)
  * @returns {Error}  400  - Bad request

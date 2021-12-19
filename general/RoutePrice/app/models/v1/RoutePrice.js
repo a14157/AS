@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 
 /**
  * @typedef RoutePrice
- * @property {String} startingPoint - trip starting point
- * @property {String} arrivalPoint - trip arrival point
+ * @property {String} startingPoint - travel starting point
+ * @property {String} arrivalPoint - travel arrival point
  * @property {String} timeOfTravel - Time of travel
+ * @property {String} distance - Travel distance
  * @property {String} price - travel price
  * @property {String} typeOfVehicle - type of vehicle that will make the travel
  */

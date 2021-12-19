@@ -5,14 +5,19 @@ var Schema = mongoose.Schema;
 
 /**
  * @typedef CarBehavior
- * @property {String} source - Source
- * @property {String} destiny - Destiny
- * @property {String} typeVehicle - Destiny
- * @property {Date} travelStartDate - Destiny
- * @property {Date} travelEndDate - Destiny
+ * @property {String} source - Travel Source
+ * @property {String} destiny - Travel Destiny
+ * @property {String} typeVehicle - Type of vehicle that will make the travel
+ * @property {Date} travelStartDate - Travel start date
+ * @property {Date} travelEndDate - Travel end date
+ * @property {String} travelDuration - Travel duration
  * @property {String} signalState - Signal entering or leaving Node-Red?
+ * @property {String} idVehicle - Vehicle Identification
+ * @property {String} travelUniqueID - Travel Identification
+ * @property {String} emailUser - User email of travel
+ * @property {String} travelCost - Travel Cost
+ * @property {status} status - Status of travel
  */
- //source, destiny, typeVehicle, date begin, date end travelEndDate
 const carBehavior = mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
     source:{ 

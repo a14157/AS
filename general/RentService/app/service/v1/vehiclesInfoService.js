@@ -4,7 +4,6 @@ const user = require('../../../configs/user.json')
 //getAllTypesOfVehicles
 exports.getAllTypesOfVehicles = async function () {
     let checkToken = await utils.verifyUserToken();
-    console.log(checkToken)
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
             try {
@@ -201,7 +200,7 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
                 if (!results) {
                     return {
                         success: 204,
-                        body: "There's no types of vehicles registered in our system!"
+                        body: "Error on add a new vehicle!"
                     };
                 } else {
                     return {

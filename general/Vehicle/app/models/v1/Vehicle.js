@@ -5,10 +5,16 @@ var Schema = mongoose.Schema;
 /**
  * @typedef Vehicle
  * @property {String} idVehicle - Vehicle identification
+ * @property {Date} dateUntilItIsBusy - Date until vehicle is busy
+ * @property {String} location - Vehicle location
+ * @property {String} latLocation - Vehicle location latitude
+ * @property {String} lagLocation - Vehicle location longitude
+ * @property {TypeVehicle} typeVehicle - Type Vehicle
+ * @property {String} nameTypeVehicle - Name Type Vehicle
+ * @property {Number} priceByHourTypeVehicle - Price By Hour
+ * @property {Number} vehicleChargePercentage - Vehicle Charge Percentage
  * @property {Boolean} isBusy - Vehicle status: busy or free
- * @property {TypeVehicle} TypeVehicle - Type Vehicle
  */
-
 const vehicleSchema = mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
     idVehicle:{ 

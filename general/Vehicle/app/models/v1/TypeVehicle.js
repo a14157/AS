@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
  * @typedef TypeVehicle
  * @property {String} idVehicle -Type of Vehicle identification
  * @property {String} nameTypeVehicle - Vehicle type name (car, van, etc.)
+ * @property {Number} priceByHourTypeVehicle - Price by hour vehicle
  */
 
 const typeVehicleSchema = mongoose.Schema({

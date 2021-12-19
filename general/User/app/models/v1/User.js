@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 /**
  * @typedef user
+ * @property {String} profile - User Profile Name
  * @property {String} username - Username
  * @property {String} name - User name
  * @property {String} email - User Email
@@ -12,8 +13,6 @@ const jwt = require('jsonwebtoken');
  * @property {String} money - User money
  * @property {String} Gender - User Gender
  * @property {Number} age - User Age
- * @property {String} photoPath - User Photo
- * @property {String} photoType - User Photo
  */
 const userSchema = new Schema({
     id: mongoose.Schema.Types.ObjectId,

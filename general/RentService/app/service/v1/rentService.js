@@ -4,7 +4,7 @@ const Rent = require('../../models/v1/Rent');
 const express = require("express");
 const utils = require('../../utils/utils')
 
-//get all rental records
+// get all rental records
 // only for admins
 exports.getAllRentalRecords = async function () {
     const user = require('../../../configs/user.json')

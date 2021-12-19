@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 /**
  * @typedef User Profile
- * @property {String} idVehicle -Type of Vehicle identification
- * @property {String} nameTypeVehicle - Vehicle type name (car, van, etc.)
+ * @property {String} profileID - Profile identification
+ * @property {String} nameProfile - Profile name (admin, user, etc)
  */
 
 const userProfileSchema = mongoose.Schema({

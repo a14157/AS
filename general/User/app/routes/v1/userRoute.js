@@ -6,9 +6,8 @@ const userController = require('../../controllers/v1/userController');
 /**
  * @route Get /user/
  * @group User operations.
- * @description Route to fetch all users
- * @returns {object} 200 - Return All Users
- * @returns {object} 204 -No Content
+ * @description Route to verify token
+ * @returns {object} 200 - Return Token Validattion
  * @returns {Error}  400  - Bad request
  */
  router.get('/verifytoken', userController.verifyJWT); 
@@ -28,7 +27,7 @@ router.get('/', userController.getAllUsers);
  * @group User operations.
  * @description Route to get user by email
  * @param {String} email  - User Email
- * @returns {object} 200 - Return All Users
+ * @returns {object} 200 - Return User
  * @returns {object} 204 -No Content
  * @returns {Error}  400  - Bad request
  */
@@ -38,9 +37,11 @@ router.get('/', userController.getAllUsers);
  * @route Patch /user/
  * @group User operations.
  * @description Route to update user money by ID
- * @param {String} email  - User Email
- * @returns {object} Resource Updated(User)
- * @returns {Error}  400  - Bad request
+ * @param {String} email - User Email
+ * @param {String} money - Money quantity
+ * @param {String} operation - Type of operation: add or remove money
+ * @returns {object} 201 - Resource Updated(User)
+ * @returns {Error}  400 - Bad request
  */
   router.patch('/:email/:money/:operation', userController.updateUserMoney); 
 
