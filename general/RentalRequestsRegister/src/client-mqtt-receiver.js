@@ -34,7 +34,7 @@ receptor.connect = function connect(connectCallback, messageCallback) {
   });
 
   receptor.client.on('error', (err) => {
-    console.log(`An error occurred. ${err}`);
+    console.log(`'Receiver: An error occurred. ${err}`);
   });
 };
 

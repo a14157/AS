@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+require('dotenv').config();
 const port = process.env.PORT || 3000;
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -29,7 +30,7 @@ app.use(function (req, res, next) {
 });
 
 const authentication = jwt({
-    secret: 'secret',
+    secret: process.env.JWT_SECRET,
     userProperty: 'payload',
     algorithms: ['HS256'] // ['rs256',"sha1", "HS256"]
 });
@@ -63,6 +64,7 @@ const swaggerOptions = {
 expressSwagger(swaggerOptions);
 
 app.listen(port, () => {
+    console.log(process.env.JWT_SECRET)
     console.log(`Example app listening at http://localhost:${port}`)
 })
 

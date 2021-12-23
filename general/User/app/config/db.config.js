@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const urlDB = 'mongodb://localhost:27017/TPAS';
+const urlDB = `${process.env.DBHOST}${process.env.DBNAME}`;
+
 
 mongoose.connect(urlDB, {useUnifiedTopology: true, useNewUrlParser: true});
 

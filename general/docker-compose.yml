@@ -1,0 +1,124 @@
+version: '3'
+services:
+  database:
+    image: mongo:latest
+    container_name: database
+    ports:
+      - "27017:27017"
+    restart: always
+    networks:
+      - rental-internal-network
+
+  node-red:
+    image: nodered/node-red:latest
+    container_name: node-red
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/London
+    networks:
+      - rental-internal-network
+    ports:
+      - "1880:1880"
+    volumes:
+      - node-red-data:/data
+
+  mqttbroker:
+    image: eclipse-mosquitto:1.6.13
+    container_name: mqttbroker
+    hostname: brocker
+    restart: unless-stopped
+    networks:
+      - rental-internal-network
+    ports:
+      - "1883:1883"
+
+  users:
+    container_name: users
+    build:
+      context: ./User
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DBHOST=mongodb://database:27017/
+      - DBNAME=TPAS
+    restart: "no"
+    networks:
+      - rental-internal-network
+  
+  vehicles:
+    container_name: vehicles
+    build:
+      context: ./Vehicle
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=3000
+      - DBHOST=mongodb://database:27017/
+      - DBNAME=TPAS
+    restart: "no"
+    networks:
+      - rental-internal-network
+ 
+  routeprice:
+    container_name: routeprice
+    build:
+      context: ./RoutePrice
+      dockerfile: Dockerfile
+    ports:
+      - "4500:4500"
+    environment:
+      - PORT=3000
+      - DBHOST=mongodb://database:27017/
+      - DBNAME=TPAS
+    restart: "no"
+    networks:
+      - rental-internal-network
+
+  rentservice:
+    container_name: rentservice
+    build:
+      context: ./RentService
+      dockerfile: Dockerfile
+    ports:
+      - "3500:3500"
+    environment:
+      - PORT=3000
+      - DBHOST=mongodb://database:27017/
+      - DBNAME=TPAS
+    restart: "no"
+    networks:
+      - rental-internal-network
+
+  rentalrequestservice:
+    container_name: rentalrequestservice
+    build:
+      context: ./RentalRequestsRegister
+      dockerfile: Dockerfile
+    ports:
+      - "6000:6000"
+    environment:
+      - PORT=6000
+      - DBHOST=mongodb://database:27017/
+      - DBNAME=TPAS
+    restart: "no"
+    networks:
+      - rental-internal-network
+
+  python:
+    container_name: python
+    build:
+      context: ./Python
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    networks:
+      - rental-internal-network
+
+volumes:
+  node-red-data:
+
+networks:
+  rental-internal-network:

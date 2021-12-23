@@ -38,7 +38,7 @@ exports.addRentRecord = async function (source, destiny, typeVehicle, dateBegin,
             //reconnectPeriod: 1000,
         })
 
-        const topic = 'rent'
+        const topic = process.env.BROKER_PUBLISH;
         client.on('connect', () => {
             console.log('Publisher: Connected')
             client.subscribe(topic, function (err) {

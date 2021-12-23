@@ -2,7 +2,8 @@
 
 const express = require("express");
 const cors = require("cors");
-const PORT = 6000;
+require('dotenv').config();
+const PORT = process.env.PORT || 6000;
 const CarBehavior = require("./src/models/CarBehavior");
 const mqttPublisher = require("./src/client-mqtt-publisher");
 const bodyParser = require("body-parser");
@@ -15,7 +16,7 @@ const lista_registos = new Array();
 
 const receptor = require("./src/client-mqtt-receiver");
 
-let db = require("./db.config");
+let db = require("./src/config/db.config");
 
 const leitura_mqtt = () => {
   console.log("a iniciar...");
