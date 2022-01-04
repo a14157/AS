@@ -83,21 +83,6 @@ function isBounded(latitude, longitude) {
 //create new route
 exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehicle, priceByHourTypeVehicle) {
 
-    /*
-
-    startingPoint, arrivalPoint, timeOfTravel, price, typeOfVehicle
-
-    distance and timeOfTravel will be obtained via API
-
-    // get lag and lat = https://geocode.xyz/Viana%20do%20Castelo?region=EU&geoit=json
-    
-    // https://locationiq.com/sandbox/routing/optimize get distance bettewen two points + faster route + duration
-
-    5000 requests by day
-    
-    */
-
-
     if (isBounded(parseInt(arrivalPoint.lat), parseInt(arrivalPoint.long)) === false) {
         return {
             success: 404,
@@ -105,21 +90,29 @@ exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehic
         };
     }
 
-    let origin = await getVertice(startingPoint);
-    let destiny = await getVertice(arrivalPoint);
+    let origin, destiny, finalDistance;
 
-    console.log(origin)
-    console.log(destiny)
+    try {
+        origin = await getVertice(startingPoint);
+        destiny = await getVertice(arrivalPoint);
+    } catch (err) {
+        return {
+            success: 400,
+            body: err
+        };
+    }
 
-    let finalDistance;
 
     try {
         finalDistance = await getRota(origin, destiny);
     } catch (err) {
-        console.log(err)
+        return {
+            success: 400,
+            body: err
+        };
     }
 
-    let timeOfTravel = 5;
+    let timeOfTravel = Math.trunc(2 * finalDistance);
 
     let finalPrice = priceByHourTypeVehicle * finalDistance;
 
@@ -134,9 +127,6 @@ exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehic
             timeOfTravel: timeOfTravel,
             price: finalPrice.toString()
         });
-
-        console.log(routePrice)
-
 
         const finalRoutePrice = await routePrice.save();
 
@@ -171,7 +161,7 @@ async function getRota(destino, origem) {
         .catch(function (error) {
             return error.response.data
         });
-    
+
 
     let i = 0;
     let distancia = 0;
@@ -189,7 +179,7 @@ async function getVertice(pontoSelecionado) {
 		pontoSelecionado.long
 	};y:${pontoSelecionado.lat};`;
 
-    
+
 
     var config = {
         method: 'get',
@@ -206,7 +196,7 @@ async function getVertice(pontoSelecionado) {
         .catch(function (error) {
             return error.response.data
         });
-    
+
 
     let features = data.features;
     return features[0].properties.id;
