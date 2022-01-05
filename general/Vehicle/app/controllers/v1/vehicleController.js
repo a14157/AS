@@ -19,7 +19,10 @@ exports.getAllFreeVehiclesByType = async function (req, res) {
         try {
             let dateUntilItIsBusy = new Date(req.params.dateUntilItIsBusy).toISOString();
             let type = req.params.type;
-            const result = await vehicleService.getAllFreeVehiclesByType(dateUntilItIsBusy, type);
+            let userPosLat = req.params.userPosLat;
+            let userPosLong = req.params.userPosLong;
+            let userDistance = req.params.distance;
+            const result = await vehicleService.getAllFreeVehiclesByType(dateUntilItIsBusy, type, userPosLat, userPosLong, userDistance);
             res.status(result.success).send(result.body);
         } catch (err) {
             res.status(400).send(err);

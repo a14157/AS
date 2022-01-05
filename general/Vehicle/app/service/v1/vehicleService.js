@@ -96,24 +96,55 @@ exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle
     }
 }
 
+function distance(lat1, lon1, lat2, lon2, unit) {
+    let radlat1 = Math.PI * lat1 / 180
+    let radlat2 = Math.PI * lat2 / 180
+    let theta = lon1 - lon2
+    let radtheta = Math.PI * theta / 180
+    let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    if (dist > 1) {
+        dist = 1;
+    }
+    dist = Math.acos(dist)
+    dist = dist * 180 / Math.PI
+    dist = dist * 60 * 1.1515
+    if (unit == "K") {
+        dist = dist * 1.609344
+    }
+    if (unit == "N") {
+        dist = dist * 0.8684
+    }
+    return dist
+}
 
 // get all free vehicles
-exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
-    console.log('getAllFreeVehiclesByType')
-    console.log(dateUntilItIsBusy)
-    console.log(nameTypeVehicle)
+exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle, userPosLat, userPosLong, userDistance) {
+
     try {
         //retorna todos os vehicles cujo a data de ocupado é inferior à data recebida por parametro
         const vehicles = await Vehicle.find({
-            'dateUntilItIsBusy': { $lte: dateUntilItIsBusy },
+            'dateUntilItIsBusy': {
+                $lte: dateUntilItIsBusy
+            },
             "nameTypeVehicle": nameTypeVehicle,
             "isBusy": false
         });
+        
+        let availableVehicles = [];
+        console.log(userDistance)
 
-        console.log(vehicles)
+        for (let i = 0; i < vehicles.length; i++) {
+            // if this location is within 1KM of the user, add it to the list
+            if (distance(userPosLat, userPosLong, vehicles[i].latLocation, vehicles[i].lagLocation, "K") <= parseInt(userDistance)) {
+                console.log(vehicles[i]._id)
+                availableVehicles.push(vehicles[i]);
+            }
+        }
 
+        console.log(availableVehicles)
+        
 
-        if (!(vehicles.length)) {
+        if (!availableVehicles.length) {
             return {
                 success: 204,
                 body: "There's no free vehicles!"
@@ -121,7 +152,7 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
         } else {
             return {
                 success: 200,
-                body: vehicles
+                body: availableVehicles
             };
         }
     } catch (err) {
@@ -181,11 +212,11 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
         // add or remove money from user
         let updatedCharge;
 
-        
-        if(operation == "add"){
-            updatedCharge =  parseInt(auxUser[0].vehicleChargePercentage) + parseInt(chargeValue);
-        }else{
-            updatedCharge =  parseInt(auxUser[0].vehicleChargePercentage) - parseInt(chargeValue);
+
+        if (operation == "add") {
+            updatedCharge = parseInt(auxUser[0].vehicleChargePercentage) + parseInt(chargeValue);
+        } else {
+            updatedCharge = parseInt(auxUser[0].vehicleChargePercentage) - parseInt(chargeValue);
         }
 
         let vehicle = await Vehicle.findOneAndUpdate({
@@ -205,15 +236,15 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
 
         if (vehicle) {
 
-            if(vehicleUpdated[0].vehicleChargePercentage < 0){
-                return{
+            if (vehicleUpdated[0].vehicleChargePercentage < 0) {
+                return {
                     success: 200,
                     body: {
                         message: "Vehicle without charge.",
                         statusCode: 400
                     }
 
-                    
+
                 }
             }
 

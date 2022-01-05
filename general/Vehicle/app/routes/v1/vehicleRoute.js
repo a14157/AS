@@ -19,11 +19,14 @@ router.get('/', vehicleController.getAllVehicles);
  * @description Route to get all free vehicles by date and type
  * @param {String} dateUntilItIsBusy - Date until vehicle is busy
  * @param {String} type - Type of Vehicle - Car, Scooter, etc
+ * @param {userPosLat} userPosLat - Latitude of the user's current position
+ * @param {userPosLong} userPosLong - Longitude of the user's current position
+ * @param {distance} distance - Search radius from user position
  * @returns {object} 200 - Return All Free Vehicles
  * @returns {object} 204 - No Content
  * @returns {Error}  400  - Bad request
  */
- router.get('/getAllFreeVehiclesByType/:dateUntilItIsBusy/:type', vehicleController.getAllFreeVehiclesByType); 
+ router.get('/getAllFreeVehiclesByType/:dateUntilItIsBusy/:type/:userPosLat/:userPosLong/:distance', vehicleController.getAllFreeVehiclesByType); 
 
 /**
  * @route Get /vehicle/:idVehicle
