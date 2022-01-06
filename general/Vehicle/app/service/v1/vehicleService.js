@@ -121,7 +121,7 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle, userPosLat, userPosLong, userDistance) {
 
     try {
-        //retorna todos os vehicles cujo a data de ocupado é inferior à data recebida por parametro
+        //retorna todos os vehicles cujo a data de ocupado é inferior à data recebida por parametro 
         const vehicles = await Vehicle.find({
             'dateUntilItIsBusy': {
                 $lte: dateUntilItIsBusy
@@ -134,7 +134,7 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
         console.log(userDistance)
 
         for (let i = 0; i < vehicles.length; i++) {
-            // if this location is within 1KM of the user, add it to the list
+            // if this location is within {userDistance} of the user, add it to the list
             if (distance(userPosLat, userPosLong, vehicles[i].latLocation, vehicles[i].lagLocation, "K") <= parseInt(userDistance)) {
                 console.log(vehicles[i]._id)
                 availableVehicles.push(vehicles[i]);

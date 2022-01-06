@@ -102,9 +102,11 @@ exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehic
         };
     }
 
+    console.log()
+
 
     try {
-        finalDistance = await getRota(origin, destiny);
+        finalDistance = await getRota(origin.pointID, destiny.pointID);
     } catch (err) {
         return {
             success: 400,
@@ -116,6 +118,9 @@ exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehic
 
     let finalPrice = priceByHourTypeVehicle * finalDistance;
 
+
+    startingPoint['streetName'] = origin.streetName;
+    arrivalPoint['streetName'] = destiny.streetName;
 
     try {
 
@@ -199,5 +204,5 @@ async function getVertice(pontoSelecionado) {
 
 
     let features = data.features;
-    return features[0].properties.id;
+    return {pointID: features[0].properties.id, streetName: features[0].properties.name};
 }

@@ -81,6 +81,7 @@ exports.getAllUserRentalRecords = async function (emailUser) {
 exports.addRental = async function (emailUser, destiny, source, typeVehicle, travelDate) {
     const user = require('../../../configs/user.json')
     let checkToken = await utils.verifyUserToken();
+
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null) {
             // get user info - idade e dinheiro - para verificar se tem mais de 16 anos (User)
@@ -90,7 +91,7 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
             // registar hora de inicio
             let newTravelDate = new Date(travelDate).toISOString();
             // ir buscar um carro do tipo x mais perto e livre (Vehicle)
-            let vehicle = await utils.getAllFreeVehiclesByType(newTravelDate, typeVehicle);
+            let vehicle = await utils.getAllFreeVehiclesByType(newTravelDate, typeVehicle, source);
 
             //with will return an array of cars or just one car
             // check if it is only one car ou more
@@ -107,6 +108,11 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
             }
             vehicle = vehicle[Math.floor(Math.random() * vehicle.length)];
             console.log(vehicle)
+
+            return {
+                success: 400,
+                body: "Record not sent to Node-Red."
+            };
 
             // update vehicle to be busy
             let updateVehicle = await utils.updateVehicleUtilizationDate(vehicle.idVehicle, newTravelDate, source, true)

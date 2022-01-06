@@ -291,10 +291,12 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 
 }
 
-exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle) {
+exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle, source) { 
+    let url = 'http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle + '/' + source.lat + '/' + source.long + '/1'
+    console.log(url)
     var config = {
         method: 'get',
-        url: 'http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle,
+        url: url,
         headers: {
             'vehicle-api-token': apiTokens.vehicleAPI,
             'rent-api-token': apiTokens.rentAPI
@@ -303,6 +305,7 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
 
     var data = await axios(config)
         .then(function (response) {
+            console.log(response.data)
             return response.data;
         })
         .catch(function (error) {
