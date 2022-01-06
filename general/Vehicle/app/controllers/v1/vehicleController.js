@@ -74,7 +74,9 @@ exports.updateVehicleState = async function (req, res) {
             let dateUntilItIsBusy = new Date(req.body.dateUntilItIsBusy).toISOString();
             let location = req.body.location;
             let isBusy = req.body.isBusy;
-            const result = await vehicleService.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy, location, isBusy);
+            let vehicleLat = req.body.lat;
+            let vehicleLong = req.body.long;
+            const result = await vehicleService.updateVehicleUtilizationDate(idVehicle, dateUntilItIsBusy, location, isBusy, vehicleLat, vehicleLong);
             res.status(result.success).send(result.body);
         } catch (err) {
             res.status(400).send(err);

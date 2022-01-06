@@ -136,12 +136,9 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
         for (let i = 0; i < vehicles.length; i++) {
             // if this location is within {userDistance} of the user, add it to the list
             if (distance(userPosLat, userPosLong, vehicles[i].latLocation, vehicles[i].lagLocation, "K") <= parseInt(userDistance)) {
-                console.log(vehicles[i]._id)
                 availableVehicles.push(vehicles[i]);
             }
         }
-
-        console.log(availableVehicles)
         
 
         if (!availableVehicles.length) {
@@ -163,7 +160,7 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
     }
 };
 
-exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy) {
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy, vehicleLat, vehicleLong) {
     try {
 
         let vehicle = await Vehicle.findOneAndUpdate({
@@ -172,7 +169,9 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
             $set: {
                 dateUntilItIsBusy: dateUntilItIsBusy,
                 location: location,
-                isBusy: isBusy
+                isBusy: isBusy,
+                latLocation: vehicleLat,
+                lagLocation: vehicleLong
             }
         });
 
