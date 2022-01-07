@@ -20,7 +20,9 @@ exports.getAllUsersProfiles = async function () {
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data;
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data
@@ -41,7 +43,9 @@ exports.getUserByEmail = async function (email) {
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data;
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data
@@ -70,7 +74,9 @@ exports.checkIfUserIsAuthenticatedAndProfile = async function (username, passwor
             return response.data;
         })
         .catch(function (error) {
-            return;
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data;
@@ -92,7 +98,9 @@ exports.logoutUser = async function () {
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data;
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data
@@ -129,7 +137,9 @@ exports.addUser = async function (username, userProfile, name, email, password, 
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data;
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data;
@@ -151,7 +161,9 @@ exports.getAllTypesOfVehicles = async function () {
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data;
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data
@@ -173,7 +185,9 @@ exports.getVehicleTypeByName = async function (nameTypeVehicle) {
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data;
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data
@@ -203,7 +217,9 @@ exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, pr
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data;
@@ -226,7 +242,9 @@ exports.updateUserMoney = async function (email, money, operation) {
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data;
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data;
@@ -249,7 +267,9 @@ exports.getAllVehicles = async function () {
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data
+            if(error.response){
+                return error.response.data
+            }
         });
     return data;
 }
@@ -284,7 +304,9 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data;
@@ -292,8 +314,7 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 }
 
 exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle, source) { 
-    let url = 'http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle + '/' + source.lat + '/' + source.long + '/1'
-    console.log(url)
+    let url = 'http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle + '/' + source.lat + '/' + source.long + '/4'
     var config = {
         method: 'get',
         url: url,
@@ -305,22 +326,25 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
 
     var data = await axios(config)
         .then(function (response) {
-            console.log(response.data)
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data
+            if(error.response){
+                return error.response.data
+            }
         });
     return data;
 }
 
-exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy) {
+exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy, lat, long) {
 
 
     var data = JSON.stringify({
         "dateUntilItIsBusy": dateUntilItIsBusy,
         "location": location,
-        "isBusy": isBusy
+        "isBusy": isBusy,
+        "lat": lat,
+        "long": long
     });
 
     var config = {
@@ -339,7 +363,9 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data
+            if(error.response){
+                return error.response.data
+            }
         });
     return data;
 }
@@ -361,7 +387,9 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data;
@@ -381,19 +409,20 @@ exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHou
         url: 'http://localhost:4500/v1/routeprice/',
         headers: {
             'Content-Type': 'application/json',
-            'route-api-token': apiTokens.routPriceAPI,
+            'route-price-token': apiTokens.routPriceAPI,
             'rent-api-token': apiTokens.rentAPI
         },
         data: data
     };
-
 
     var data = await axios(config)
         .then(function (response) {
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data;
@@ -433,7 +462,9 @@ exports.addRentRegister = async function (travelUniqueID, emailUser, travelCost,
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return data;
@@ -461,7 +492,9 @@ exports.getUserAgeAndGender = async function (filePath) {
             return JSON.stringify(response.data);
         })
         .catch(function (error) {
-            return error.response.data
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return finalData;
@@ -483,7 +516,9 @@ exports.verifyUserToken = async function () {
             return response.data;
         })
         .catch(function (error) {
-            return error.response.data
+            if(error.response){
+                return error.response.data
+            }
         });
 
     return finalData;

@@ -26,7 +26,6 @@ const leitura_mqtt = () => {
       console.log("Successfully connected to the mqtt broker");
     },
     async (obj_msg) => {
-      console.log(obj_msg);
       const carBehavior = new CarBehavior({
         idVehicle: obj_msg.idVehicle,
         source: obj_msg.source,
@@ -42,8 +41,6 @@ const leitura_mqtt = () => {
         status: obj_msg.status,
       });
 
-      console.log("sign");
-      console.log(obj_msg);
       let finalCarBehavior;
 
       lista_registos.push(obj_msg.value);
@@ -87,6 +84,8 @@ async function sendRequetToUpdateCarBehavior(obj_msg) {
     },
     data: data,
   };
+
+  console.log(data)
 
   var newData = await axios(config)
     .then(function (response) {

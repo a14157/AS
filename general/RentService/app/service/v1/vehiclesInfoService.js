@@ -332,7 +332,6 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
         }
 
         if (!results) {
-            console.log(results)
             return {
                 success: 404,
                 body: results.statusCode

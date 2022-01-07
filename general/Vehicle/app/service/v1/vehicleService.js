@@ -131,7 +131,6 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
         });
         
         let availableVehicles = [];
-        console.log(userDistance)
 
         for (let i = 0; i < vehicles.length; i++) {
             // if this location is within {userDistance} of the user, add it to the list

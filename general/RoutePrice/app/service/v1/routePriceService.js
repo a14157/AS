@@ -102,8 +102,6 @@ exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehic
         };
     }
 
-    console.log()
-
 
     try {
         finalDistance = await getRota(origin.pointID, destiny.pointID);
@@ -114,8 +112,12 @@ exports.addRoutePrice = async function (startingPoint, arrivalPoint, typeOfVehic
         };
     }
 
+    // get time of travel
+    // distance x 2(2km x 2 = 4 min)
     let timeOfTravel = Math.trunc(2 * finalDistance);
 
+    // get price of travel
+    // priceByHourTypeVehicle * finalDistance
     let finalPrice = priceByHourTypeVehicle * finalDistance;
 
 

@@ -5,9 +5,9 @@ exports.getAll = async function (req, res) {
     if (req.headers['route-price-token'] && req.headers['route-price-token'] == apiTokens.routPriceAPI && req.headers['rent-api-token'] && req.headers['rent-api-token'] == apiTokens.rentAPI) {
         try {
             const result = await routePriceService.getAll();
-            res.status(result.success).send(result.body);
+            res.status(result.success).json(result.body);
         } catch (err) {
-            res.status(400).send(err);
+            res.status(400).json(err);
         }
     } else {
         res.status(403).json('API token required.');
@@ -15,6 +15,8 @@ exports.getAll = async function (req, res) {
 };
 
 exports.addRoutePrice = async function (req, res) {
+    console.log('aqui')
+    console
     if (req.headers['route-price-token'] && req.headers['route-price-token'] == apiTokens.routPriceAPI && req.headers['rent-api-token'] && req.headers['rent-api-token'] == apiTokens.rentAPI) {
         try {
             let startingPoint = req.body.startingPoint;
@@ -22,9 +24,9 @@ exports.addRoutePrice = async function (req, res) {
             let typeOfVehicle = req.body.typeOfVehicle;
             let priceByHourTypeVehicle = req.body.priceByHourTypeVehicle;
             const result = await routePriceService.addRoutePrice(startingPoint, arrivalPoint, typeOfVehicle, priceByHourTypeVehicle);
-            res.status(result.success).send(result.body);
+            res.status(result.success).json(result.body);
         } catch (err) {
-            res.status(400).send(err);
+            res.status(400).json(err);
         }
     } else {
         res.status(403).json('API token required.');

@@ -8,9 +8,9 @@ exports.getAllUsers = async function (req, res) {
     if (req.headers['user-api-token'] && req.headers['user-api-token'] == apiTokens.userAPI && req.headers['rent-api-token'] && req.headers['rent-api-token'] == apiTokens.rentAPI) {
         try {
             const result = await userService.getAll();
-            res.status(result.success).send(result.body);
+            res.status(result.success).json(result.body);
         } catch (err) {
-            res.status(400).send(err);
+            res.status(400).json(err);
         }
     } else {
         res.status(403).json('API token required.');
@@ -29,9 +29,9 @@ exports.addUser = async function (req, res) {
             let age = req.body.age;
             let gender = req.body.gender;
             const result = await userService.addUser(username, userProfile, name, email, password, money, age, gender);
-            res.status(result.success).send(result.body);
+            res.status(result.success).json(result.body);
         } catch (err) {
-            res.status(400).send(err);
+            res.status(400).json(err);
         }
     } else {
         res.status(403).json('API token required.');
@@ -61,7 +61,7 @@ exports.authenticateUser = (req, res) => {
                 token: token,
                 profile: user.profile
             }
-            res.status(200).send(finalObj);
+            res.status(200).json(finalObj);
         } else {
             res.status(401) // não está autorizado
                 .json(info)
@@ -81,9 +81,9 @@ exports.getUser = async function (req, res) {
         try {
             let email = req.params.email;
             const result = await userService.getUser(email);
-            res.status(result.success).send(result.body);
+            res.status(result.success).json(result.body);
         } catch (err) {
-            res.status(400).send(err);
+            res.status(400).json(err);
         }
     } else {
         res.status(403).json('API token required.');
@@ -97,9 +97,9 @@ exports.updateUserMoney = async function (req, res) {
             let operation = req.params.operation;
             let money = req.params.money;
             const result = await userService.updateUserMoney(email, money, operation);
-            res.status(result.success).send(result.body);
+            res.status(result.success).json(result.body);
         } catch (err) {
-            res.status(400).send(err);
+            res.status(400).json(err);
         }
     } else {
         res.status(403).json('API token required.');
