@@ -203,7 +203,7 @@ exports.getVehicleByID = async function (vehicleID) {
         if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
             try {
                 let results = await utils.getVehicleByID(vehicleID);
-                if (results === 'API token required.') {
+                if (results === 'API token required.') { 
                     return {
                         success: 403,
                         body: "API token required."

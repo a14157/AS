@@ -350,7 +350,7 @@ exports.saveRental = async function (emailUser, destiny, source, travelCost, tra
 
 //save new type Vehicle
 exports.stopRent = async function (travelUniqueID, emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate) {
-    const user = require('../../../configs/user.json')
+    const user = require('../../../configs/user.json') 
     let checkToken = await utils.verifyUserToken();
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null) {

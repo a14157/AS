@@ -32,7 +32,7 @@ exports.getAllUsersProfiles = async function () {
                 if (results === 'API token required.') {
                     return {
                         success: 403,
-                        body: "API token required."
+                        body: "API token required." 
                     };
                 }
                 if (!results) {
