@@ -34,7 +34,7 @@ router.get('/', rentController.getAllRentalRecords);
 router.post('/', rentController.addRental); 
 
 /**
- * @route Post /rent/
+ * @route Post /rent/saveRental
  * @group Rent operations.
  * @description Route to save an Rent
  * @param {object} Rent - Rent
@@ -42,6 +42,16 @@ router.post('/', rentController.addRental);
  * @returns {Error}  400  - Bad request
  */
  router.post('/saveRental', rentController.saveRental); 
+
+ /**
+ * @route Post /rent/stopRental
+ * @group Rent operations.
+ * @description Route to stop an Rent
+ * @param {object} Rent - Rent
+ * @returns {object} 200 - Rent Stoped with sucess
+ * @returns {Error}  400  - Bad request
+ */
+  router.post('/stopRental', rentController.stopRent); 
 
 
 module.exports = router;

@@ -26,6 +26,7 @@ const leitura_mqtt = () => {
       console.log("Successfully connected to the mqtt broker");
     },
     async (obj_msg) => {
+      console.log(obj_msg)
       const carBehavior = new CarBehavior({
         idVehicle: obj_msg.idVehicle,
         source: obj_msg.source,
@@ -50,7 +51,6 @@ const leitura_mqtt = () => {
       }catch(err){
         console.log(err)
       }
-      console.log(finalCarBehavior);
 
       // send request to rent service
 
@@ -66,8 +66,8 @@ async function sendRequetToUpdateCarBehavior(obj_msg) {
     source: obj_msg.source,
     travelCost: obj_msg.travelCost,
     typeVehicle: obj_msg.typeVehicle,
-    travelStartDate: obj_msg.startDate,
-    travelEndDate: obj_msg.endDate,
+    travelStartDate: obj_msg.startDate || obj_msg.travelStartDate,
+    travelEndDate: obj_msg.endDate || obj_msg.travelEndDate,
     travelDuration: obj_msg.travelDuration,
     travelUniqueID: obj_msg.travelUniqueID,
     idVehicle: obj_msg.idVehicle,
@@ -84,8 +84,6 @@ async function sendRequetToUpdateCarBehavior(obj_msg) {
     },
     data: data,
   };
-
-  console.log(data)
 
   var newData = await axios(config)
     .then(function (response) {

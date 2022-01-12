@@ -73,7 +73,10 @@ exports.getAllFreeVehiclesByType = async function (req, res) {
     try {
         let dateUntilItIsBusy = new Date(req.params.dateUntilItIsBusy).toISOString();
         let type = req.params.type;
-        const result = await vehiclesInfoService.getAllFreeVehiclesByType(dateUntilItIsBusy, type);
+        let userPosLat = req.params.userPosLat;
+        let userPosLong = req.params.userPosLong;
+        let userDistance = req.params.distance;
+        const result = await vehiclesInfoService.getAllFreeVehiclesByType(dateUntilItIsBusy, type, userPosLat, userPosLong, userDistance);
         res.status(result.success).json(result.body);
     } catch (err) {
         res.status(400).json(err);
@@ -86,6 +89,17 @@ exports.updateVehicleCharge = async function (req, res) {
         let chargeValue = req.params.chargeValue;
         let operation = req.params.operation;
         const result = await vehiclesInfoService.updateVehicleCharge(idVehicle, chargeValue, operation);
+        res.status(result.success).json(result.body);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+};
+
+exports.getVehicleByID = async function (req, res) {
+    try {
+        let idVehicle = req.params.idVehicle;
+        console.log(idVehicle)
+        const result = await vehiclesInfoService.getVehicleByID(idVehicle);
         res.status(result.success).json(result.body);
     } catch (err) {
         res.status(400).json(err);

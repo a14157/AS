@@ -63,3 +63,22 @@ exports.saveRental = async function (req, res) {
         res.status(403).json('API token required.');
     }
 };
+
+exports.stopRent = async function (req, res) {
+    try {
+        let travelUniqueID = req.body.travelUniqueID;
+        let emailUser = req.body.emailUser;
+        let destiny = req.body.destiny;
+        let source = req.body.source;
+        let travelCost = req.body.travelCost;
+        let travelDuration = req.body.travelDuration;
+        let typeVehicle =  req.body.typeVehicle;
+        let idVehicle =  req.body.idVehicle;
+        let travelStartDate =  req.body.travelStartDate;
+
+        const result = await rentService.stopRent(travelUniqueID, emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate);
+        res.status(result.success).json(result.body);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+};

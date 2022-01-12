@@ -4,6 +4,29 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 
+
+function getCurrentCapacity(typeOfehicle, atualCharge) {
+    let currentCapacity;
+    switch (typeOfehicle) {
+        case 'Car':
+            currentCapacity = atualCharge * 1.3 + " Km";
+            break;
+        case 'Van':
+            currentCapacity = atualCharge * 1.4 + " Km";
+            break;
+        case 'Scooter':
+            currentCapacity = atualCharge * 1.5 + " Km";
+            break;
+        case 'Truck':
+            currentCapacity = atualCharge * 1.6 + " Km";
+            break;
+        default:
+            currentCapacity = atualCharge * 2 + " Km";
+    }
+    return currentCapacity.toString();
+
+}
+
 //get all vehicles
 exports.getAll = async function () {
     try {
@@ -14,9 +37,15 @@ exports.getAll = async function () {
                 body: "There's no vehicles registered in our system!"
             };
         } else {
+            let auxArray = [];
+            for(let i = 0; i < vehicles.length; i++){
+                let aux = vehicles[i].toObject();
+                aux['capacity'] = getCurrentCapacity(aux.nameTypeVehicle, aux.vehicleChargePercentage);
+                auxArray.push(aux);
+            }
             return {
                 success: 200,
-                body: vehicles
+                body: auxArray
             };
         }
     } catch (err) {
@@ -41,9 +70,11 @@ exports.getVehicle = async function (idVehicle) {
                 body: "There's no vehicle registered in our system!"
             };
         } else {
+            let finalVehicle = vehicle[0].toObject();
+            finalVehicle['capacity'] = getCurrentCapacity(finalVehicle.nameTypeVehicle, finalVehicle.vehicleChargePercentage);
             return {
                 success: 200,
-                body: vehicle
+                body: finalVehicle
             };
         }
     } catch (err) {
@@ -129,16 +160,19 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
             "nameTypeVehicle": nameTypeVehicle,
             "isBusy": false
         });
-        
+
         let availableVehicles = [];
 
         for (let i = 0; i < vehicles.length; i++) {
             // if this location is within {userDistance} of the user, add it to the list
             if (distance(userPosLat, userPosLong, vehicles[i].latLocation, vehicles[i].lagLocation, "K") <= parseInt(userDistance)) {
-                availableVehicles.push(vehicles[i]);
+                console.log(vehicles[i])
+                let aux = vehicles[i].toObject();
+                aux['capacity'] = getCurrentCapacity(aux.nameTypeVehicle, aux.vehicleChargePercentage);
+                availableVehicles.push(aux);
             }
         }
-        
+
 
         if (!availableVehicles.length) {
             return {

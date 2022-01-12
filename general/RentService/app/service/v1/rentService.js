@@ -79,20 +79,13 @@ exports.getAllUserRentalRecords = async function (emailUser) {
 
 //save new  rent
 exports.addRental = async function (emailUser, destiny, source, typeVehicle, travelDate) {
-    console.log('aqui1')
     const user = require('../../../configs/user.json')
     let checkToken = await utils.verifyUserToken();
-    if (checkToken == null) {
-        return {
-            success: 404,
-            body: "Invalid token."
-        };
-    }
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null) {
             // get user info - idade e dinheiro - para verificar se tem mais de 16 anos (User)
             let getUser = await utils.getUserByEmail(emailUser);
-            if (getUser.length === 0 || getUser == null)  {
+            if (getUser.length === 0 || getUser == null) {
                 return {
                     success: 404,
                     body: "Invalid user."
@@ -111,8 +104,6 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
             // if is more than or car, make the  api call to get closest vehicle
 
             // just an example, i will get random value from array
-
-            console.log(vehicle)
 
             // check if we have available vehicles
             if (vehicle.length === 0 || vehicle == null) {
@@ -133,7 +124,7 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
                 };
             }
 
-            if (routePrice.length === 0 || routePrice == null ) {
+            if (routePrice.length === 0 || routePrice == null) {
                 return {
                     success: 204,
                     body: "Error on getting a route price."
@@ -144,8 +135,6 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
             let auxArrivalPoint = JSON.parse(routePrice.arrivalPoint);
             let auxStartPoint = JSON.parse(routePrice.startingPoint);
 
-            console.log(auxStartPoint)
-
 
             // update vehicle to be busy
             let updateVehicle = await utils.updateVehicleUtilizationDate(vehicle.idVehicle, newTravelDate, auxArrivalPoint.streetName, true, auxArrivalPoint.lat, auxArrivalPoint.long)
@@ -155,8 +144,6 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
                     body: "Error on update vehicle."
                 };
             }
-
-            console.log(updateVehicle)
 
             // no final do aluguer, registar hora do fim e localização do veiculo
 
@@ -264,7 +251,7 @@ exports.saveRental = async function (emailUser, destiny, source, travelCost, tra
 
             //service that will save the data sended by node-red 
 
-            if(status == null){
+            if (status == null) {
                 return {
                     success: 404,
                     body: "Status is required."
@@ -273,12 +260,23 @@ exports.saveRental = async function (emailUser, destiny, source, travelCost, tra
 
             // CREATE NEW ROUTE TO RECEIVE THE REQUESTS FROM NODE-RED
 
+            /*console.log(emailUser)
+            console.log(destiny)
+            console.log(source)
+            console.log(travelCost)
+            console.log(travelDuration)
+            console.log(idVehicle)
+            console.log(travelStartDate)
+            console.log(travelEndDate)
+            console.log(travelUniqueID)
+            console.log(status)*/
+
             try {
 
                 // then update car property "dateUntilItIsBusy" to the date it will be busy and final location of the car with the destination
                 // (mqtt / node-red) will simulate the car behavior and set the rent property "travelEndDate" with the date that the rent will be over
                 let results = await utils.updateVehicleUtilizationDate(idVehicle, travelEndDate, destiny, false);
-                console.log(results)
+                //console.log(results)
                 // also update user money atual - cost of travel
 
                 if (results) {
@@ -292,7 +290,7 @@ exports.saveRental = async function (emailUser, destiny, source, travelCost, tra
                         travelDuration: travelDuration,
                         typeVehicle: typeVehicle,
                         idVehicle: idVehicle,
-                        travelStartDate: travelStartDate,
+                        travelStartDate: (status === 'Out of Charge' || status === 'Out of Money') ? travelStartDate.setTime(travelStartDate.getTime() + 1000 * 60) : travelStartDate, // add minute to stop car safety
                         travelEndDate: travelEndDate,
                         stateOfTravel: status,
                         realTravelEndDate: new Date().toISOString()
@@ -337,7 +335,7 @@ exports.saveRental = async function (emailUser, destiny, source, travelCost, tra
             }
         } else {
             return {
-                success: 404,
+                success: 403,
                 body: "Unauthorized"
             };
         }
@@ -346,5 +344,54 @@ exports.saveRental = async function (emailUser, destiny, source, travelCost, tra
             success: 403,
             body: "Unauthorized"
         };
+    }
+}
+
+
+//save new type Vehicle
+exports.stopRent = async function (travelUniqueID, emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate) {
+    const user = require('../../../configs/user.json')
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null) {
+            try {
+
+                const rentalRecords = await Rent.find({
+                    "travelUniqueID": travelUniqueID
+                });
+
+                // check if exists any rental with this ID...
+                if(rentalRecords.length === 0){
+                    return {
+                        success: 404,
+                        body: 'No rental founded with that ID.'
+                    };
+                }
+
+                let results = await utils.stopRent(travelUniqueID, emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate);
+
+                if (results) {
+                    return {
+                        success: 200,
+                        body: rentalRecords
+                    };
+                } else {
+                    return {
+                        success: 404,
+                        body: 'Error on stoping the rent!'
+                    };
+                }
+            } catch (err) {
+                return {
+                    success: 400,
+                    body: err
+                };
+            }
+        } else {
+            return {
+                success: 403,
+                body: "Unauthorized"
+            };
+        }
     }
 }

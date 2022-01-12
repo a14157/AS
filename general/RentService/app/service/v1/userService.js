@@ -114,6 +114,12 @@ exports.getUserByEmail = async function (email) {
 exports.authenticateUser = async function (username, password) {
     try {
         let results = await utils.checkIfUserIsAuthenticatedAndProfile(username, password);
+        if(results.message){
+            return {
+                success: 404,
+                body: "Error on authenticate user!"
+            };
+        }
         if (results) {
             let auxResults = JSON.stringify(results)
             let rightFile = await fs.writeFileSync(userInformationFilePath, auxResults, function (err) {
@@ -126,7 +132,7 @@ exports.authenticateUser = async function (username, password) {
             };
         } else {
             return {
-                success: 204,
+                success: 404,
                 body: "Error on authenticate user!"
             };
         }
@@ -166,6 +172,14 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         let photoPath = appDir + '/userPhotos/' + photoOriginalName;
 
         let ageAndGender = await utils.getUserAgeAndGender(photoPath);
+
+        if(ageAndGender == null){
+            return {
+                success: 404,
+                body: "Gender API is down."
+            };
+        }
+
         ageAndGender = JSON.parse(ageAndGender);
         if (ageAndGender.Error === 'API token required.') {
             return {
@@ -180,6 +194,13 @@ exports.addUser = async function (username, userProfile, name, email, password, 
             return {
                 success: 403,
                 body: "API token required."
+            };
+        }
+
+        if(results['code']){
+            return {
+                success: 404,
+                body: "User not created: some value already exists."
             };
         }
 

@@ -20,7 +20,7 @@ exports.getAllUsersProfiles = async function () {
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -43,7 +43,7 @@ exports.getUserByEmail = async function (email) {
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -74,7 +74,7 @@ exports.checkIfUserIsAuthenticatedAndProfile = async function (username, passwor
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -98,7 +98,7 @@ exports.logoutUser = async function () {
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -137,7 +137,7 @@ exports.addUser = async function (username, userProfile, name, email, password, 
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -161,7 +161,7 @@ exports.getAllTypesOfVehicles = async function () {
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -185,7 +185,7 @@ exports.getVehicleTypeByName = async function (nameTypeVehicle) {
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -217,7 +217,7 @@ exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, pr
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -242,7 +242,7 @@ exports.updateUserMoney = async function (email, money, operation) {
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -267,7 +267,30 @@ exports.getAllVehicles = async function () {
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
+                return error.response.data
+            }
+        });
+    return data;
+}
+
+exports.getVehicleByID = async function(vehicleID){
+
+    var config = {
+        method: 'get',
+        url: 'http://localhost:4000/v1/vehicle/' + vehicleID,
+        headers: {
+            'vehicle-api-token': apiTokens.vehicleAPI,
+            'rent-api-token': apiTokens.rentAPI
+        }
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -304,7 +327,7 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -313,8 +336,9 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 
 }
 
-exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle, source) { 
-    let url = 'http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle + '/' + source.lat + '/' + source.long + '/4'
+exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle, source, userDistance) {
+    let distance = (userDistance) ? userDistance : 10;
+    let url = 'http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle + '/' + source.lat + '/' + source.long + '/' + distance
     var config = {
         method: 'get',
         url: url,
@@ -324,12 +348,14 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
         }
     };
 
+    console.log(url)
+
     var data = await axios(config)
         .then(function (response) {
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -337,7 +363,6 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
 }
 
 exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsBusy, location, isBusy, lat, long) {
-
 
     var data = JSON.stringify({
         "dateUntilItIsBusy": dateUntilItIsBusy,
@@ -363,7 +388,7 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -387,7 +412,7 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -420,7 +445,7 @@ exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHou
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -462,7 +487,7 @@ exports.addRentRegister = async function (travelUniqueID, emailUser, travelCost,
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -492,7 +517,7 @@ exports.getUserAgeAndGender = async function (filePath) {
             return JSON.stringify(response.data);
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
@@ -516,10 +541,49 @@ exports.verifyUserToken = async function () {
             return response.data;
         })
         .catch(function (error) {
-            if(error.response){
+            if (error.response) {
                 return error.response.data
             }
         });
 
+    return finalData;
+}
+
+exports.stopRent = async function (travelUniqueID, emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate) {
+    var data = JSON.stringify({
+        "travelUniqueID": travelUniqueID,
+        "emailUser": emailUser,
+        "destiny": destiny,
+        "source": source,
+        "travelCost": travelCost,
+        "travelDuration": travelDuration,
+        "typeVehicle": typeVehicle,
+        "idVehicle": idVehicle,
+        "travelStartDate": travelStartDate,
+        "travelEndDate": new Date(),
+        "stateOfTravel": "Ended By user",
+        "realTravelEndDate": new Date(),
+        "status": "Ended By User",
+    });
+
+    var config = {
+        method: 'post',
+        url: 'http://127.0.0.1:1880/resetTravel',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+
+    let finalData = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            if (error.response) {
+                return error.response.data
+            }
+        });
+    
     return finalData;
 }

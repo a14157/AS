@@ -24,16 +24,19 @@ router.get('/typevehicle/', vehiclesInfoController.getAllTypesOfVehicles);
 router.get('/typevehicle/:nametypevehicle', vehiclesInfoController.getVehicleTypeByName);
 
 /**
- * @route Get /getAllFreeVehiclesByType/:dateUntilItIsBusy/:type
+ * @route Get /vehicle/
  * @group Vehicle operations.
- * @description Route to fetch all free vehicles and by vehicle type
- * @param {String} isBusy - Is Busy? True or False
+ * @description Route to get all free vehicles by date and type
+ * @param {String} dateUntilItIsBusy - Date until vehicle is busy
  * @param {String} type - Type of Vehicle - Car, Scooter, etc
+ * @param {userPosLat} userPosLat - Latitude of the user's current position
+ * @param {userPosLong} userPosLong - Longitude of the user's current position
+ * @param {distance} distance - Search radius from user position
  * @returns {object} 200 - Return All Free Vehicles
  * @returns {object} 204 - No Content
  * @returns {Error}  400  - Bad request
  */
-router.get('/getAllFreeVehiclesByType/:dateUntilItIsBusy/:type', vehiclesInfoController.getAllFreeVehiclesByType);
+ router.get('/getAllFreeVehiclesByType/:dateUntilItIsBusy/:type/:userPosLat/:userPosLong/:distance', vehiclesInfoController.getAllFreeVehiclesByType); 
 
 /**
  * @route Post /vehicle/typevehicle/
@@ -54,6 +57,17 @@ router.post('/typevehicle', vehiclesInfoController.addTypeVehicle);
  * @returns {Error}  400  - Bad request
  */
 router.get('/', vehiclesInfoController.getAllVehicles);
+
+/**
+ * @route Get /vehicle/:idVehicle
+ * @group Vehicle operations.
+ * @description Route to fetch all vehicles
+ *  @param {String}  idVehicle - ID Vehicle
+ * @returns {object} 200 - Return Vehicle
+ * @returns {object} 204 - No Content
+ * @returns {Error}  400 - Bad request
+ */
+ router.get('/:idVehicle', vehiclesInfoController.getVehicleByID);
 
 /**
  * @route Patch /vehicle/:idVehicle
