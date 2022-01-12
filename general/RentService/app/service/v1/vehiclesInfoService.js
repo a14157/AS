@@ -216,7 +216,7 @@ exports.getVehicleByID = async function (vehicleID) {
                     };
                 } else {
                     return {
-                        success: 204,
+                        success: 204, 
                         body: 'No vehicle founded with that ID!'
                     };
                 }

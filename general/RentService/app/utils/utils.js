@@ -274,7 +274,7 @@ exports.getAllVehicles = async function () {
     return data;
 }
 
-exports.getVehicleByID = async function(vehicleID){
+exports.getVehicleByID = async function(vehicleID){ 
 
     var config = {
         method: 'get',

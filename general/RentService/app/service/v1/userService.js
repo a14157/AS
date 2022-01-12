@@ -43,7 +43,7 @@ exports.getAllUsersProfiles = async function () {
                 } else {
                     return {
                         success: 200,
-                        body: results
+                        body: results 
                     };
                 }
             } catch (err) {
