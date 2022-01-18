@@ -1,0 +1,705 @@
+[
+    {
+        "id": "30ba761594ac908a",
+        "type": "tab",
+        "label": "Flow 6",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "83632ad4418e6d44",
+        "type": "mqtt in",
+        "z": "30ba761594ac908a",
+        "name": "receiver signal",
+        "topic": "rent",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "f7837bd89a823eca",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "663c999edfa20b3c"
+            ]
+        ]
+    },
+    {
+        "id": "663c999edfa20b3c",
+        "type": "function",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "func": "\nvar newData = JSON.parse(msg.payload)\n\nvar date = new Date(newData.travelStartDate)\nvar finalDate = new Date(date.getTime() + newData.travelDuration * 60000);\n\nmsg.payload = { \n    idVehicle: newData.idVehicle,\n    source: newData.source,\n    destiny:  newData.destiny,\n    typeVehicle: newData.typeVehicle,\n    endDate: finalDate,\n    startDate: date,\n    signalState: 'out',\n    travelDuration: newData.travelDuration,\n    travelUniqueID: newData.travelUniqueID,\n    emailUser: newData.emailUser,\n    travelCost: newData.travelCost\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 300,
+        "wires": [
+            [
+                "ff015585b79ce971"
+            ]
+        ]
+    },
+    {
+        "id": "8ff9eec1172bb1a5",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "new Date() > finalDate",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "572ddba6b22b3ab4",
+        "type": "function",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "func": "//var newData = JSON.parse(msg.payload)\n\nif(msg.payload['status']){\n    msg.topic = true;\n    return msg;\n}\n\nvar date = msg.payload.startDate\nvar finalDate = msg.payload.endDate\n\nif(new Date() < date){\n    msg.topic = \"empty\";\n\n}else if(new Date() > finalDate){ // se a data final da viagem for superior à data atual, \n    msg.payload['status'] = \"Processed\";\n    msg.topic = true;\n    msg.reset = true\n    \n}else if(new Date() > date){ // se a data atual for superior à data de começo da viagem, enviamos o sinal repetidamente\n    msg.topic = false;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 300,
+        "wires": [
+            [
+                "3d7979095884723d"
+            ]
+        ]
+    },
+    {
+        "id": "2eae0cb82bd9a667",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "Output Topic",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 790,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7cef23d450c2e5df",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "new Date() > date",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "topic",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "3d7979095884723d",
+        "type": "switch",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            },
+            {
+                "t": "eq",
+                "v": "empty",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 810,
+        "y": 300,
+        "wires": [
+            [
+                "8ff9eec1172bb1a5",
+                "5a8c233e976b2bf1",
+                "e60c23e9f5e3fac9"
+            ],
+            [
+                "7cef23d450c2e5df",
+                "ab2ef17e38768eee",
+                "3be1154d7723089d"
+            ],
+            [
+                "2b8343634e19c624"
+            ]
+        ]
+    },
+    {
+        "id": "ff015585b79ce971",
+        "type": "trigger",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "-1",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "min",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "572ddba6b22b3ab4"
+            ]
+        ]
+    },
+    {
+        "id": "5a8c233e976b2bf1",
+        "type": "function",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "func": "msg.reset = true;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 460,
+        "wires": [
+            [
+                "ff015585b79ce971",
+                "2eae0cb82bd9a667"
+            ]
+        ]
+    },
+    {
+        "id": "2b8343634e19c624",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "new Date() < date",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "topic",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1190,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "e60c23e9f5e3fac9",
+        "type": "mqtt out",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "topic": "receiver",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1769fb1.3c11385",
+        "x": 1140,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "3a68b63cb77eadf9",
+        "type": "http request",
+        "z": "30ba761594ac908a",
+        "name": "update money api",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 670,
+        "y": 580,
+        "wires": [
+            [
+                "0d332a3c98719126"
+            ]
+        ]
+    },
+    {
+        "id": "62653895caae2334",
+        "type": "http request",
+        "z": "30ba761594ac908a",
+        "name": "update car charge",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "query",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 670,
+        "y": 680,
+        "wires": [
+            [
+                "f3ec632392c7a120"
+            ]
+        ]
+    },
+    {
+        "id": "7e4e907ed6186e95",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "prepare request update user money",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "d786669b3b17f729",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "prepare request to update car charge ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "3be1154d7723089d",
+        "type": "function",
+        "z": "30ba761594ac908a",
+        "name": "prepare request to update car charge ",
+        "func": "// CAlcular valor da carga ao minuto\nmsg.test = msg.payload;\n\n\nmsg.payload['charbyminute'] = 1;\n\nmsg.url = \"http://localhost:3500/v1/rent/vehicle/\" + msg.payload.idVehicle + \"/\" + msg.payload.charbyminute + \"/remove\";\n\ndelete msg.payload;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 680,
+        "wires": [
+            [
+                "62653895caae2334"
+            ]
+        ]
+    },
+    {
+        "id": "ab2ef17e38768eee",
+        "type": "function",
+        "z": "30ba761594ac908a",
+        "name": "prepare request update user money",
+        "func": "// CAlcular valor da viagem ao minuto\nlet cost = parseInt(msg.payload.travelCost);\nlet totalDurationTravel = parseInt(msg.payload.travelDuration);\n\n//imaginemos que estamos a enviar o sinal de minuto em minuto\nmsg.test = msg.payload;\n\n\nlet moneyToReduce = cost/totalDurationTravel;\n\nmsg.payload['pricebyminute'] = moneyToReduce.toFixed(2);\n\nmsg.url = \"http://localhost:3500/v1/rent/user/\" + msg.payload.emailUser + \"/\" + msg.payload.pricebyminute + \"/remove\";\n\ndelete msg.payload;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 250,
+        "y": 580,
+        "wires": [
+            [
+                "3a68b63cb77eadf9"
+            ]
+        ]
+    },
+    {
+        "id": "0d332a3c98719126",
+        "type": "function",
+        "z": "30ba761594ac908a",
+        "name": "function that receives the response from the user API",
+        "func": "var request = msg.payload\n\nmsg.payload = msg.test\n\nif(request.statusCode == 400){\n    msg.payload['stp'] = true;\n    msg.payload['status'] = \"Out of Money\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 580,
+        "wires": [
+            [
+                "d6d99d1216e2fd2d",
+                "ec36ca6d338ab988"
+            ]
+        ]
+    },
+    {
+        "id": "f3ec632392c7a120",
+        "type": "function",
+        "z": "30ba761594ac908a",
+        "name": "function that receives the response from the car API",
+        "func": "var request = msg.payload\n\nmsg.payload = msg.test;\n\nif(request.statusCode == 400){\n   msg.payload['stp2'] = true;\n   msg.payload['status'] = \"Out of Charge\";\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 680,
+        "wires": [
+            [
+                "25534a9384b35f34",
+                "d8b8dd7592950fe2"
+            ]
+        ]
+    },
+    {
+        "id": "ec36ca6d338ab988",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "debug that receives the response from the user API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "test",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1610,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "d8b8dd7592950fe2",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "debug that receives the response from the car API",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1630,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "d6d99d1216e2fd2d",
+        "type": "switch",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "stp",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1490,
+        "y": 580,
+        "wires": [
+            [
+                "29e4556e9be7be43",
+                "5a8c233e976b2bf1",
+                "572ddba6b22b3ab4"
+            ],
+            [
+                "776ff650db014e40"
+            ]
+        ]
+    },
+    {
+        "id": "25534a9384b35f34",
+        "type": "switch",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "stp2",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1490,
+        "y": 680,
+        "wires": [
+            [
+                "b7c50fa2d2a1e451",
+                "5a8c233e976b2bf1",
+                "572ddba6b22b3ab4"
+            ],
+            [
+                "9e85a75f5a6a46c0"
+            ]
+        ]
+    },
+    {
+        "id": "29e4556e9be7be43",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "user has key",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1670,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "776ff650db014e40",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "user don't has key",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1690,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "b7c50fa2d2a1e451",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "vehicle has key",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1680,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "9e85a75f5a6a46c0",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "vehicle don't has key",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1680,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "e1e104835c46a1aa",
+        "type": "http in",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "url": "/resetTravel",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 250,
+        "y": 920,
+        "wires": [
+            [
+                "79f022951099a79e"
+            ]
+        ]
+    },
+    {
+        "id": "07aab2672a3aef0f",
+        "type": "debug",
+        "z": "30ba761594ac908a",
+        "name": "request to stop travel",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "79f022951099a79e",
+        "type": "json",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 490,
+        "y": 920,
+        "wires": [
+            [
+                "f1bca143297ad27e"
+            ]
+        ]
+    },
+    {
+        "id": "e4fc9e3dc7c7d7c8",
+        "type": "http response",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 1000,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "f1bca143297ad27e",
+        "type": "function",
+        "z": "30ba761594ac908a",
+        "name": "",
+        "func": "//var aux = JSON.parse(msg.payload)\nmsg.payload = JSON.parse(msg.payload)\nreturn msg;\n\nvar newData = JSON.parse(msg.payload)\n\nvar date = new Date(newData.travelStartDate)\nvar finalDate = new Date(date.getTime() + newData.travelDuration * 60000);\n\nmsg.payload = { \n    idVehicle: newData.idVehicle,\n    source: newData.source,\n    destiny:  newData.destiny,\n    typeVehicle: newData.typeVehicle,\n    endDate: finalDate,\n    startDate: date,\n    signalState: 'out',\n    travelDuration: newData.travelDuration,\n    travelUniqueID: newData.travelUniqueID,\n    emailUser: newData.emailUser,\n    travelCost: newData.travelCost\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 920,
+        "wires": [
+            [
+                "07aab2672a3aef0f",
+                "e4fc9e3dc7c7d7c8",
+                "5a8c233e976b2bf1",
+                "e60c23e9f5e3fac9"
+            ]
+        ]
+    },
+    {
+        "id": "f7837bd89a823eca",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "1769fb1.3c11385",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "compatmode": false,
+        "protocolVersion": "5",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
