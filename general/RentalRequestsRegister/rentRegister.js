@@ -76,7 +76,7 @@ async function sendRequetToUpdateCarBehavior(obj_msg) {
 
   var config = {
     method: "post",
-    url: "http://localhost:3500/v1/rent/saveRental",
+    url: process.env.URL_RENT_SERVICE + '/v1/rent/saveRental',
     headers: {
       "Content-Type": "application/json",
       'rental-requests-api-token': apiTokens.rentalRequestAPI, 
