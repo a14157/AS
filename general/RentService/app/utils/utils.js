@@ -8,7 +8,7 @@ const userToken = require('../../configs/user.json');
 exports.getAllUsersProfiles = async function () {
     var config = {
         method: 'get',
-        url: 'http://localhost:3000/v1/userprofile/',
+        url: process.env.URL_USER + '/v1/userprofile/',
         headers: {
             'user-api-token': apiTokens.userAPI,
             'rent-api-token': apiTokens.rentAPI
@@ -31,7 +31,7 @@ exports.getAllUsersProfiles = async function () {
 exports.getUserByEmail = async function (email) {
     var config = {
         method: 'get',
-        url: 'http://localhost:3000/v1/user/' + email,
+        url: process.env.URL_USER + '/v1/user/' + email,
         headers: {
             'user-api-token': apiTokens.userAPI,
             'rent-api-token': apiTokens.rentAPI
@@ -61,7 +61,7 @@ exports.checkIfUserIsAuthenticatedAndProfile = async function (username, passwor
 
     var config = {
         method: 'post',
-        url: 'http://localhost:3000/v1/user/authenticateUser/',
+        url: process.env.URL_USER + '/v1/user/authenticateUser/',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -86,7 +86,7 @@ exports.checkIfUserIsAuthenticatedAndProfile = async function (username, passwor
 exports.logoutUser = async function () {
     var config = {
         method: 'get',
-        url: 'hhttp://localhost:3000/v1/user/logoutUser/',
+        url: process.env.URL_USER + '/v1/user/logoutUser/',
         headers: {
             'user-api-token': apiTokens.userAPI,
             'rent-api-token': apiTokens.rentAPI
@@ -123,7 +123,7 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 
     var config = {
         method: 'post',
-        url: 'http://localhost:3000/v1/user/',
+        url: process.env.URL_USER + '/v1/user/',
         headers: {
             'Content-Type': 'application/json',
             'user-api-token': apiTokens.userAPI,
@@ -149,7 +149,7 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 exports.getAllTypesOfVehicles = async function () {
     var config = {
         method: 'get',
-        url: 'http://localhost:4000/v1/typevehicle/',
+        url: process.env.URL_VEHICLE + '/v1/typevehicle/',
         headers: {
             'vehicle-api-token': apiTokens.vehicleAPI,
             'rent-api-token': apiTokens.rentAPI
@@ -173,7 +173,7 @@ exports.getVehicleTypeByName = async function (nameTypeVehicle) {
 
     var config = {
         method: 'get',
-        url: 'http://localhost:4000/v1/typevehicle/' + nameTypeVehicle,
+        url: process.env.URL_VEHICLE + '/v1/typevehicle/' + nameTypeVehicle,
         headers: {
             'vehicle-api-token': apiTokens.vehicleAPI,
             'rent-api-token': apiTokens.rentAPI
@@ -203,7 +203,7 @@ exports.addNewTypeOfVehicle = async function (idTypeVehicle, nameTypeVehicle, pr
 
     var config = {
         method: 'post',
-        url: 'http://localhost:4000/v1/typevehicle/',
+        url: process.env.URL_VEHICLE + '/v1/typevehicle/',
         headers: {
             'Content-Type': 'application/json',
             'vehicle-api-token': apiTokens.vehicleAPI,
@@ -229,7 +229,7 @@ exports.updateUserMoney = async function (email, money, operation) {
 
     var config = {
         method: 'patch',
-        url: 'http://localhost:3000/v1/user/' + email + '/' + money + '/' + operation,
+        url: process.env.URL_USER + '/v1/user/' + email + '/' + money + '/' + operation,
         headers: {
             'Content-Type': 'application/json',
             'user-api-token': apiTokens.userAPI,
@@ -255,7 +255,7 @@ exports.getAllVehicles = async function () {
 
     var config = {
         method: 'get',
-        url: 'http://localhost:4000/v1/vehicle/',
+        url: process.env.URL_VEHICLE + '/v1/vehicle/',
         headers: {
             'vehicle-api-token': apiTokens.vehicleAPI,
             'rent-api-token': apiTokens.rentAPI
@@ -278,7 +278,7 @@ exports.getVehicleByID = async function(vehicleID){
 
     var config = {
         method: 'get',
-        url: 'http://localhost:4000/v1/vehicle/' + vehicleID,
+        url: process.env.URL_VEHICLE + '/v1/vehicle/' + vehicleID,
         headers: {
             'vehicle-api-token': apiTokens.vehicleAPI,
             'rent-api-token': apiTokens.rentAPI
@@ -312,7 +312,7 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 
     var config = {
         method: 'post',
-        url: 'http://localhost:4000/v1/vehicle/',
+        url: process.env.URL_VEHICLE + '/v1/vehicle/',
         headers: {
             'Content-Type': 'application/json',
             'vehicle-api-token': apiTokens.vehicleAPI,
@@ -338,7 +338,7 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 
 exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle, source, userDistance) {
     let distance = (userDistance) ? userDistance : 10;
-    let url = 'http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle + '/' + source.lat + '/' + source.long + '/' + distance
+    let url = process.env.URL_VEHICLE + '/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle + '/' + source.lat + '/' + source.long + '/' + distance
     var config = {
         method: 'get',
         url: url,
@@ -374,7 +374,7 @@ exports.updateVehicleUtilizationDate = async function (idVehicle, dateUntilItIsB
 
     var config = {
         method: 'patch',
-        url: 'http://localhost:4000/v1/vehicle/' + idVehicle,
+        url: process.env.URL_VEHICLE + '/v1/vehicle/' + idVehicle,
         headers: {
             'Content-Type': 'application/json',
             'vehicle-api-token': apiTokens.vehicleAPI,
@@ -399,7 +399,7 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
 
     var config = {
         method: 'patch',
-        url: 'http://localhost:4000/v1/vehicle/' + idVehicle + '/' + chargeValue + '/' + operation,
+        url: process.env.URL_VEHICLE + '/v1/vehicle/' + idVehicle + '/' + chargeValue + '/' + operation,
         headers: {
             'Content-Type': 'application/json',
             'vehicle-api-token': apiTokens.vehicleAPI,
@@ -428,10 +428,10 @@ exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHou
         "typeOfVehicle": typeVehicle,
         "priceByHourTypeVehicle": priceByHourTypeVehicle
     });
-
+    
     var config = {
         method: 'post',
-        url: 'http://localhost:4500/v1/routeprice/',
+        url: process.env.URL_ROUTEPRICE + '/v1/routeprice/',
         headers: {
             'Content-Type': 'application/json',
             'route-price-token': apiTokens.routPriceAPI,
@@ -472,7 +472,7 @@ exports.addRentRegister = async function (travelUniqueID, emailUser, travelCost,
 
     var config = {
         method: 'post',
-        url: 'http://localhost:6000/v1/',
+        url: process.env.URL_RENTALREQUESTREGISTER + '/v1/',
         headers: {
             'Content-Type': 'application/json',
             'rental-requests-api-token': apiTokens.rentalRequestAPI,
@@ -504,7 +504,7 @@ exports.getUserAgeAndGender = async function (filePath) {
 
     let config = {
         method: 'post',
-        url: 'http://localhost:9000/api/predict',
+        url: process.env.URL_PYTHON + '/api/predict',
         headers: {
             'python-api-token': apiTokens.pythonAPI,
             ...data.getHeaders()
@@ -530,7 +530,7 @@ exports.getUserAgeAndGender = async function (filePath) {
 exports.verifyUserToken = async function () {
     var config = {
         method: 'get',
-        url: 'http://localhost:3000/v1/user/verifytoken',
+        url: process.env.URL_USER + '/v1/user/verifytoken',
         headers: {
             'x-access-token': userToken.token
         }
@@ -568,7 +568,7 @@ exports.stopRent = async function (travelUniqueID, emailUser, destiny, source, t
 
     var config = {
         method: 'post',
-        url: 'http://127.0.0.1:1880/resetTravel',
+        url: process.env.URL_NODE_RED + '/resetTravel',
         headers: {
             'Content-Type': 'application/json'
         },
