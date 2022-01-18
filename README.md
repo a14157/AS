@@ -41,17 +41,7 @@ b) Utilizador com perfil de gestor - Este utilizador deve ter a possibilidade de
 
 
 # TODO
-
-- testar o stopRent (começar uma rent e chamar o serviço que pará a rent); adicionar verificação para que seja procurada a rent que se pretende ativar - check
 - kubernets
-- o veículo deve alertar o cliente e parar automaticamente ao fim de um minuto -> alterar hora final (adicionar mais um minuto à data final da rent) (checkar o valor do status; se for out of money ou out of charge) - check
-- o tipo de veículo e a carga atual (capacidade a 55% restam 35km) -> criar alguma lógica aqui
-
-# Outros
-
-- Ver se consigo colocar a dar o Mongo com localização(para is buscar os veiculos mais próximos)
-
-
 
 ## Done
 Utilizador com perfil de gestor:
@@ -66,3 +56,6 @@ Utilizador com perfil de gestor:
     - Registar a hora do fim do aluguer, verificar a posição GPS atual do veículo.
 - o serviço de integração com dispositivos IoT, com Node-Red, por exemplo, no sentido de simular o comportamento do veículo;
 - As minhas viagens, dados com as viagens (início, fim, data, duração, etc...)
+- testar o stopRent (começar uma rent e chamar o serviço que pará a rent); adicionar verificação para que seja procurada a rent que se pretende ativar - check - done
+- o veículo deve alertar o cliente e parar automaticamente ao fim de um minuto -> alterar hora final (adicionar mais um minuto à data final da rent) (checkar o valor do status; se for out of money ou out of charge) - check - done
+- o tipo de veículo e a carga atual (capacidade a 55% restam 35km) -> criar alguma lógica aqui - done
