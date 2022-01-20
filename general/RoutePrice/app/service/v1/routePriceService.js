@@ -5,8 +5,6 @@ var axios = require('axios');
 distância entre dois pontos (origem/destino), onde tecnologia como o PostGIS e GeoServer
 poderão ser adequadas
 
-https://locationiq.com/sandbox/routing/optimize
-
 2. as várias tipologias de veículos devem
 dispor de preçários diferentes 
 
@@ -22,7 +20,7 @@ o meu criterio é duracao x preço por minuto do automovel
 
 const RoutePrice = require('../../models/v1/RoutePrice');
 const authkey = '5a4dc308-a380-4227-812e-e4e1e22007cb';
-let geoserverUrl = "http://localhost:8080/geoserver/wfs?authkey=" + authkey + "&";
+let geoserverUrl = process.env.GEOSERVER_URL + "/geoserver/wfs?authkey=" + authkey + "&";
 
 //get all previously calculated routes
 exports.getAll = async function () {
@@ -46,9 +44,6 @@ exports.getAll = async function () {
         };
     }
 }
-
-
-
 
 /*
  * top: north latitude of bounding box.
