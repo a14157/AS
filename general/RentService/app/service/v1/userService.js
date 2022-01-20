@@ -21,6 +21,51 @@ exports.writeAllUsersProfiles = async function () {
 
 }
 
+//create new user profile
+exports.createUserProfile = async function (profileID, nameProfile) {
+    const user = require('../../../configs/user.json')
+    let checkToken = await utils.verifyUserToken();
+    if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
+            try {
+                let results = await utils.createUserProfile(profileID, nameProfile);
+                if (results === 'API token required.') {
+                    return {
+                        success: 403,
+                        body: "API token required." 
+                    };
+                }
+                if (!results) {
+                    return {
+                        success: 404,
+                        body: "Unable to create a new user profile in our system!"
+                    };
+                } else {
+                    return {
+                        success: 204,
+                        body: results 
+                    };
+                }
+            } catch (err) {
+                return {
+                    success: 400,
+                    body: err
+                };
+            }
+        } else {
+            return {
+                success: 403,
+                body: "Unauthorized"
+            };
+        }
+    } else {
+        return {
+            success: 403,
+            body: "Unauthorized"
+        };
+    }
+}
+
 //get all users profiles
 exports.getAllUsersProfiles = async function () {
     const user = require('../../../configs/user.json')
@@ -170,6 +215,10 @@ exports.addUser = async function (username, userProfile, name, email, password, 
         } = require('path');
         const appDir = dirname(require.main.filename);
         let photoPath = appDir + '/userPhotos/' + photoOriginalName;
+
+        if (fs.existsSync(photoPath)) {
+            console.log('exists') 
+        }
 
         let ageAndGender = await utils.getUserAgeAndGender(photoPath);
 

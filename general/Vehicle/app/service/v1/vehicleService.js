@@ -102,7 +102,7 @@ exports.addVehicle = async function (idTypeVehicle, dateUntilItIsBusy, idVehicle
             latLocation: latLocation,
             lagLocation: lagLocation,
             vehicleChargePercentage: vehicleChargePercentage,
-            isBusy: isBusy
+            isBusy: isBusy,
         });
 
         try {
@@ -166,7 +166,6 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
         for (let i = 0; i < vehicles.length; i++) {
             // if this location is within {userDistance} of the user, add it to the list
             if (distance(userPosLat, userPosLong, vehicles[i].latLocation, vehicles[i].lagLocation, "K") <= parseInt(userDistance)) {
-                console.log(vehicles[i])
                 let aux = vehicles[i].toObject();
                 aux['capacity'] = getCurrentCapacity(aux.nameTypeVehicle, aux.vehicleChargePercentage);
                 availableVehicles.push(aux);

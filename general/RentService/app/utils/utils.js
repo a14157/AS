@@ -28,6 +28,37 @@ exports.getAllUsersProfiles = async function () {
     return data
 }
 
+// Get all users profiles
+exports.createUserProfile = async function (profileID, nameProfile) {
+    var data = JSON.stringify({
+        "profileID": profileID,
+        "nameProfile": nameProfile
+    });
+
+    var config = {
+        method: 'post',
+        url: process.env.URL_USER + '/v1/userprofile/',
+        headers: {
+            'user-api-token': apiTokens.userAPI,
+            'rent-api-token': apiTokens.rentAPI,
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            if (error.response) {
+                return error.response.data
+            }
+        });
+
+    return data
+}
+
 exports.getUserByEmail = async function (email) {
     var config = {
         method: 'get',
@@ -137,11 +168,12 @@ exports.addUser = async function (username, userProfile, name, email, password, 
             return response.data;
         })
         .catch(function (error) {
+            console.log(error)
             if (error.response) {
                 return error.response.data
             }
         });
-
+    console.log(data)
     return data;
 }
 
@@ -274,7 +306,7 @@ exports.getAllVehicles = async function () {
     return data;
 }
 
-exports.getVehicleByID = async function(vehicleID){ 
+exports.getVehicleByID = async function (vehicleID) {
 
     var config = {
         method: 'get',
@@ -347,9 +379,6 @@ exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVe
             'rent-api-token': apiTokens.rentAPI
         }
     };
-
-    console.log(url)
-
     var data = await axios(config)
         .then(function (response) {
             return response.data;
@@ -428,7 +457,7 @@ exports.addRoutePrice = async function (source, destiny, typeVehicle, priceByHou
         "typeOfVehicle": typeVehicle,
         "priceByHourTypeVehicle": priceByHourTypeVehicle
     });
-    
+
     var config = {
         method: 'post',
         url: process.env.URL_ROUTEPRICE + '/v1/routeprice/',
@@ -501,7 +530,7 @@ exports.getUserAgeAndGender = async function (filePath) {
     let fs = require('fs');
     let data = new FormData();
     data.append('image', fs.createReadStream(filePath));
-
+    console.log(filePath)
     let config = {
         method: 'post',
         url: process.env.URL_PYTHON + '/api/predict',
@@ -512,6 +541,7 @@ exports.getUserAgeAndGender = async function (filePath) {
         data: data
     };
 
+
     let finalData = await axios(config)
         .then(function (response) {
             return JSON.stringify(response.data);
@@ -521,9 +551,7 @@ exports.getUserAgeAndGender = async function (filePath) {
                 return error.response.data
             }
         });
-
     return finalData;
-
 }
 
 
@@ -584,6 +612,6 @@ exports.stopRent = async function (travelUniqueID, emailUser, destiny, source, t
                 return error.response.data
             }
         });
-    
+
     return finalData;
 }
