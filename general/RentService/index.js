@@ -9,8 +9,13 @@ const usersProfiles = require('./app/service/v1/userService')
 let fs = require('fs');
 const configs = require('./app/config/folder.config.json')
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+
+// testing purpose
+const testService = require('./app/service/v1/testService');
+
+app.get('/', async (req, res) => {
+    const result = await testService.testAllEndpoints();
+    res.json({message: 'Hello World from RentService!', data: result})
 })
 
 // import configs
@@ -47,9 +52,11 @@ app.use('./userPhotos', express.static('uploads'));
 const rentUserRouteV1 = require('./app/routes/v1/userRoute');
 const vehiclesInfoRouteV1 = require('./app/routes/v1/vehiclesInfoRoute');
 const rentRouteV1 = require('./app/routes/v1/rentRoute');
+const testRouteV1 = require('./app/routes/v1/testRoute');
 app.use('/v1/rent/user', rentUserRouteV1);
 app.use('/v1/rent/vehicle', vehiclesInfoRouteV1);
 app.use('/v1/rent/', rentRouteV1);
+app.use('/v1/test/', testRouteV1);
 
 const expressSwagger = require('express-swagger-generator')(app);
 const swaggerOptions = {
@@ -59,8 +66,8 @@ const swaggerOptions = {
             title: 'Projeto AS - Rent Service API',
             version: '1.0.0',
         },
-        host: 'localhost: ' + port,
-        basePath: '/v1/rent/',
+        host: 'localhost:' + port,
+        basePath: '/v1/rent',
         produces: [
             "application/json",
             "application/xml"

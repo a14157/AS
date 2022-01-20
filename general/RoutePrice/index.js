@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const swaggerUI = require('swagger-ui-express')
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.json('Hello World From RoutePrice!')
 })
 
 // import configs

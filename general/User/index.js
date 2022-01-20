@@ -10,7 +10,7 @@ const passport = require('passport');
 var fs = require('fs');
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.json('Hello World From User!')
 })
 
 // import configs

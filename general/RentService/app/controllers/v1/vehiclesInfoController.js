@@ -98,7 +98,6 @@ exports.updateVehicleCharge = async function (req, res) {
 exports.getVehicleByID = async function (req, res) {
     try {
         let idVehicle = req.params.idVehicle;
-        console.log(idVehicle)
         const result = await vehiclesInfoService.getVehicleByID(idVehicle);
         res.status(result.success).json(result.body);
     } catch (err) {

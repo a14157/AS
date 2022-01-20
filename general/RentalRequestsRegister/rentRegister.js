@@ -96,6 +96,12 @@ async function sendRequetToUpdateCarBehavior(obj_msg) {
 
 // configuração do express -------------------------
 const app = express();
+
+app.get('/', (req, res) => {
+  res.json('Hello World from RentalRequestRegister!')
+})
+
+
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({

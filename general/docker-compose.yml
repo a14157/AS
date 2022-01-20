@@ -9,9 +9,9 @@ services:
     networks:
       - rental-internal-network
 
-  node-red:
+  nodered:
     image: nodered/node-red:latest
-    container_name: node-red
+    container_name: nodered
     restart: unless-stopped
     environment:
       - TZ=Europe/London
@@ -43,7 +43,7 @@ services:
       - PORT=3000
       - DBHOST=mongodb://database:27017/
       - DBNAME=TPAS
-    restart: "no"
+    restart: "always"
     networks:
       - rental-internal-network
   
@@ -55,10 +55,10 @@ services:
     ports:
       - "4000:4000"
     environment:
-      - PORT=3000
+      - PORT=4000
       - DBHOST=mongodb://database:27017/
       - DBNAME=TPAS
-    restart: "no"
+    restart: "always"
     networks:
       - rental-internal-network
  
@@ -70,10 +70,10 @@ services:
     ports:
       - "4500:4500"
     environment:
-      - PORT=3000
+      - PORT=4500
       - DBHOST=mongodb://database:27017/
       - DBNAME=TPAS
-    restart: "no"
+    restart: "always"
     networks:
       - rental-internal-network
 
@@ -85,12 +85,20 @@ services:
     ports:
       - "3500:3500"
     environment:
-      - PORT=3000
+      - PORT=3500
       - DBHOST=mongodb://database:27017/
       - DBNAME=TPAS
-    restart: "no"
+    restart: "always"
     networks:
       - rental-internal-network
+    depends_on:
+      - python
+      - database
+      - users
+      - routeprice
+      - vehicles
+      - rentalrequestservice
+      - nodered
 
   rentalrequestservice:
     container_name: rentalrequestservice
@@ -103,9 +111,11 @@ services:
       - PORT=6000
       - DBHOST=mongodb://database:27017/
       - DBNAME=TPAS
-    restart: "no"
+    restart: "always"
     networks:
       - rental-internal-network
+    depends_on:
+      - nodered
 
   python:
     container_name: python
@@ -116,47 +126,10 @@ services:
       - "9000:9000"
     networks:
       - rental-internal-network
-  
-  postgis:
-    image: pgrouting/pgrouting
-    container_name: postgis
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
-    networks:
-      - rental-internal-network
-
-  pgadmin4:
-    image: dpage/pgadmin4
-    container_name: pgadmin4
-    ports:
-      - '5050:80'
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@ola.pt
-      PGADMIN_DEFAULT_PASSWORD: admin
-    links:
-      - postgis
-    networks:
-      - rental-internal-network
-
-  geoserver:
-    image: geonode/geoserver
-    container_name: geoserver
-    ports:
-      - '8080:8080'
-      - '80:80'
-    links:
-      - postgis
-    volumes:
-      - ./geoserverdata:/geoserver_data/data
-    networks:
-      - rental-internal-network
 
 volumes:
   node-red-data:
 
 networks:
   rental-internal-network:
+    driver: bridge

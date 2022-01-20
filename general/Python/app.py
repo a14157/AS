@@ -36,6 +36,7 @@ genmodel = keras.models.load_model("genero_modelo.h5")
 
 
 def process_and_predict(file):
+    print(file)
     im = Image.open(file)
     width, height = im.size
     if width == height:
@@ -120,9 +121,14 @@ def m_upload():
         examples:
           image: "teste.jpg"
     """
+
+
     # check if the post request has the file part
     if 'image' not in request.files:
+        print('ERROR')
         return jsonify({'error':'No posted image. Should be attribute named image.'})
+    
+    print('FILE')
     file = request.files['image']
     
     headers = request.headers
