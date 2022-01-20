@@ -9,10 +9,21 @@
 			"name": "Add Type of Vehicle - Vehicle API",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "vehicle-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ2ZWhpY2xlQVBJIjoidmVoaWNsZUFQSXNlY3JldCJ9.yZFWgeC6qMfpzc-Ok-znvQiu_UvgeFeLHmBOiXXqpNc",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"idTypeVehicle\" : \"4\",\n    \"nameTypeVehicle\" : \"Truck\"\n}",
+					"raw": "{\n    \"idTypeVehicle\" : \"7\",\n    \"nameTypeVehicle\" : \"Another Big Truck\",\n    \"priceByHourTypeVehicle\": 15\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -40,7 +51,18 @@
 			"name": "Get All Types of Vehicles - Vehicle API",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "vehicle-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ2ZWhpY2xlQVBJIjoidmVoaWNsZUFQSXNlY3JldCJ9.yZFWgeC6qMfpzc-Ok-znvQiu_UvgeFeLHmBOiXXqpNc",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:4000/v1/typevehicle/",
 					"protocol": "http",
@@ -59,10 +81,54 @@
 			"response": []
 		},
 		{
-			"name": "Gett All Vehicles - Vehicle API",
+			"name": "Get Type Of Vehicle By Name - Vehicle API",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "vehicle-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ2ZWhpY2xlQVBJIjoidmVoaWNsZUFQSXNlY3JldCJ9.yZFWgeC6qMfpzc-Ok-znvQiu_UvgeFeLHmBOiXXqpNc",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/v1/typevehicle/Car",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"typevehicle",
+						"Car"
+					]
+				},
+				"description": "http://localhost:4000/v1/typevehicle/Car"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Vehicles - Vehicle API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "vehicle-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ2ZWhpY2xlQVBJIjoidmVoaWNsZUFQSXNlY3JldCJ9.yZFWgeC6qMfpzc-Ok-znvQiu_UvgeFeLHmBOiXXqpNc",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:4000/v1/vehicle/",
 					"protocol": "http",
@@ -81,13 +147,59 @@
 			"response": []
 		},
 		{
+			"name": "Update Car Charge - Vehicle API",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "vehicle-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ2ZWhpY2xlQVBJIjoidmVoaWNsZUFQSXNlY3JldCJ9.yZFWgeC6qMfpzc-Ok-znvQiu_UvgeFeLHmBOiXXqpNc",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/v1/vehicle/1/5/remove",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"vehicle",
+						"1",
+						"5",
+						"remove"
+					]
+				},
+				"description": "http://localhost:4000/v1/vehicle/1/90/remove"
+			},
+			"response": []
+		},
+		{
 			"name": "Add New Vehicle - Vehicle API",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "vehicle-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ2ZWhpY2xlQVBJIjoidmVoaWNsZUFQSXNlY3JldCJ9.yZFWgeC6qMfpzc-Ok-znvQiu_UvgeFeLHmBOiXXqpNc",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"idVehicle\": \"5\",\n    \"isBusy\": false,\n    \"idTypeVehicle\" : \"61a67fde086f6c5e0d64e85d\",\n    \"location\": \"Esposende\"\n}",
+					"raw": "{\n    \"idVehicle\": \"8\",\n    \"idTypeVehicle\" : \"61ab5d1cc8a7afa51c902a43\",\n    \"location\": \"Porto\",\n    \"latLocation\": \"41.6946\",\n    \"lagLocation\": \"-8.83016\",\n    \"vehicleChargePercentage\": \"100\",\n    \"isBusy\": false\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -115,9 +227,20 @@
 			"name": "Get Vehicle By ID - Vehicle API",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "vehicle-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ2ZWhpY2xlQVBJIjoidmVoaWNsZUFQSXNlY3JldCJ9.yZFWgeC6qMfpzc-Ok-znvQiu_UvgeFeLHmBOiXXqpNc",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:4000/v1/vehicle/3",
+					"raw": "http://localhost:4000/v1/vehicle/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -126,7 +249,7 @@
 					"path": [
 						"v1",
 						"vehicle",
-						"3"
+						"1"
 					]
 				},
 				"description": "http://localhost:4000/v1/vehicle/3"
@@ -137,9 +260,20 @@
 			"name": "Get All Free Vehicles By Type (Not Busy) - Vehicle API",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "vehicle-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ2ZWhpY2xlQVBJIjoidmVoaWNsZUFQSXNlY3JldCJ9.yZFWgeC6qMfpzc-Ok-znvQiu_UvgeFeLHmBOiXXqpNc",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:4000/v1/vehicle//getAllFreeVehiclesByType/false/Car",
+					"raw": "http://localhost:4000/v1/vehicle/getAllFreeVehiclesByType/2022-01-06T11:52:03.095Z/Car/41.53307/-8.62226/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -148,10 +282,12 @@
 					"path": [
 						"v1",
 						"vehicle",
-						"",
 						"getAllFreeVehiclesByType",
-						"false",
-						"Car"
+						"2022-01-06T11:52:03.095Z",
+						"Car",
+						"41.53307",
+						"-8.62226",
+						"1"
 					]
 				},
 				"description": "http://localhost:4000/v1/vehicle/getAllFreeVehicles/"
@@ -159,10 +295,63 @@
 			"response": []
 		},
 		{
+			"name": "Update Vehicle Busy Date - Vehicle API",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "vehicle-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ2ZWhpY2xlQVBJIjoidmVoaWNsZUFQSXNlY3JldCJ9.yZFWgeC6qMfpzc-Ok-znvQiu_UvgeFeLHmBOiXXqpNc",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dateUntilItIsBusy\" : \"2021-12-25T12:12:03.095Z\",\n    \"location\": \"Viana\",\n    \"isBusy\": true,\n    \"lat\": \"45\",\n    \"long\": \"-8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/v1/vehicle/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"vehicle",
+						"2"
+					]
+				},
+				"description": "http://localhost:4000/v1/vehicle/3"
+			},
+			"response": []
+		},
+		{
 			"name": "Get All Users - User API",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "user-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyQVBJIjoidXNlckFQSXNlY3JldCJ9.B_cGVE7oAXUquy93zUudjSnfe0Htj6iJ9FUav-YX_JI",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:3000/v1/user/",
 					"protocol": "http",
@@ -174,6 +363,18 @@
 						"v1",
 						"user",
 						""
+					],
+					"query": [
+						{
+							"key": "user-api-token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyQVBJIjoidXNlckFQSXNlY3JldCJ9.B_cGVE7oAXUquy93zUudjSnfe0Htj6iJ9FUav-YX_JI",
+							"disabled": true
+						},
+						{
+							"key": "rent-api-token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+							"disabled": true
+						}
 					]
 				},
 				"description": "http://localhost:3000/v1/user/"
@@ -186,39 +387,8 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "pedro23",
-							"type": "text"
-						},
-						{
-							"key": "name",
-							"value": "Pedro",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "Pedro2@pedro.com3",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "Pedro",
-							"type": "text"
-						},
-						{
-							"key": "money",
-							"value": "10",
-							"type": "text"
-						},
-						{
-							"key": "photo",
-							"type": "file",
-							"src": "/Users/administrador/Desktop/Pedro/1C3726D4-D994-44FB-9649-0B43D90C23BD_1_105_c.jpeg"
-						}
-					],
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"pedro\",\n    \"name\": \"Pedro\",\n    \"email\": \"pedro@pedro.com\",\n    \"password\": \"Pedro\",\n    \"money\": \"100\",\n    \"age\": 26,\n    \"gender\": \"Male\",\n    \"userProfile\" : \"admin\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -239,6 +409,69 @@
 					]
 				},
 				"description": "http://localhost:3000/v1/user/\n- Return new user + object"
+			},
+			"response": []
+		},
+		{
+			"name": "Update User Money - User API",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "user-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyQVBJIjoidXNlckFQSXNlY3JldCJ9.B_cGVE7oAXUquy93zUudjSnfe0Htj6iJ9FUav-YX_JI",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/v1/user/pedro@pedro.com/250/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						"pedro@pedro.com",
+						"250",
+						"add"
+					]
+				},
+				"description": "http://localhost:3000/v1/user/pedro@pedro.com"
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Token - User API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFiNzIxZDg1NWY1MTlkNTU3ZTc4MDAiLCJ1c2VybmFtZSI6InBlZHJvIiwiZW1haWwiOiJwZWRyb0BwZWRyby5jb20iLCJuYW1lIjoiUGVkcm8iLCJleHAiOjE2NDA1MjA3NzUsImlhdCI6MTYzOTkxNTk3NX0.l_obcPG0Sxe6kYVv8bNkp7i6Q3fGRFVj4zhaB1zjdok",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/v1/user/verifytoken",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						"verifytoken"
+					]
+				},
+				"description": "http://localhost:3000/v1/user/verifytoken"
 			},
 			"response": []
 		},
@@ -278,9 +511,20 @@
 			"name": "Get user by email - User API",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "user-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyQVBJIjoidXNlckFQSXNlY3JldCJ9.B_cGVE7oAXUquy93zUudjSnfe0Htj6iJ9FUav-YX_JI",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/v1/user/Pedro@pedro.com",
+					"raw": "http://localhost:3000/v1/user/pedro@pedro.com",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -289,10 +533,1057 @@
 					"path": [
 						"v1",
 						"user",
-						"Pedro@pedro.com"
+						"pedro@pedro.com"
 					]
 				},
 				"description": "http://localhost:3000/v1/user/Pedro@pedro.com\n\nRoute to get user by email"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users Profile - User API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyQVBJIjoidXNlckFQSXNlY3JldCJ9.B_cGVE7oAXUquy93zUudjSnfe0Htj6iJ9FUav-YX_JI",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/v1/userprofile/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"userprofile",
+						""
+					]
+				},
+				"description": "http://localhost:3000/v1/userprofile/"
+			},
+			"response": []
+		},
+		{
+			"name": "Add New User Profile - User API",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "user-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyQVBJIjoidXNlckFQSXNlY3JldCJ9.B_cGVE7oAXUquy93zUudjSnfe0Htj6iJ9FUav-YX_JI",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"profileID\": \"1\",\n    \"nameProfile\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/userprofile/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"userprofile",
+						""
+					]
+				},
+				"description": "http://localhost:3000/v1/userprofile/\n\nAdd New User Profile"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout User - User API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/v1/user/logoutUser/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						"logoutUser",
+						""
+					]
+				},
+				"description": "http://localhost:3000/v1/user/logoutUser/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Route Prices already used - Route Price API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4500/v1/routeprice/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"v1",
+						"routeprice",
+						""
+					]
+				},
+				"description": "http://localhost:4000/v1/routeprice/"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Route Price - Route Price API",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "route-price-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb3V0UHJpY2VBUEkiOiJyb3V0UHJpY2VBUHNlY3JldCJ9.qfWMCI9nYXWvovwHa0xPjB2dW0rqUocfP5nvT_CzSeo",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startingPoint\": {\n        \"lat\": \"41.53307\",\n        \"long\": \"-8.62226\"\n    },\n    \"arrivalPoint\": {\n        \"lat\": \"41.56327\",\n        \"long\": \"-8.62911\"\n    },\n    \"typeOfVehicle\": \"Car\",\n    \"priceByHourTypeVehicle\": \"3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4500/v1/routeprice/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						"v1",
+						"routeprice",
+						""
+					]
+				},
+				"description": "http://localhost:4000/v1/routeprice/"
+			},
+			"response": []
+		},
+		{
+			"name": "Login User On Rent Service - Rent Service API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"pedro\",\n    \"password\": \"pedro\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/user/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"user",
+						"login",
+						""
+					]
+				},
+				"description": "http://localhost:4000/v1/rent/user/login/"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout User - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/user/logout/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"user",
+						"logout",
+						""
+					]
+				},
+				"description": "http://localhost:4000/v1/rent/user/logout/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Types Of Vehicles - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/vehicle/typevehicle/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"vehicle",
+						"typevehicle",
+						""
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/vehicle/getAllTypesOfVehicles/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Vehicles - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/vehicle/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"vehicle",
+						""
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/vehicle/vehicle/"
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Car - Rent Service API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idVehicle\": \"1\",\n    \"idTypeVehicle\" : \"61e9cb7ededace67e6230bb4\",\n    \"location\": \"Viana\",\n    \"latLocation\": \"41.6946\",\n    \"lagLocation\": \"-8.83016\",\n    \"vehicleChargePercentage\": \"100\",\n    \"isBusy\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/vehicle/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"vehicle",
+						""
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/vehicle/"
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Type of Vehicle - Rent Service API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"idTypeVehicle\" : \"1\",\n    \"nameTypeVehicle\" : \"Car\",\n    \"priceByHourTypeVehicle\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/vehicle/typevehicle/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"vehicle",
+						"typevehicle",
+						""
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/vehicle/typevehicle/"
+			},
+			"response": []
+		},
+		{
+			"name": "Add User - Rent Service API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "pedro",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "pedro",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "pedro@pedro.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "pedro",
+							"type": "text"
+						},
+						{
+							"key": "money",
+							"value": "50",
+							"type": "text"
+						},
+						{
+							"key": "photo",
+							"type": "file",
+							"src": "/Users/administrador/Desktop/Pedro/1C3726D4-D994-44FB-9649-0B43D90C23BD_1_105_c.jpeg"
+						},
+						{
+							"key": "userProfile",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/user/addUser/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"user",
+						"addUser",
+						""
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/user/adduser/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get User By Email - User Profile - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/user/pedro@pedro.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"user",
+						"pedro@pedro.com"
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/user/pedro@pedro.com"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users Profiles - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/user/userprofiles/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"user",
+						"userprofiles",
+						""
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/user/userprofiles/"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Type of Vehicle By Name - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/vehicle/typevehicle/Car",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"vehicle",
+						"typevehicle",
+						"Car"
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/vehicle/typevehicle/Car"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Vehicle Busy Date - Rent Service API",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dateUntilItIsBusy\" : \"2021-12-03T12:12:03.095Z\",\n    \"location\": \"Viana\",\n    \"isBusy\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/vehicle/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"vehicle",
+						"1"
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/vehicle/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Free Vehicles By Type(Not Busy) - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/vehicle/getAllFreeVehiclesByType/2021-12-07T11:52:03.095Z/Car",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"vehicle",
+						"getAllFreeVehiclesByType",
+						"2021-12-07T11:52:03.095Z",
+						"Car"
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/vehicle/getAllFreeVehiclesByType/2021-12-07T11:52:03.095Z/Car"
+			},
+			"response": []
+		},
+		{
+			"name": "Rental Request Register - Add Rental Signal to Node-Red",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "rental-requests-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudGFsUmVxdWVzdHNBUElzZWNyZXQifQ.8hBPzFY5sCvgSqg6buFTKDS-7z750byEecxyVFD8qYI",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"source\": \"Viana\",\n    \"destiny\": \"Porto\",\n    \"typeVehicle\": \"Car\",\n    \"dateBegin\": \"2021-12-06T11:52:03.095Z\",\n    \"travelDuration\": \"100\",\n    \"signalState\": \"in\",\n    \"travelUniqueID\": \"x\",\n    \"emailUser\": \"test@tes.com\",\n    \"travelCost\": \"100\",\n    \"idVehicle\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6000/v1/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"v1",
+						""
+					]
+				},
+				"description": "http://localhost:6000/v1/"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Rent - Rent Service API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"emailUser\" : \"pedro@pedro.com\",\n    \"destiny\": {\n        \"lat\": \"41.53307\",\n        \"long\": \"-8.62226\"\n    },\n    \"source\": {\n        \"lat\": \"41.53307\",\n        \"long\": \"-8.62226\"\n    },\n    \"typeVehicle\": \"Car\",\n    \"travelDate\": \"2021-12-15T21:32:03.095Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						""
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/"
+			},
+			"response": []
+		},
+		{
+			"name": "Save Rental - Rent Service API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"emailUser\" : \"pedro@pedro.com\",\n    \"destiny\": \"Lisboa\",\n    \"source\": \"Viana\",\n    \"travelCost\": \"15\",\n    \"typeVehicle\": \"Car\",\n    \"travelStartDate\": \"2021-12-07T11:52:03.095Z\",\n    \"travelEndDate\": \"2021-12-07T11:54:03.095Z\",\n    \"travelDuration\": \"5\",\n    \"travelUniqueID\": \"10sff\",\n    \"idVehicle\": \"1\",\n    \"status\": \"Processed\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/saveRental",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"saveRental"
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/saveRental"
+			},
+			"response": []
+		},
+		{
+			"name": "Stop Rent - Rent API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"travelUniqueID\": \"1641934139276\",\n    \"emailUser\": \"pedro@pedro.com\",\n    \"destiny\": \"Lisboa\",\n    \"source\": \"Viana\",\n    \"travelCost\": \"15\",\n    \"travelDuration\": \"5\",\n    \"typeVehicle\": \"Car\",\n    \"idVehicle\": \"1\",\n    \"travelStartDate\": \"2021-12-07T11:52:03.095Z\",\n    \"travelEndDate\": \"2021-12-11T11:54:03.095Z\",\n    \"realTravelEndDate\": \"2022-01-11T21:55:04.428Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/stopRental",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"stopRental"
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/stopRental"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Rent Records By User - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/pedro@pedro.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"pedro@pedro.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users Rents Records (as Admin) - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Vehicle Charge - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/vehicle/1/5/remove",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"vehicle",
+						"1",
+						"5",
+						"remove"
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/vehicle/1/5/remove"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Vehicle by ID - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/vehicle/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"vehicle",
+						"1"
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/vehicle/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Update User Money - Rent Service API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/user/pedro@pedro.com/150/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"user",
+						"pedro@pedro.com",
+						"150",
+						"add"
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/user/pedro@pedro.com/150/add"
+			},
+			"response": []
+		},
+		{
+			"name": "Anaconda API",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Python-Api-Token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicHl0aG9uQVBJc2VjcmV0In0.x4RjeHvUH572nLVp07_2YxGeUhX4v9ThemWpdcsb-10",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/administrador/Desktop/Pedro/1C3726D4-D994-44FB-9649-0B43D90C23BD_1_105_c.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/predict",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"predict"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Geo Server nearest_vertex",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "authkey",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "5a4dc308-a380-4227-812e-e4e1e22007cb",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/geoserver/wfs?authkey=5a4dc308-a380-4227-812e-e4e1e22007cb&service=WFS&version=1.0.0&request=GetFeature&typeName=arqsistemas:nearest_vertex&outputformat=application/json&viewparams=x:-8.62226;y:41.53307",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"geoserver",
+						"wfs"
+					],
+					"query": [
+						{
+							"key": "authkey",
+							"value": "5a4dc308-a380-4227-812e-e4e1e22007cb"
+						},
+						{
+							"key": "service",
+							"value": "WFS"
+						},
+						{
+							"key": "version",
+							"value": "1.0.0"
+						},
+						{
+							"key": "request",
+							"value": "GetFeature"
+						},
+						{
+							"key": "typeName",
+							"value": "arqsistemas:nearest_vertex"
+						},
+						{
+							"key": "outputformat",
+							"value": "application/json"
+						},
+						{
+							"key": "viewparams",
+							"value": "x:-8.62226;y:41.53307"
+						}
+					]
+				},
+				"description": "http://localhost:8080/geoserver/wfs?authkey=5a4dc308-a380-4227-812e-e4e1e22007cb&service=WFS&version=1.0.0&request=GetFeature&typeName=arqsistemas:nearest_vertex&outputformat=application/json&viewparams=x:-8.62226;y:41.53307"
+			},
+			"response": []
+		},
+		{
+			"name": "Geo Server shortest_path",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "query",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "authkey",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "5a4dc308-a380-4227-812e-e4e1e22007cb",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/geoserver/arqsistemas/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=arqsistemas:shortest_path&outputFormat=application/json&viewparams=source:50;target:120",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"geoserver",
+						"arqsistemas",
+						"wfs"
+					],
+					"query": [
+						{
+							"key": "service",
+							"value": "WFS"
+						},
+						{
+							"key": "version",
+							"value": "1.0.0"
+						},
+						{
+							"key": "request",
+							"value": "GetFeature"
+						},
+						{
+							"key": "typeName",
+							"value": "arqsistemas:shortest_path"
+						},
+						{
+							"key": "outputFormat",
+							"value": "application/json"
+						},
+						{
+							"key": "viewparams",
+							"value": "source:50;target:120"
+						}
+					]
+				},
+				"description": "http://localhost:8080/geoserver/arqsistemas/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=arqsistemas:shortest_path&outputFormat=application/json&viewparams=source:50;target:120"
+			},
+			"response": []
+		},
+		{
+			"name": "Test Vehicle EndPoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						""
+					]
+				},
+				"description": "http://localhost:4000/"
+			},
+			"response": []
+		},
+		{
+			"name": "Test User Endpoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				},
+				"description": "http://localhost:3000/"
+			},
+			"response": []
+		},
+		{
+			"name": "Test RoutePrice EndPoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4500/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4500",
+					"path": [
+						""
+					]
+				},
+				"description": "http://localhost:4500/"
+			},
+			"response": []
+		},
+		{
+			"name": "Test RentService Endpoint",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						""
+					]
+				},
+				"description": "http://localhost:3500/"
+			},
+			"response": []
+		},
+		{
+			"name": "Test RentalRequestRegister",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:6000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						""
+					]
+				},
+				"description": "http://localhost:6000/"
 			},
 			"response": []
 		}

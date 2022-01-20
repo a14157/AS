@@ -42,7 +42,7 @@ exports.createUserProfile = async function (profileID, nameProfile) {
                     };
                 } else {
                     return {
-                        success: 204,
+                        success: 201,
                         body: results 
                     };
                 }

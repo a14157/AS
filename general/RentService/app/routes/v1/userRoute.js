@@ -97,7 +97,7 @@ router.post('/login/', userController.authenticateUser);
  * @route Get /user/userprofiles/
  * @group User Profile operations.
  * @description Return user profile created
- * @returns {object} 204 -  Added User Profiles
+ * @returns {object} 201 - Added User Profiles
  * @returns {Error}  400 - Bad request
  */
  router.post('/userprofiles/', userController.createUserProfile);
