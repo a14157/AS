@@ -39,7 +39,7 @@ exports.testUser = async function(){
 exports.testRoutePrice = async function(){
     var config = {
         method: 'get',
-        url: process.env.URL_USER,
+        url: process.env.URL_ROUTEPRICE,
         headers: { }
       };
       
@@ -58,7 +58,7 @@ exports.testRoutePrice = async function(){
 exports.testRentalRequestRegister = async function(){
     var config = {
         method: 'get',
-        url: process.env.URL_USER,
+        url: process.env.URL_RENTALREQUESTREGISTER, 
         headers: { }
       };
       

@@ -5,9 +5,6 @@ const config = require('../config')
 const CarBehavior = require('../models/CarBehavior')
 
 exports.addRentRecord = async function (source, destiny, typeVehicle, dateBegin, travelDuration, signalState, idVehicle, travelUniqueID, emailUser, travelCost) {
-
-    console.log("addRentRecord")
-
     try {
         const carBehavior = new CarBehavior({
             source: source,

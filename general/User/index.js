@@ -64,7 +64,6 @@ const swaggerOptions = {
 expressSwagger(swaggerOptions);
 
 app.listen(port, () => {
-    console.log(process.env.JWT_SECRET)
     console.log(`Example app listening at http://localhost:${port}`)
 })
 

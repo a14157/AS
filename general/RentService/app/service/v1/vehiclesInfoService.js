@@ -3,7 +3,6 @@ const user = require('../../../configs/user.json')
 
 //getAllTypesOfVehicles
 exports.getAllTypesOfVehicles = async function () {
-    console.log('aqui')
     let checkToken = await utils.verifyUserToken();
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {

@@ -58,8 +58,7 @@ const vehicleSchema = mongoose.Schema({
     isBusy:{
         type: Boolean,
         required : true,
-    }
-
+    },
 });
 
 module.exports = mongoose.model('vehicles', vehicleSchema);

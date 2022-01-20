@@ -46,6 +46,8 @@ services:
     restart: "always"
     networks:
       - rental-internal-network
+    depends_on:
+      - database
   
   vehicles:
     container_name: vehicles
@@ -61,6 +63,8 @@ services:
     restart: "always"
     networks:
       - rental-internal-network
+    depends_on:
+      - database
  
   routeprice:
     container_name: routeprice
@@ -76,6 +80,8 @@ services:
     restart: "always"
     networks:
       - rental-internal-network
+    depends_on:
+      - database
 
   rentservice:
     container_name: rentservice
@@ -93,12 +99,12 @@ services:
       - rental-internal-network
     depends_on:
       - python
-      - database
       - users
       - routeprice
       - vehicles
       - rentalrequestservice
       - nodered
+      - database
 
   rentalrequestservice:
     container_name: rentalrequestservice
@@ -116,6 +122,7 @@ services:
       - rental-internal-network
     depends_on:
       - nodered
+      - database
 
   python:
     container_name: python

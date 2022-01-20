@@ -29,7 +29,6 @@ exports.addRental = async function (req, res) {
         let typeVehicle = req.body.typeVehicle;
         let travelDate = new Date(req.body.travelDate);
         const result = await rentService.addRental(emailUser, destiny, source, typeVehicle, travelDate);
-        console.log(result)
         res.status(result.success).json(result.body);
     } catch (err) {
         res.status(400).json(err);

@@ -53,7 +53,6 @@ exports.addUser = async function (username, userProfile, name, email, password, 
 
         try {
             let finalUser = await user.save();
-            console.log(finalUser)
             let auxUser = user.toObject();
             let token = await user.generateJwT();
             auxUser["token"] = token;

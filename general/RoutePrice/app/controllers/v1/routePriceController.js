@@ -15,8 +15,6 @@ exports.getAll = async function (req, res) {
 };
 
 exports.addRoutePrice = async function (req, res) {
-    console.log('aqui')
-    console
     if (req.headers['route-price-token'] && req.headers['route-price-token'] == apiTokens.routPriceAPI && req.headers['rent-api-token'] && req.headers['rent-api-token'] == apiTokens.rentAPI) {
         try {
             let startingPoint = req.body.startingPoint;

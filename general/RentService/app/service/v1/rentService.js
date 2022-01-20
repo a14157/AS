@@ -185,7 +185,6 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
                         });
 
                         var finalRentRecord;
-                        console.log(rentRecord)
                         try {
                             finalRentRecord = await rentRecord.save();
                         } catch (err) {

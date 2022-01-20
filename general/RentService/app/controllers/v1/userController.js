@@ -10,6 +10,17 @@ exports.getAllUsersProfiles = async function (req, res) {
     }
 };
 
+exports.createUserProfile = async function (req, res) {
+    try {
+        let profileID = req.body.profileID;
+        let nameProfile = req.body.nameProfile;
+        const result = await userService.createUserProfile(profileID, nameProfile);
+        res.status(result.success).json(result.body);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+};
+
 exports.getUserByEmail = async function (req, res) {
     try {
         let email = req.params.email;
