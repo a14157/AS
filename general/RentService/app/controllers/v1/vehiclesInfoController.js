@@ -104,3 +104,14 @@ exports.getVehicleByID = async function (req, res) {
         res.status(400).json(err);
     }
 };
+
+exports.updatePriceByHour = async function (req, res) {
+    try {
+        let idTypeVehicle = req.params.idTypeVehicle;
+        let priceByHourTypeVehicle = req.params.priceByHourTypeVehicle;
+        const result = await vehiclesInfoService.updatePriceByHour(idTypeVehicle, priceByHourTypeVehicle);
+        res.status(result.success).json(result.body);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+};

@@ -424,3 +424,34 @@ exports.updateVehicleCharge = async function (idVehicle, chargeValue, operation)
         };
     }
 }
+
+exports.updatePriceByHour = async function (idTypeVehicle, priceByHourTypeVehicle) {
+    try {
+        
+        let results = await utils.updatePriceByHour(idTypeVehicle, priceByHourTypeVehicle);
+
+        if (results === 'API token required.') {
+            return {
+                success: 403,
+                body: "API token required."
+            };
+        }
+
+        if (!results) {
+            return {
+                success: 404,
+                body: results
+            };
+        } else {
+            return {
+                success: 201,
+                body: results
+            };
+        }
+    } catch (err) {
+        return {
+            success: 400,
+            body: err
+        };
+    }
+}

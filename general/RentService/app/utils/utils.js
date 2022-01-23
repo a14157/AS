@@ -615,3 +615,28 @@ exports.stopRent = async function (travelUniqueID, emailUser, destiny, source, t
 
     return finalData;
 }
+
+
+exports.updatePriceByHour = async function (iidTypeVehicle, priceByHourTypeVehicle) {
+
+    var config = {
+        method: 'patch',
+        url: process.env.URL_VEHICLE + '/v1/typevehicle/' + iidTypeVehicle + '/' + priceByHourTypeVehicle,
+        headers: { 
+            'vehicle-api-token': apiTokens.vehicleAPI,
+            'rent-api-token': apiTokens.rentAPI
+        }
+      };
+
+    var data = await axios(config)
+        .then(function (response) {
+            return response.data;
+        })
+        .catch(function (error) {
+            if (error.response) {
+                return error.response.data
+            }
+        });
+
+    return data;
+}
