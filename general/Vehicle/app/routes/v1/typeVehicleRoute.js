@@ -36,5 +36,15 @@ router.get('/', typeVehicleController.getAllTypeVehicle);
  */
 router.post('/', typeVehicleController.addTypeVehicle); 
 
+/**
+ * @route Patch /typevehicle/
+ * @group Type Vehicle operations.
+ * @description Route to add an type of vehicle
+ * @param {object} Type Vehicle - Type Vehicle
+ * @returns {object} 201 - Resource Created(Type Vehicle)
+ * @returns {Error}  400  - Bad request
+ */
+ router.patch('/:idTypeVehicle/:priceByHourTypeVehicle', typeVehicleController.updatePriceByHour); 
+
 
 module.exports = router;

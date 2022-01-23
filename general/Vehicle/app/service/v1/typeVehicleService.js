@@ -54,19 +54,60 @@ exports.getVehicleTypeByName = async function (nameTypeVehicle) {
 
 //save new type Vehicle
 exports.addTypeVehicle = async function (idTypeVehicle, nameTypeVehicle, priceByHourTypeVehicle) {
-    
+
     const typeVehicle = new TypeVehicle({
-        idTypeVehicle : idTypeVehicle,
-        nameTypeVehicle : nameTypeVehicle,
-        priceByHourTypeVehicle : priceByHourTypeVehicle
+        idTypeVehicle: idTypeVehicle,
+        nameTypeVehicle: nameTypeVehicle,
+        priceByHourTypeVehicle: priceByHourTypeVehicle
     });
 
     try {
         const finalTypeVehicle = await typeVehicle.save();
 
-        return { success: 201, body: finalTypeVehicle };
+        return {
+            success: 201,
+            body: finalTypeVehicle
+        };
 
     } catch (err) {
-        return { success: 400, body: err };
+        return {
+            success: 400,
+            body: err
+        };
+    }
+}
+
+//edit price by hour of type of vehicle
+exports.updatePriceByHour = async function (idTypeVehicle, priceByHourTypeVehicle) {
+    try {
+
+        let typeOfVehicle = await TypeVehicle.findOneAndUpdate({
+            "idTypeVehicle": idTypeVehicle
+        }, {
+            $set: {
+                priceByHourTypeVehicle: priceByHourTypeVehicle,
+            }
+        });
+
+        const typeOfVehicleUpdated = await TypeVehicle.find({
+            "idTypeVehicle": idTypeVehicle
+        });
+
+        if (typeOfVehicleUpdated) {
+            return {
+                success: 200,
+                body: typeOfVehicleUpdated
+            };
+        } else {
+            return {
+                success: 204,
+                body: "There's no type vehicle registered in our system with that ID!"
+            };
+        }
+    } catch (err) {
+        return {
+            success: 400,
+            body: err
+        };
     }
 }
