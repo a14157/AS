@@ -8,17 +8,17 @@
 
 const environment = {
   // Docker mqtt conf
-  /*mqtt: {
-    broker: process.env.BROCKER,// 'broker.hivemq.com' ,
+  mqtt: {
+    broker: process.env.BROCKER,// 'broker.hivemq.com' , 
     port: process.env.BROKER_PORT,
     topic: process.env.BROKER_RECEIVER,
-  },*/
+  },
   // Local mqtt conf
-  mqtt: {
+  /*mqtt: {
     broker: 'localhost',// 'broker.hivemq.com' ,
     port: 1883,
     topic: 'receiver',
-  },
+  },*/
   log: {
     level: process.env.LOG_LEVEL,
   }

@@ -81,6 +81,52 @@
 			"response": []
 		},
 		{
+			"name": "Update Price By Hour od Type of Vehicle - Vehicle API",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "vehicle-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJ2ZWhpY2xlQVBJIjoidmVoaWNsZUFQSXNlY3JldCJ9.yZFWgeC6qMfpzc-Ok-znvQiu_UvgeFeLHmBOiXXqpNc",
+						"type": "text"
+					},
+					{
+						"key": "rent-api-token",
+						"value": "eyJhbGciOiJIUzI1NiJ9.eyJyZW50QVBJIjoicmVudEFQSXNlY3JldCJ9.QBVdE-3rfY43CoDOEa4ma3LkWw6QJR0KN4AGhtc8Nso",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:4000/v1/typevehicle/9/20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"v1",
+						"typevehicle",
+						"9",
+						"20"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "http://localhost:4000/v1/typevehicle/1/20"
+			},
+			"response": []
+		},
+		{
 			"name": "Get Type Of Vehicle By Name - Vehicle API",
 			"request": {
 				"method": "GET",
@@ -97,7 +143,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:4000/v1/typevehicle/Car",
+					"raw": "http://localhost:4000/v1/typevehicle/Test",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -106,7 +152,7 @@
 					"path": [
 						"v1",
 						"typevehicle",
-						"Car"
+						"Test"
 					]
 				},
 				"description": "http://localhost:4000/v1/typevehicle/Car"
@@ -1039,6 +1085,31 @@
 			"response": []
 		},
 		{
+			"name": "Update Price by Hour of Type of Vehicle - Rent Service API",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/vehicle/typeofvehicle/9/30",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"vehicle",
+						"typeofvehicle",
+						"9",
+						"30"
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/vehicle/typeofvehicle/9/30"
+			},
+			"response": []
+		},
+		{
 			"name": "Get All Free Vehicles By Type(Not Busy) - Rent Service API",
 			"request": {
 				"method": "GET",
@@ -1584,6 +1655,39 @@
 					]
 				},
 				"description": "http://localhost:6000/"
+			},
+			"response": []
+		},
+		{
+			"name": "Add New User Profile - Rent Service API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"profileID\": \"1\",\n    \"nameProfile\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3500/v1/rent/user/userprofiles/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3500",
+					"path": [
+						"v1",
+						"rent",
+						"user",
+						"userprofiles",
+						""
+					]
+				},
+				"description": "http://localhost:3500/v1/rent/user/userprofiles/"
 			},
 			"response": []
 		}
