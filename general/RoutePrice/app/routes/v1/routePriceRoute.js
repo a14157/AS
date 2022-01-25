@@ -4,7 +4,7 @@ const routePriceController = require('../../controllers/v1/routePriceController'
 
 
 /**
- * @route Get /typevehicle/
+ * @route Get /
  * @group Route Price operations.
  * @description Route to get all Route Prices already used
  * @returns {object} 200 - Return All Route Price
@@ -15,7 +15,7 @@ router.get('/', routePriceController.getAll);
 
 
 /**
- * @route Post /typevehicle/
+ * @route Post /
  * @group Route Price operations.
  * @description Route to add an Route Price
  * @body {object} Route Price - Route Price
