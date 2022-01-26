@@ -23,7 +23,7 @@ exports.writeAllUsersProfiles = async function () {
 
 //create new user profile
 exports.createUserProfile = async function (profileID, nameProfile) {
-    const user = require('../../../configs/user.json')
+    let user = require('../../../configs/user.json')
     let checkToken = await utils.verifyUserToken();
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
@@ -68,7 +68,7 @@ exports.createUserProfile = async function (profileID, nameProfile) {
 
 //get all users profiles
 exports.getAllUsersProfiles = async function () {
-    const user = require('../../../configs/user.json')
+    let user = require('../../../configs/user.json')
     let checkToken = await utils.verifyUserToken();
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
@@ -112,10 +112,14 @@ exports.getAllUsersProfiles = async function () {
 }
 
 exports.getUserByEmail = async function (email) {
-    const user = require('../../../configs/user.json')
+    let user = require('../../../configs/user.json')
+    console.log(user)
     let checkToken = await utils.verifyUserToken();
+    console.log(checkToken)
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
+        console.log("passou primeiro if")
         if (user && user.hasOwnProperty('token') && user.token != null) {
+            console.log("passou segundo if")
             try {
                 let result = await utils.getUserByEmail(email);
                 if (result === 'API token required.') {
@@ -208,7 +212,7 @@ exports.logoutUser = async function () {
 
 //save new user
 exports.addUser = async function (username, userProfile, name, email, password, money, photoPath, photoType, photoOriginalName) {
-    const user = require('../../../configs/user.json')
+    let user = require('../../../configs/user.json')
     try {
         const {
             dirname

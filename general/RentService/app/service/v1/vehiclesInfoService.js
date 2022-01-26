@@ -1,5 +1,5 @@
 const utils = require('../../utils/utils')
-const user = require('../../../configs/user.json')
+let user = require('../../../configs/user.json')
 
 //getAllTypesOfVehicles
 exports.getAllTypesOfVehicles = async function () {

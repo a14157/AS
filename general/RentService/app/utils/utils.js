@@ -1,6 +1,6 @@
 const axios = require('axios');
 const apiTokens = require('../config/apiTokens.json');
-const userToken = require('../../configs/user.json');
+let userToken = require('../../configs/user.json');
 
 /* USER API */
 
@@ -69,11 +69,15 @@ exports.getUserByEmail = async function (email) {
         }
     };
 
+    console.log('URL USER: -> ' + process.env.URL_USER + '/v1/user/' + email)
+
     var data = await axios(config)
         .then(function (response) {
             return response.data;
         })
         .catch(function (error) {
+            console.log('ERROR ON REQUEST')
+            console.log(error)
             if (error.response) {
                 return error.response.data
             }

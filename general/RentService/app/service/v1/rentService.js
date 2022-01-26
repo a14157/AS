@@ -7,7 +7,7 @@ const utils = require('../../utils/utils')
 // get all rental records
 // only for admins
 exports.getAllRentalRecords = async function () {
-    const user = require('../../../configs/user.json')
+    let user = require('../../../configs/user.json')
     let checkToken = await utils.verifyUserToken();
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null && user.hasOwnProperty('profile') && user.profile == 'admin') {
@@ -42,7 +42,7 @@ exports.getAllRentalRecords = async function () {
 //get all rental records by user
 // only for admins
 exports.getAllUserRentalRecords = async function (emailUser) {
-    const user = require('../../../configs/user.json')
+    let user = require('../../../configs/user.json')
     let checkToken = await utils.verifyUserToken();
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null && user.email == emailUser) {
@@ -79,7 +79,7 @@ exports.getAllUserRentalRecords = async function (emailUser) {
 
 //save new  rent
 exports.addRental = async function (emailUser, destiny, source, typeVehicle, travelDate) {
-    const user = require('../../../configs/user.json')
+    let user = require('../../../configs/user.json')
     let checkToken = await utils.verifyUserToken();
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null) {
@@ -243,7 +243,7 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
 
 //save new type Vehicle
 exports.saveRental = async function (emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate, travelEndDate, travelUniqueID, status) {
-    const user = require('../../../configs/user.json')
+    let user = require('../../../configs/user.json')
     let checkToken = await utils.verifyUserToken();
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null) {
@@ -349,7 +349,7 @@ exports.saveRental = async function (emailUser, destiny, source, travelCost, tra
 
 //stop rent
 exports.stopRent = async function (travelUniqueID, emailUser, destiny, source, travelCost, travelDuration, typeVehicle, idVehicle, travelStartDate) {
-    const user = require('../../../configs/user.json') 
+    let user = require('../../../configs/user.json') 
     let checkToken = await utils.verifyUserToken();
     if (checkToken.hasOwnProperty('auth') && checkToken.auth === true) {
         if (user && user.hasOwnProperty('token') && user.token != null) {
