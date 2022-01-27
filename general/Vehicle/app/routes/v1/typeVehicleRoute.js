@@ -8,8 +8,8 @@ const typeVehicleController = require('../../controllers/v1/typeVehicleControlle
  * @group Type Vehicle operations.
  * @description Route to get all types of Vehicle
  * @returns {object} 200 - Return All Type Vehicle
- * @returns {object} 204 -No Content
- * @returns {Error}  400  - Bad request
+ * @returns {object} 204 - No Content
+ * @returns {Error}  400 - Bad request
  */
 router.get('/', typeVehicleController.getAllTypeVehicle); 
 

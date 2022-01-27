@@ -1,4 +1,5 @@
 const TypeVehicle = require('../../models/v1/TypeVehicle');
+const Vehicle = require('../../models/v1/Vehicle');
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
@@ -92,6 +93,20 @@ exports.updatePriceByHour = async function (idTypeVehicle, priceByHourTypeVehicl
         const typeOfVehicleUpdated = await TypeVehicle.find({
             "idTypeVehicle": idTypeVehicle
         });
+
+        const vehicles = await Vehicle.find({
+            "nameTypeVehicle": typeOfVehicleUpdated[0].nameTypeVehicle,
+        });
+
+        for(let i = 0; i < vehicles.length; i++){
+            let vehicle = await Vehicle.findOneAndUpdate({
+                "idVehicle": vehicles[i].idVehicle
+            }, {
+                $set: {
+                    priceByHourTypeVehicle: priceByHourTypeVehicle,
+                }
+            });
+        }
 
         if (typeOfVehicleUpdated) {
             return {

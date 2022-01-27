@@ -4,10 +4,11 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 COPY index.js ./
 
+RUN npm install -g nodemon
 RUN npm install
 
 COPY . .
 
 EXPOSE 3500
 
-CMD npm start
+ENTRYPOINT ["nodemon", "/usr/src/app/index.js"]

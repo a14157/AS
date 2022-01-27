@@ -97,7 +97,7 @@ exports.addRental = async function (emailUser, destiny, source, typeVehicle, tra
             // registar hora de inicio
             let newTravelDate = new Date(travelDate).toISOString();
             // ir buscar um carro do tipo x mais perto e livre (Vehicle)
-            let vehicle = await utils.getAllFreeVehiclesByType(newTravelDate, typeVehicle, source);
+            let vehicle = await utils.getAllFreeVehiclesByType(newTravelDate, typeVehicle, source, 50);
 
             //with will return an array of cars or just one car
             // check if it is only one car ou more
@@ -359,8 +359,8 @@ exports.stopRent = async function (travelUniqueID, emailUser, destiny, source, t
                     "travelUniqueID": travelUniqueID
                 });
 
-                // check if exists any rental with this ID...
-                if(rentalRecords.length === 0){
+                // check if exists any rental with this ID and if is in process
+                if(rentalRecords.length === 0 && rentalRecords[0].stateOfTravel !== "In process"){
                     return {
                         success: 404,
                         body: 'No rental founded with that ID.'

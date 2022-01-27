@@ -373,7 +373,7 @@ exports.addNewVehicle = async function (idVehicle, isBusy, idTypeVehicle, locati
 }
 
 exports.getAllFreeVehiclesByType = async function (dateUntilItIsBusy, nameTypeVehicle, source, userDistance) {
-    let distance = (userDistance) ? userDistance : 10;
+    let distance = (userDistance) ? userDistance : 50;
     let url = process.env.URL_VEHICLE + '/v1/vehicle/getAllFreeVehiclesByType/' + dateUntilItIsBusy + '/' + nameTypeVehicle + '/' + source.lat + '/' + source.long + '/' + distance
     var config = {
         method: 'get',
