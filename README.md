@@ -41,7 +41,6 @@ b) Utilizador com perfil de gestor - Este utilizador deve ter a possibilidade de
 
 
 # TODO
-- kubernets
 
 ## Done
 Utilizador com perfil de gestor:
@@ -59,3 +58,4 @@ Utilizador com perfil de gestor:
 - testar o stopRent (começar uma rent e chamar o serviço que pará a rent); adicionar verificação para que seja procurada a rent que se pretende ativar - check - done
 - o veículo deve alertar o cliente e parar automaticamente ao fim de um minuto -> alterar hora final (adicionar mais um minuto à data final da rent) (checkar o valor do status; se for out of money ou out of charge) - check - done
 - o tipo de veículo e a carga atual (capacidade a 55% restam 35km) -> criar alguma lógica aqui - done
+- kubernets - done
