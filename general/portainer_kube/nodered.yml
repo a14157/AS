@@ -1,0 +1,275 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    io.portainer.kubernetes.application.note: ""
+  creationTimestamp: "2022-01-25T21:11:59Z"
+  generation: 1
+  labels:
+    io.portainer.kubernetes.application.name: nodered
+    io.portainer.kubernetes.application.owner: admin
+    io.portainer.kubernetes.application.stack: astpStack
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:io.portainer.kubernetes.application.note: {}
+        f:labels:
+          .: {}
+          f:io.portainer.kubernetes.application.name: {}
+          f:io.portainer.kubernetes.application.owner: {}
+          f:io.portainer.kubernetes.application.stack: {}
+      f:spec:
+        f:podManagementPolicy: {}
+        f:replicas: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:serviceName: {}
+        f:template:
+          f:metadata:
+            f:labels:
+              .: {}
+              f:app: {}
+              f:io.portainer.kubernetes.application.name: {}
+          f:spec:
+            f:containers:
+              k:{"name":"nodered"}:
+                .: {}
+                f:image: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:resources: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+                f:volumeMounts:
+                  .: {}
+                  k:{"mountPath":"/data"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+            f:dnsPolicy: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:terminationGracePeriodSeconds: {}
+            f:volumes:
+              .: {}
+              k:{"name":"nodered-033d8479-85e9-4199-a7bb-7eb3f6f6a956"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+        f:updateStrategy:
+          f:rollingUpdate:
+            .: {}
+            f:partition: {}
+          f:type: {}
+        f:volumeClaimTemplates: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-01-25T21:11:59Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:availableReplicas: {}
+        f:collisionCount: {}
+        f:currentReplicas: {}
+        f:currentRevision: {}
+        f:observedGeneration: {}
+        f:readyReplicas: {}
+        f:replicas: {}
+        f:updateRevision: {}
+        f:updatedReplicas: {}
+    manager: kubelite
+    operation: Update
+    subresource: status
+    time: "2022-01-29T10:31:42Z"
+  name: nodered
+  namespace: arqsis
+  resourceVersion: "112565"
+  selfLink: /apis/apps/v1/namespaces/arqsis/statefulsets/nodered
+  uid: 649f3052-cd37-4c4b-ba76-b61dc4f6d915
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: nodered
+  serviceName: headless-nodered
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nodered
+        io.portainer.kubernetes.application.name: nodered
+    spec:
+      containers:
+      - image: nodered/node-red:latest
+        imagePullPolicy: Always
+        name: nodered
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data
+          name: nodered-033d8479-85e9-4199-a7bb-7eb3f6f6a956
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: nodered-033d8479-85e9-4199-a7bb-7eb3f6f6a956
+        persistentVolumeClaim:
+          claimName: nodered-033d8479-85e9-4199-a7bb-7eb3f6f6a956
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nodered
+        io.portainer.kubernetes.application.name: nodered
+        io.portainer.kubernetes.application.owner: admin
+      name: nodered-033d8479-85e9-4199-a7bb-7eb3f6f6a956
+      namespace: arqsis
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 500M
+      storageClassName: microk8s-hostpath
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  availableReplicas: 1
+  collisionCount: 0
+  currentReplicas: 1
+  currentRevision: nodered-bd9578b58
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updateRevision: nodered-bd9578b58
+  updatedReplicas: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-01-25T21:11:59Z"
+  labels:
+    io.portainer.kubernetes.application.name: nodered
+    io.portainer.kubernetes.application.owner: admin
+    io.portainer.kubernetes.application.stack: astpStack
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:io.portainer.kubernetes.application.name: {}
+          f:io.portainer.kubernetes.application.owner: {}
+          f:io.portainer.kubernetes.application.stack: {}
+      f:spec:
+        f:clusterIP: {}
+        f:internalTrafficPolicy: {}
+        f:selector: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-01-25T21:11:59Z"
+  name: headless-nodered
+  namespace: arqsis
+  resourceVersion: "42834"
+  selfLink: /api/v1/namespaces/arqsis/services/headless-nodered
+  uid: f7606cc6-4359-48ef-b253-f89433f7bb76
+spec:
+  clusterIP: None
+  clusterIPs:
+  - None
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  selector:
+    app: nodered
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-01-25T21:11:59Z"
+  labels:
+    io.portainer.kubernetes.application.name: nodered
+    io.portainer.kubernetes.application.owner: admin
+    io.portainer.kubernetes.application.stack: astpStack
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:io.portainer.kubernetes.application.name: {}
+          f:io.portainer.kubernetes.application.owner: {}
+          f:io.portainer.kubernetes.application.stack: {}
+      f:spec:
+        f:externalTrafficPolicy: {}
+        f:internalTrafficPolicy: {}
+        f:ports:
+          .: {}
+          k:{"port":1880,"protocol":"TCP"}:
+            .: {}
+            f:name: {}
+            f:nodePort: {}
+            f:port: {}
+            f:protocol: {}
+            f:targetPort: {}
+        f:selector: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-01-25T21:11:59Z"
+  name: nodered
+  namespace: arqsis
+  resourceVersion: "42833"
+  selfLink: /api/v1/namespaces/arqsis/services/nodered
+  uid: 97b93691-d9e9-4a36-8740-7e7d7b164c04
+spec:
+  clusterIP: 10.152.183.78
+  clusterIPs:
+  - 10.152.183.78
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: nodered-1880-tcp
+    nodePort: 30041
+    port: 1880
+    protocol: TCP
+    targetPort: 1880
+  selector:
+    app: nodered
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

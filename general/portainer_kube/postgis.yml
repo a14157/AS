@@ -1,0 +1,238 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    io.portainer.kubernetes.application.note: ""
+  creationTimestamp: "2022-01-25T19:21:01Z"
+  generation: 1
+  labels:
+    io.portainer.kubernetes.application.name: postgis
+    io.portainer.kubernetes.application.owner: admin
+    io.portainer.kubernetes.application.stack: astpStack
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:io.portainer.kubernetes.application.note: {}
+        f:labels:
+          .: {}
+          f:io.portainer.kubernetes.application.name: {}
+          f:io.portainer.kubernetes.application.owner: {}
+          f:io.portainer.kubernetes.application.stack: {}
+      f:spec:
+        f:progressDeadlineSeconds: {}
+        f:replicas: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:strategy:
+          f:rollingUpdate:
+            .: {}
+            f:maxSurge: {}
+            f:maxUnavailable: {}
+          f:type: {}
+        f:template:
+          f:metadata:
+            f:labels:
+              .: {}
+              f:app: {}
+              f:io.portainer.kubernetes.application.name: {}
+          f:spec:
+            f:containers:
+              k:{"name":"postgis"}:
+                .: {}
+                f:env:
+                  .: {}
+                  k:{"name":"POSTGRES_PASSWORD"}:
+                    .: {}
+                    f:name: {}
+                    f:value: {}
+                f:image: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:resources: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+                f:volumeMounts:
+                  .: {}
+                  k:{"mountPath":"/var/lib/postgresql/data"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+            f:dnsPolicy: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:terminationGracePeriodSeconds: {}
+            f:volumes:
+              .: {}
+              k:{"name":"postgis-e4cfec0b-3301-46ad-92f4-6272135fd87c"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-01-25T19:21:01Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:deployment.kubernetes.io/revision: {}
+      f:status:
+        f:availableReplicas: {}
+        f:conditions:
+          .: {}
+          k:{"type":"Available"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Progressing"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+        f:observedGeneration: {}
+        f:readyReplicas: {}
+        f:replicas: {}
+        f:updatedReplicas: {}
+    manager: kubelite
+    operation: Update
+    subresource: status
+    time: "2022-01-29T10:31:43Z"
+  name: postgis
+  namespace: arqsis
+  resourceVersion: "112597"
+  selfLink: /apis/apps/v1/namespaces/arqsis/deployments/postgis
+  uid: 45f37d4c-41b7-4fda-8d4a-c6a6992170bb
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: postgis
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 100%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: postgis
+        io.portainer.kubernetes.application.name: postgis
+    spec:
+      containers:
+      - env:
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        image: pgrouting/pgrouting:latest
+        imagePullPolicy: Always
+        name: postgis
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: postgis-e4cfec0b-3301-46ad-92f4-6272135fd87c
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: postgis-e4cfec0b-3301-46ad-92f4-6272135fd87c
+        persistentVolumeClaim:
+          claimName: postgis-e4cfec0b-3301-46ad-92f4-6272135fd87c
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-01-25T19:21:01Z"
+    lastUpdateTime: "2022-01-25T19:21:01Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2022-01-25T19:21:01Z"
+    lastUpdateTime: "2022-01-25T19:21:36Z"
+    message: ReplicaSet "postgis-bdc6bdbf4" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-01-25T19:21:01Z"
+  labels:
+    io.portainer.kubernetes.application.name: postgis
+    io.portainer.kubernetes.application.owner: admin
+    io.portainer.kubernetes.application.stack: astpStack
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:io.portainer.kubernetes.application.name: {}
+          f:io.portainer.kubernetes.application.owner: {}
+          f:io.portainer.kubernetes.application.stack: {}
+      f:spec:
+        f:internalTrafficPolicy: {}
+        f:ports:
+          .: {}
+          k:{"port":5432,"protocol":"TCP"}:
+            .: {}
+            f:name: {}
+            f:port: {}
+            f:protocol: {}
+            f:targetPort: {}
+        f:selector: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-01-25T19:21:01Z"
+  name: postgis
+  namespace: arqsis
+  resourceVersion: "33867"
+  selfLink: /api/v1/namespaces/arqsis/services/postgis
+  uid: 042e9f8b-16a8-43dc-9e87-c1ab4a9f6c15
+spec:
+  clusterIP: 10.152.183.157
+  clusterIPs:
+  - 10.152.183.157
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: postgis-5432-tcp
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
+  selector:
+    app: postgis
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

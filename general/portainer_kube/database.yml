@@ -1,0 +1,275 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  annotations:
+    io.portainer.kubernetes.application.note: ""
+  creationTimestamp: "2022-01-25T20:36:50Z"
+  generation: 1
+  labels:
+    io.portainer.kubernetes.application.name: database
+    io.portainer.kubernetes.application.owner: admin
+    io.portainer.kubernetes.application.stack: astpStack
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:io.portainer.kubernetes.application.note: {}
+        f:labels:
+          .: {}
+          f:io.portainer.kubernetes.application.name: {}
+          f:io.portainer.kubernetes.application.owner: {}
+          f:io.portainer.kubernetes.application.stack: {}
+      f:spec:
+        f:podManagementPolicy: {}
+        f:replicas: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:serviceName: {}
+        f:template:
+          f:metadata:
+            f:labels:
+              .: {}
+              f:app: {}
+              f:io.portainer.kubernetes.application.name: {}
+          f:spec:
+            f:containers:
+              k:{"name":"database"}:
+                .: {}
+                f:image: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:resources: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+                f:volumeMounts:
+                  .: {}
+                  k:{"mountPath":"/data/db"}:
+                    .: {}
+                    f:mountPath: {}
+                    f:name: {}
+            f:dnsPolicy: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:terminationGracePeriodSeconds: {}
+            f:volumes:
+              .: {}
+              k:{"name":"database-3897b3bb-5bb3-4765-b472-db629cf3c11f"}:
+                .: {}
+                f:name: {}
+                f:persistentVolumeClaim:
+                  .: {}
+                  f:claimName: {}
+        f:updateStrategy:
+          f:rollingUpdate:
+            .: {}
+            f:partition: {}
+          f:type: {}
+        f:volumeClaimTemplates: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-01-25T20:36:50Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:availableReplicas: {}
+        f:collisionCount: {}
+        f:currentReplicas: {}
+        f:currentRevision: {}
+        f:observedGeneration: {}
+        f:readyReplicas: {}
+        f:replicas: {}
+        f:updateRevision: {}
+        f:updatedReplicas: {}
+    manager: kubelite
+    operation: Update
+    subresource: status
+    time: "2022-01-29T10:31:42Z"
+  name: database
+  namespace: arqsis
+  resourceVersion: "112545"
+  selfLink: /apis/apps/v1/namespaces/arqsis/statefulsets/database
+  uid: 4fd237c9-ef60-4721-9f3f-8dfb1ac3ad27
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: database
+  serviceName: headless-database
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: database
+        io.portainer.kubernetes.application.name: database
+    spec:
+      containers:
+      - image: mongo:latest
+        imagePullPolicy: Always
+        name: database
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /data/db
+          name: database-3897b3bb-5bb3-4765-b472-db629cf3c11f
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: database-3897b3bb-5bb3-4765-b472-db629cf3c11f
+        persistentVolumeClaim:
+          claimName: database-3897b3bb-5bb3-4765-b472-db629cf3c11f
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: database
+        io.portainer.kubernetes.application.name: database
+        io.portainer.kubernetes.application.owner: admin
+      name: database-3897b3bb-5bb3-4765-b472-db629cf3c11f
+      namespace: arqsis
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 500M
+      storageClassName: microk8s-hostpath
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  availableReplicas: 1
+  collisionCount: 0
+  currentReplicas: 1
+  currentRevision: database-675945f84d
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updateRevision: database-675945f84d
+  updatedReplicas: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-01-25T20:36:49Z"
+  labels:
+    io.portainer.kubernetes.application.name: database
+    io.portainer.kubernetes.application.owner: admin
+    io.portainer.kubernetes.application.stack: astpStack
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:io.portainer.kubernetes.application.name: {}
+          f:io.portainer.kubernetes.application.owner: {}
+          f:io.portainer.kubernetes.application.stack: {}
+      f:spec:
+        f:clusterIP: {}
+        f:internalTrafficPolicy: {}
+        f:selector: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-01-25T20:36:49Z"
+  name: headless-database
+  namespace: arqsis
+  resourceVersion: "39995"
+  selfLink: /api/v1/namespaces/arqsis/services/headless-database
+  uid: 705660f5-d4c7-4f9d-a0ba-fe3a66ffbbf2
+spec:
+  clusterIP: None
+  clusterIPs:
+  - None
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  selector:
+    app: database
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-01-25T20:36:49Z"
+  labels:
+    io.portainer.kubernetes.application.name: database
+    io.portainer.kubernetes.application.owner: admin
+    io.portainer.kubernetes.application.stack: astpStack
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:io.portainer.kubernetes.application.name: {}
+          f:io.portainer.kubernetes.application.owner: {}
+          f:io.portainer.kubernetes.application.stack: {}
+      f:spec:
+        f:externalTrafficPolicy: {}
+        f:internalTrafficPolicy: {}
+        f:ports:
+          .: {}
+          k:{"port":27017,"protocol":"TCP"}:
+            .: {}
+            f:name: {}
+            f:nodePort: {}
+            f:port: {}
+            f:protocol: {}
+            f:targetPort: {}
+        f:selector: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-01-25T20:36:49Z"
+  name: database
+  namespace: arqsis
+  resourceVersion: "39992"
+  selfLink: /api/v1/namespaces/arqsis/services/database
+  uid: 320ccf35-1de7-400a-9444-15bdf68ee2c2
+spec:
+  clusterIP: 10.152.183.11
+  clusterIPs:
+  - 10.152.183.11
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: database-27017-tcp
+    nodePort: 30040
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    app: database
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

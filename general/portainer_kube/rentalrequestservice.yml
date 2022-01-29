@@ -1,0 +1,212 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    io.portainer.kubernetes.application.note: ""
+  creationTimestamp: "2022-01-25T21:24:28Z"
+  generation: 1
+  labels:
+    io.portainer.kubernetes.application.name: rentalrequestservice
+    io.portainer.kubernetes.application.owner: admin
+    io.portainer.kubernetes.application.stack: astpStack
+  managedFields:
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .: {}
+          f:io.portainer.kubernetes.application.note: {}
+        f:labels:
+          .: {}
+          f:io.portainer.kubernetes.application.name: {}
+          f:io.portainer.kubernetes.application.owner: {}
+          f:io.portainer.kubernetes.application.stack: {}
+      f:spec:
+        f:progressDeadlineSeconds: {}
+        f:replicas: {}
+        f:revisionHistoryLimit: {}
+        f:selector: {}
+        f:strategy:
+          f:rollingUpdate:
+            .: {}
+            f:maxSurge: {}
+            f:maxUnavailable: {}
+          f:type: {}
+        f:template:
+          f:metadata:
+            f:labels:
+              .: {}
+              f:app: {}
+              f:io.portainer.kubernetes.application.name: {}
+          f:spec:
+            f:containers:
+              k:{"name":"rentalrequestservice"}:
+                .: {}
+                f:image: {}
+                f:imagePullPolicy: {}
+                f:name: {}
+                f:resources: {}
+                f:terminationMessagePath: {}
+                f:terminationMessagePolicy: {}
+            f:dnsPolicy: {}
+            f:restartPolicy: {}
+            f:schedulerName: {}
+            f:securityContext: {}
+            f:terminationGracePeriodSeconds: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-01-25T21:24:28Z"
+  - apiVersion: apps/v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          f:deployment.kubernetes.io/revision: {}
+      f:status:
+        f:availableReplicas: {}
+        f:conditions:
+          .: {}
+          k:{"type":"Available"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+          k:{"type":"Progressing"}:
+            .: {}
+            f:lastTransitionTime: {}
+            f:lastUpdateTime: {}
+            f:message: {}
+            f:reason: {}
+            f:status: {}
+            f:type: {}
+        f:observedGeneration: {}
+        f:readyReplicas: {}
+        f:replicas: {}
+        f:updatedReplicas: {}
+    manager: kubelite
+    operation: Update
+    subresource: status
+    time: "2022-01-29T10:32:03Z"
+  name: rentalrequestservice
+  namespace: arqsis
+  resourceVersion: "112702"
+  selfLink: /apis/apps/v1/namespaces/arqsis/deployments/rentalrequestservice
+  uid: 7708bec3-58e6-4b0e-a281-269e7dee85fe
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: rentalrequestservice
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 100%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: rentalrequestservice
+        io.portainer.kubernetes.application.name: rentalrequestservice
+    spec:
+      containers:
+      - image: pcerqueira25/rentalrequestservice:portainer
+        imagePullPolicy: IfNotPresent
+        name: rentalrequestservice
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2022-01-25T21:24:28Z"
+    lastUpdateTime: "2022-01-25T21:24:28Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2022-01-25T21:24:28Z"
+    lastUpdateTime: "2022-01-25T21:24:41Z"
+    message: ReplicaSet "rentalrequestservice-68f55cbb8b" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-01-25T21:24:28Z"
+  labels:
+    io.portainer.kubernetes.application.name: rentalrequestservice
+    io.portainer.kubernetes.application.owner: admin
+    io.portainer.kubernetes.application.stack: astpStack
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:io.portainer.kubernetes.application.name: {}
+          f:io.portainer.kubernetes.application.owner: {}
+          f:io.portainer.kubernetes.application.stack: {}
+      f:spec:
+        f:externalTrafficPolicy: {}
+        f:internalTrafficPolicy: {}
+        f:ports:
+          .: {}
+          k:{"port":30047,"protocol":"TCP"}:
+            .: {}
+            f:name: {}
+            f:nodePort: {}
+            f:port: {}
+            f:protocol: {}
+            f:targetPort: {}
+        f:selector: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: Mozilla
+    operation: Update
+    time: "2022-01-25T22:09:50Z"
+  name: rentalrequestservice
+  namespace: arqsis
+  resourceVersion: "47575"
+  selfLink: /api/v1/namespaces/arqsis/services/rentalrequestservice
+  uid: aea11402-c549-4ac5-ba98-023f20529f72
+spec:
+  clusterIP: 10.152.183.32
+  clusterIPs:
+  - 10.152.183.32
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: rentalrequestservice-30047-tcp
+    nodePort: 30047
+    port: 30047
+    protocol: TCP
+    targetPort: 30047
+  selector:
+    app: rentalrequestservice
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
